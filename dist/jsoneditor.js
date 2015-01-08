@@ -9,6 +9,8 @@
  * See README.md for requirements and usage info
  */
 
+var children_expanded = false;
+
 (function() {
 
 /*jshint loopfunc: true */
@@ -221,7 +223,7 @@ JSONEditor.prototype = {
     var icon_class = JSONEditor.defaults.iconlibs[this.options.iconlib || JSONEditor.defaults.iconlib];
     if(icon_class) this.iconlib = new icon_class();
 
-    this.root_container = this.theme.getContainer();
+    this.root_container = this.theme.getContainer(true);
     this.element.appendChild(this.root_container);
     
     this.translate = this.options.translate || JSONEditor.defaults.translate;
@@ -262,7 +264,16 @@ JSONEditor.prototype = {
         self.trigger('ready');
         self.trigger('change');
       });
+
     });
+
+    // Set the root well visible
+    var wells = this.root_container.getElementsByClassName("well-small");
+    if(wells.length){
+      var root = wells[0];
+      root.style.display = '';
+    }
+
   },
   getValue: function() {
     if(!this.ready) throw "JSON Editor not ready yet.  Listen for 'ready' event before getting the value";
@@ -2338,8 +2349,8 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         for(j=0; j<rows[i].editors.length; j++) {
           var key = rows[i].editors[j].key;
           var editor = this.editors[key];
-          
-          if(editor.options.hidden) editor.container.style.display = 'none';
+
+          if(editor.options.hidden) editor.container.style.display = 'disaply';//'none';
           else this.theme.setGridColumnSize(editor.container,rows[i].editors[j].width);
           editor.container.className += ' container-' + key;
           row.appendChild(editor.container);
@@ -2581,8 +2592,20 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
       this.title.appendChild(this.addproperty_controls);
 
       // Show/Hide button
-      this.collapsed = false;
-      this.toggle_button = this.getButton('','collapse','Collapse');
+
+      if(this.formname !== 'root'){
+        if(!children_expanded){
+          this.collapsed = true;
+          this.toggle_button = this.getButton('','expand', 'Expand');
+        }else{
+          this.collapsed = false;
+          this.toggle_button = this.getButton('','collapse','Collapse');
+        }
+      }else{
+        this.collapsed = false;
+        this.toggle_button = this.getButton('','collapse','Collapse');
+      }
+
       this.title_controls.appendChild(this.toggle_button);
       this.toggle_button.addEventListener('click',function(e) {
         e.preventDefault();
@@ -3608,9 +3631,15 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
   },
   addControls: function() {
     var self = this;
-    
-    this.collapsed = false;
-    this.toggle_button = this.getButton('','collapse','Collapse');
+
+    if(!children_expanded){
+      this.collapsed = true;
+      this.toggle_button = this.getButton('','expand', 'Expand');
+    }else{
+      this.collapsed = false;
+      this.toggle_button = this.getButton('','collapse','Collapse');
+    }
+//    this.toggle_button = this.getButton('','expand', 'Expand');//'collapse','Collapse');
     this.title_controls.appendChild(this.toggle_button);
     var row_holder_display = self.row_holder.style.display;
     var controls_display = self.controls.style.display;
@@ -5724,6 +5753,10 @@ JSONEditor.defaults.themes.bootstrap2 = JSONEditor.AbstractTheme.extend({
   getIndentedPanel: function() {
     var el = document.createElement('div');
     el.className = 'well well-small';
+
+    if(!children_expanded){
+      el.style.display = 'none';
+    }
     return el;
   },
   getFormInputDescription: function(text) {
@@ -5854,399 +5887,399 @@ JSONEditor.defaults.themes.bootstrap2 = JSONEditor.AbstractTheme.extend({
     progressBar.firstChild.style.width = '100%';
   }
 });
-
-JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
-  getSelectInput: function(options) {
-    var el = this._super(options);
-    el.className += 'form-control';
-    //el.style.width = 'auto';
-    return el;
-  },
-  setGridColumnSize: function(el,size) {
-    el.className = 'col-md-'+size;
-  },
-  afterInputReady: function(input) {
-    if(input.controlgroup) return;
-    input.controlgroup = this.closest(input,'.form-group');
-    if(this.closest(input,'.compact')) {
-      input.controlgroup.style.marginBottom = 0;
-    }
-
-    // TODO: use bootstrap slider
-  },
-  getTextareaInput: function() {
-    var el = document.createElement('textarea');
-    el.className = 'form-control';
-    return el;
-  },
-  getRangeInput: function(min, max, step) {
-    // TODO: use better slider
-    return this._super(min, max, step);
-  },
-  getFormInputField: function(type) {
-    var el = this._super(type);
-    if(type !== 'checkbox') {
-      el.className += 'form-control';
-    }
-    return el;
-  },
-  getFormControl: function(label, input, description) {
-    var group = document.createElement('div');
-
-    if(label && input.type === 'checkbox') {
-      group.className += ' checkbox';
-      label.appendChild(input);
-      label.style.fontSize = '14px';
-      group.style.marginTop = '0';
-      group.appendChild(label);
-      input.style.position = 'relative';
-      input.style.cssFloat = 'left';
-    } 
-    else {
-      group.className += ' form-group';
-      if(label) {
-        label.className += ' control-label';
-        group.appendChild(label);
-      }
-      group.appendChild(input);
-    }
-
-    if(description) group.appendChild(description);
-
-    return group;
-  },
-  getIndentedPanel: function() {
-    var el = document.createElement('div');
-    el.className = 'well well-sm';
-    return el;
-  },
-  getFormInputDescription: function(text) {
-    var el = document.createElement('p');
-    el.className = 'help-block';
-    el.textContent = text;
-    return el;
-  },
-  getHeaderButtonHolder: function() {
-    var el = this.getButtonHolder();
-    el.style.marginLeft = '10px';
-    return el;
-  },
-  getButtonHolder: function() {
-    var el = document.createElement('div');
-    el.className = 'btn-group';
-    return el;
-  },
-  getButton: function(text, icon, title) {
-    var el = this._super(text, icon, title);
-    el.className += 'btn btn-default';
-    return el;
-  },
-  getTable: function() {
-    var el = document.createElement('table');
-    el.className = 'table table-bordered';
-    el.style.width = 'auto';
-    el.style.maxWidth = 'none';
-    return el;
-  },
-
-  addInputError: function(input,text) {
-    if(!input.controlgroup) return;
-    input.controlgroup.className += ' has-error';
-    if(!input.errmsg) {
-      input.errmsg = document.createElement('p');
-      input.errmsg.className = 'help-block errormsg';
-      input.controlgroup.appendChild(input.errmsg);
-    }
-    else {
-      input.errmsg.style.display = '';
-    }
-
-    input.errmsg.textContent = text;
-  },
-  removeInputError: function(input) {
-    if(!input.errmsg) return;
-    input.errmsg.style.display = 'none';
-    input.controlgroup.className = input.controlgroup.className.replace(/\s?has-error/g,'');
-  },
-  getTabHolder: function() {
-    var el = document.createElement('div');
-    el.innerHTML = "<div class='tabs list-group col-md-2'></div><div class='col-md-10'></div>";
-    el.className = 'rows';
-    return el;
-  },
-  getTab: function(text) {
-    var el = document.createElement('a');
-    el.className = 'list-group-item';
-    el.setAttribute('href','#');
-    el.appendChild(text);
-    return el;
-  },
-  markTabActive: function(tab) {
-    tab.className += ' active';
-  },
-  markTabInactive: function(tab) {
-    tab.className = tab.className.replace(/\s?active/g,'');
-  },
-  getProgressBar: function() {
-    var min = 0, max = 100, start = 0;
-
-    var container = document.createElement('div');
-    container.className = 'progress';
-
-    var bar = document.createElement('div');
-    bar.className = 'progress-bar';
-    bar.setAttribute('role', 'progressbar');
-    bar.setAttribute('aria-valuenow', start);
-    bar.setAttribute('aria-valuemin', min);
-    bar.setAttribute('aria-valuenax', max);
-    bar.innerHTML = start + "%";
-    container.appendChild(bar);
-
-    return container;
-  },
-  updateProgressBar: function(progressBar, progress) {
-    if (!progressBar) return;
-
-    var bar = progressBar.firstChild;
-    var percentage = progress + "%";
-    bar.setAttribute('aria-valuenow', progress);
-    bar.style.width = percentage;
-    bar.innerHTML = percentage;
-  },
-  updateProgressBarUnknown: function(progressBar) {
-    if (!progressBar) return;
-
-    var bar = progressBar.firstChild;
-    progressBar.className = 'progress progress-striped active';
-    bar.removeAttribute('aria-valuenow');
-    bar.style.width = '100%';
-    bar.innerHTML = '';
-  }
-});
+//
+//JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
+//  getSelectInput: function(options) {
+//    var el = this._super(options);
+//    el.className += 'form-control';
+//    //el.style.width = 'auto';
+//    return el;
+//  },
+//  setGridColumnSize: function(el,size) {
+//    el.className = 'col-md-'+size;
+//  },
+//  afterInputReady: function(input) {
+//    if(input.controlgroup) return;
+//    input.controlgroup = this.closest(input,'.form-group');
+//    if(this.closest(input,'.compact')) {
+//      input.controlgroup.style.marginBottom = 0;
+//    }
+//
+//    // TODO: use bootstrap slider
+//  },
+//  getTextareaInput: function() {
+//    var el = document.createElement('textarea');
+//    el.className = 'form-control';
+//    return el;
+//  },
+//  getRangeInput: function(min, max, step) {
+//    // TODO: use better slider
+//    return this._super(min, max, step);
+//  },
+//  getFormInputField: function(type) {
+//    var el = this._super(type);
+//    if(type !== 'checkbox') {
+//      el.className += 'form-control';
+//    }
+//    return el;
+//  },
+//  getFormControl: function(label, input, description) {
+//    var group = document.createElement('div');
+//
+//    if(label && input.type === 'checkbox') {
+//      group.className += ' checkbox';
+//      label.appendChild(input);
+//      label.style.fontSize = '14px';
+//      group.style.marginTop = '0';
+//      group.appendChild(label);
+//      input.style.position = 'relative';
+//      input.style.cssFloat = 'left';
+//    }
+//    else {
+//      group.className += ' form-group';
+//      if(label) {
+//        label.className += ' control-label';
+//        group.appendChild(label);
+//      }
+//      group.appendChild(input);
+//    }
+//
+//    if(description) group.appendChild(description);
+//
+//    return group;
+//  },
+//  getIndentedPanel: function() {
+//    var el = document.createElement('div');
+//    el.className = 'well well-sm';
+//    return el;
+//  },
+//  getFormInputDescription: function(text) {
+//    var el = document.createElement('p');
+//    el.className = 'help-block';
+//    el.textContent = text;
+//    return el;
+//  },
+//  getHeaderButtonHolder: function() {
+//    var el = this.getButtonHolder();
+//    el.style.marginLeft = '10px';
+//    return el;
+//  },
+//  getButtonHolder: function() {
+//    var el = document.createElement('div');
+//    el.className = 'btn-group';
+//    return el;
+//  },
+//  getButton: function(text, icon, title) {
+//    var el = this._super(text, icon, title);
+//    el.className += 'btn btn-default';
+//    return el;
+//  },
+//  getTable: function() {
+//    var el = document.createElement('table');
+//    el.className = 'table table-bordered';
+//    el.style.width = 'auto';
+//    el.style.maxWidth = 'none';
+//    return el;
+//  },
+//
+//  addInputError: function(input,text) {
+//    if(!input.controlgroup) return;
+//    input.controlgroup.className += ' has-error';
+//    if(!input.errmsg) {
+//      input.errmsg = document.createElement('p');
+//      input.errmsg.className = 'help-block errormsg';
+//      input.controlgroup.appendChild(input.errmsg);
+//    }
+//    else {
+//      input.errmsg.style.display = '';
+//    }
+//
+//    input.errmsg.textContent = text;
+//  },
+//  removeInputError: function(input) {
+//    if(!input.errmsg) return;
+//    input.errmsg.style.display = 'none';
+//    input.controlgroup.className = input.controlgroup.className.replace(/\s?has-error/g,'');
+//  },
+//  getTabHolder: function() {
+//    var el = document.createElement('div');
+//    el.innerHTML = "<div class='tabs list-group col-md-2'></div><div class='col-md-10'></div>";
+//    el.className = 'rows';
+//    return el;
+//  },
+//  getTab: function(text) {
+//    var el = document.createElement('a');
+//    el.className = 'list-group-item';
+//    el.setAttribute('href','#');
+//    el.appendChild(text);
+//    return el;
+//  },
+//  markTabActive: function(tab) {
+//    tab.className += ' active';
+//  },
+//  markTabInactive: function(tab) {
+//    tab.className = tab.className.replace(/\s?active/g,'');
+//  },
+//  getProgressBar: function() {
+//    var min = 0, max = 100, start = 0;
+//
+//    var container = document.createElement('div');
+//    container.className = 'progress';
+//
+//    var bar = document.createElement('div');
+//    bar.className = 'progress-bar';
+//    bar.setAttribute('role', 'progressbar');
+//    bar.setAttribute('aria-valuenow', start);
+//    bar.setAttribute('aria-valuemin', min);
+//    bar.setAttribute('aria-valuenax', max);
+//    bar.innerHTML = start + "%";
+//    container.appendChild(bar);
+//
+//    return container;
+//  },
+//  updateProgressBar: function(progressBar, progress) {
+//    if (!progressBar) return;
+//
+//    var bar = progressBar.firstChild;
+//    var percentage = progress + "%";
+//    bar.setAttribute('aria-valuenow', progress);
+//    bar.style.width = percentage;
+//    bar.innerHTML = percentage;
+//  },
+//  updateProgressBarUnknown: function(progressBar) {
+//    if (!progressBar) return;
+//
+//    var bar = progressBar.firstChild;
+//    progressBar.className = 'progress progress-striped active';
+//    bar.removeAttribute('aria-valuenow');
+//    bar.style.width = '100%';
+//    bar.innerHTML = '';
+//  }
+//});
 
 // Base Foundation theme
-JSONEditor.defaults.themes.foundation = JSONEditor.AbstractTheme.extend({
-  getChildEditorHolder: function() {
-    var el = document.createElement('div');
-    el.style.marginBottom = '15px';
-    return el;
-  },
-  getSelectInput: function(options) {
-    var el = this._super(options);
-    el.style.minWidth = 'none';
-    el.style.padding = '5px';
-    el.style.marginTop = '3px';
-    return el;
-  },
-  getSwitcher: function(options) {
-    var el = this._super(options);
-    el.style.paddingRight = '8px';
-    return el;
-  },
-  afterInputReady: function(input) {
-    if(this.closest(input,'.compact')) {
-      input.style.marginBottom = 0;
-    }
-    input.group = this.closest(input,'.form-control');
-  },
-  getFormInputLabel: function(text) {
-    var el = this._super(text);
-    el.style.display = 'inline-block';
-    return el;
-  },
-  getFormInputField: function(type) {
-    var el = this._super(type);
-    el.style.width = '100%';
-    el.style.marginBottom = type==='checkbox'? '0' : '12px';
-    return el;
-  },
-  getFormInputDescription: function(text) {
-    var el = document.createElement('p');
-    el.textContent = text;
-    el.style.marginTop = '-10px';
-    el.style.fontStyle = 'italic';
-    return el;
-  },
-  getIndentedPanel: function() {
-    var el = document.createElement('div');
-    el.className = 'panel';
-    return el;
-  },
-  getHeaderButtonHolder: function() {
-    var el = this.getButtonHolder();
-    el.style.display = 'inline-block';
-    el.style.marginLeft = '10px';
-    el.style.verticalAlign = 'middle';
-    return el;
-  },
-  getButtonHolder: function() {
-    var el = document.createElement('div');
-    el.className = 'button-group';
-    return el;
-  },
-  getButton: function(text, icon, title) {
-    var el = this._super(text, icon, title);
-    el.className += ' small button';
-    return el;
-  },
-  addInputError: function(input,text) {
-    if(!input.group) return;
-    input.group.className += ' error';
-    
-    if(!input.errmsg) {
-      input.insertAdjacentHTML('afterend','<small class="error"></small>');
-      input.errmsg = input.parentNode.getElementsByClassName('error')[0];
-    }
-    else {
-      input.errmsg.style.display = '';
-    }
-    
-    input.errmsg.textContent = text;
-  },
-  removeInputError: function(input) {
-    if(!input.errmsg) return;
-    input.group.className = input.group.className.replace(/ error/g,'');
-    input.errmsg.style.display = 'none';
-  },
-  getProgressBar: function() {
-    var progressBar = document.createElement('div');
-    progressBar.className = 'progress';
+//JSONEditor.defaults.themes.foundation = JSONEditor.AbstractTheme.extend({
+//  getChildEditorHolder: function() {
+//    var el = document.createElement('div');
+//    el.style.marginBottom = '15px';
+//    return el;
+//  },
+//  getSelectInput: function(options) {
+//    var el = this._super(options);
+//    el.style.minWidth = 'none';
+//    el.style.padding = '5px';
+//    el.style.marginTop = '3px';
+//    return el;
+//  },
+//  getSwitcher: function(options) {
+//    var el = this._super(options);
+//    el.style.paddingRight = '8px';
+//    return el;
+//  },
+//  afterInputReady: function(input) {
+//    if(this.closest(input,'.compact')) {
+//      input.style.marginBottom = 0;
+//    }
+//    input.group = this.closest(input,'.form-control');
+//  },
+//  getFormInputLabel: function(text) {
+//    var el = this._super(text);
+//    el.style.display = 'inline-block';
+//    return el;
+//  },
+//  getFormInputField: function(type) {
+//    var el = this._super(type);
+//    el.style.width = '100%';
+//    el.style.marginBottom = type==='checkbox'? '0' : '12px';
+//    return el;
+//  },
+//  getFormInputDescription: function(text) {
+//    var el = document.createElement('p');
+//    el.textContent = text;
+//    el.style.marginTop = '-10px';
+//    el.style.fontStyle = 'italic';
+//    return el;
+//  },
+//  getIndentedPanel: function() {
+//    var el = document.createElement('div');
+//    el.className = 'panel';
+//    return el;
+//  },
+//  getHeaderButtonHolder: function() {
+//    var el = this.getButtonHolder();
+//    el.style.display = 'inline-block';
+//    el.style.marginLeft = '10px';
+//    el.style.verticalAlign = 'middle';
+//    return el;
+//  },
+//  getButtonHolder: function() {
+//    var el = document.createElement('div');
+//    el.className = 'button-group';
+//    return el;
+//  },
+//  getButton: function(text, icon, title) {
+//    var el = this._super(text, icon, title);
+//    el.className += ' small button';
+//    return el;
+//  },
+//  addInputError: function(input,text) {
+//    if(!input.group) return;
+//    input.group.className += ' error';
+//
+//    if(!input.errmsg) {
+//      input.insertAdjacentHTML('afterend','<small class="error"></small>');
+//      input.errmsg = input.parentNode.getElementsByClassName('error')[0];
+//    }
+//    else {
+//      input.errmsg.style.display = '';
+//    }
+//
+//    input.errmsg.textContent = text;
+//  },
+//  removeInputError: function(input) {
+//    if(!input.errmsg) return;
+//    input.group.className = input.group.className.replace(/ error/g,'');
+//    input.errmsg.style.display = 'none';
+//  },
+//  getProgressBar: function() {
+//    var progressBar = document.createElement('div');
+//    progressBar.className = 'progress';
+//
+//    var meter = document.createElement('span');
+//    meter.className = 'meter';
+//    meter.style.width = '0%';
+//    progressBar.appendChild(meter);
+//    return progressBar;
+//  },
+//  updateProgressBar: function(progressBar, progress) {
+//    if (!progressBar) return;
+//    progressBar.firstChild.style.width = progress + '%';
+//  },
+//  updateProgressBarUnknown: function(progressBar) {
+//    if (!progressBar) return;
+//    progressBar.firstChild.style.width = '100%';
+//  }
+//});
+//
+//// Foundation 3 Specific Theme
+//JSONEditor.defaults.themes.foundation3 = JSONEditor.defaults.themes.foundation.extend({
+//  getHeaderButtonHolder: function() {
+//    var el = this._super();
+//    el.style.fontSize = '.6em';
+//    return el;
+//  },
+//  getFormInputLabel: function(text) {
+//    var el = this._super(text);
+//    el.style.fontWeight = 'bold';
+//    return el;
+//  },
+//  getTabHolder: function() {
+//    var el = document.createElement('div');
+//    el.className = 'row';
+//    el.innerHTML = "<dl class='tabs vertical two columns'></dl><div class='tabs-content ten columns'></div>";
+//    return el;
+//  },
+//  setGridColumnSize: function(el,size) {
+//    var sizes = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'];
+//    el.className = 'columns '+sizes[size];
+//  },
+//  getTab: function(text) {
+//    var el = document.createElement('dd');
+//    var a = document.createElement('a');
+//    a.setAttribute('href','#');
+//    a.appendChild(text);
+//    el.appendChild(a);
+//    return el;
+//  },
+//  getTabContentHolder: function(tab_holder) {
+//    return tab_holder.children[1];
+//  },
+//  getTabContent: function() {
+//    var el = document.createElement('div');
+//    el.className = 'content active';
+//    el.style.paddingLeft = '5px';
+//    return el;
+//  },
+//  markTabActive: function(tab) {
+//    tab.className += ' active';
+//  },
+//  markTabInactive: function(tab) {
+//    tab.className = tab.className.replace(/\s*active/g,'');
+//  },
+//  addTab: function(holder, tab) {
+//    holder.children[0].appendChild(tab);
+//  }
+//});
 
-    var meter = document.createElement('span');
-    meter.className = 'meter';
-    meter.style.width = '0%';
-    progressBar.appendChild(meter);
-    return progressBar;
-  },
-  updateProgressBar: function(progressBar, progress) {
-    if (!progressBar) return;
-    progressBar.firstChild.style.width = progress + '%';
-  },
-  updateProgressBarUnknown: function(progressBar) {
-    if (!progressBar) return;
-    progressBar.firstChild.style.width = '100%';
-  }
-});
+//// Foundation 4 Specific Theme
+//JSONEditor.defaults.themes.foundation4 = JSONEditor.defaults.themes.foundation.extend({
+//  getHeaderButtonHolder: function() {
+//    var el = this._super();
+//    el.style.fontSize = '.6em';
+//    return el;
+//  },
+//  setGridColumnSize: function(el,size) {
+//    el.className = 'columns large-'+size;
+//  },
+//  getFormInputDescription: function(text) {
+//    var el = this._super(text);
+//    el.style.fontSize = '.8rem';
+//    return el;
+//  },
+//  getFormInputLabel: function(text) {
+//    var el = this._super(text);
+//    el.style.fontWeight = 'bold';
+//    return el;
+//  }
+//});
 
-// Foundation 3 Specific Theme
-JSONEditor.defaults.themes.foundation3 = JSONEditor.defaults.themes.foundation.extend({
-  getHeaderButtonHolder: function() {
-    var el = this._super();
-    el.style.fontSize = '.6em';
-    return el;
-  },
-  getFormInputLabel: function(text) {
-    var el = this._super(text);
-    el.style.fontWeight = 'bold';
-    return el;
-  },
-  getTabHolder: function() {
-    var el = document.createElement('div');
-    el.className = 'row';
-    el.innerHTML = "<dl class='tabs vertical two columns'></dl><div class='tabs-content ten columns'></div>";
-    return el;
-  },
-  setGridColumnSize: function(el,size) {
-    var sizes = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'];
-    el.className = 'columns '+sizes[size];
-  },
-  getTab: function(text) {
-    var el = document.createElement('dd');
-    var a = document.createElement('a');
-    a.setAttribute('href','#');
-    a.appendChild(text);
-    el.appendChild(a);
-    return el;
-  },
-  getTabContentHolder: function(tab_holder) {
-    return tab_holder.children[1];
-  },
-  getTabContent: function() {
-    var el = document.createElement('div');
-    el.className = 'content active';
-    el.style.paddingLeft = '5px';
-    return el;
-  },
-  markTabActive: function(tab) {
-    tab.className += ' active';
-  },
-  markTabInactive: function(tab) {
-    tab.className = tab.className.replace(/\s*active/g,'');
-  },
-  addTab: function(holder, tab) {
-    holder.children[0].appendChild(tab);
-  }
-});
-
-// Foundation 4 Specific Theme
-JSONEditor.defaults.themes.foundation4 = JSONEditor.defaults.themes.foundation.extend({
-  getHeaderButtonHolder: function() {
-    var el = this._super();
-    el.style.fontSize = '.6em';
-    return el;
-  },
-  setGridColumnSize: function(el,size) {
-    el.className = 'columns large-'+size;
-  },
-  getFormInputDescription: function(text) {
-    var el = this._super(text);
-    el.style.fontSize = '.8rem';
-    return el;
-  },
-  getFormInputLabel: function(text) {
-    var el = this._super(text);
-    el.style.fontWeight = 'bold';
-    return el;
-  }
-});
-
-// Foundation 5 Specific Theme
-JSONEditor.defaults.themes.foundation5 = JSONEditor.defaults.themes.foundation.extend({
-  getFormInputDescription: function(text) {
-    var el = this._super(text);
-    el.style.fontSize = '.8rem';
-    return el;
-  },
-  setGridColumnSize: function(el,size) {
-    el.className = 'columns medium-'+size;
-  },
-  getButton: function(text, icon, title) {
-    var el = this._super(text,icon,title);
-    el.className = el.className.replace(/\s*small/g,'') + ' tiny';
-    return el;
-  },
-  getTabHolder: function() {
-    var el = document.createElement('div');
-    el.innerHTML = "<dl class='tabs vertical'></dl><div class='tabs-content'></div>";
-    return el;
-  },
-  getTab: function(text) {
-    var el = document.createElement('dd');
-    var a = document.createElement('a');
-    a.setAttribute('href','#');
-    a.appendChild(text);
-    el.appendChild(a);
-    return el;
-  },
-  getTabContentHolder: function(tab_holder) {
-    return tab_holder.children[1];
-  },
-  getTabContent: function() {
-    var el = document.createElement('div');
-    el.className = 'content active';
-    el.style.paddingLeft = '5px';
-    return el;
-  },
-  markTabActive: function(tab) {
-    tab.className += ' active';
-  },
-  markTabInactive: function(tab) {
-    tab.className = tab.className.replace(/\s*active/g,'');
-  },
-  addTab: function(holder, tab) {
-    holder.children[0].appendChild(tab);
-  }
-});
+//// Foundation 5 Specific Theme
+//JSONEditor.defaults.themes.foundation5 = JSONEditor.defaults.themes.foundation.extend({
+//  getFormInputDescription: function(text) {
+//    var el = this._super(text);
+//    el.style.fontSize = '.8rem';
+//    return el;
+//  },
+//  setGridColumnSize: function(el,size) {
+//    el.className = 'columns medium-'+size;
+//  },
+//  getButton: function(text, icon, title) {
+//    var el = this._super(text,icon,title);
+//    el.className = el.className.replace(/\s*small/g,'') + ' tiny';
+//    return el;
+//  },
+//  getTabHolder: function() {
+//    var el = document.createElement('div');
+//    el.innerHTML = "<dl class='tabs vertical'></dl><div class='tabs-content'></div>";
+//    return el;
+//  },
+//  getTab: function(text) {
+//    var el = document.createElement('dd');
+//    var a = document.createElement('a');
+//    a.setAttribute('href','#');
+//    a.appendChild(text);
+//    el.appendChild(a);
+//    return el;
+//  },
+//  getTabContentHolder: function(tab_holder) {
+//    return tab_holder.children[1];
+//  },
+//  getTabContent: function() {
+//    var el = document.createElement('div');
+//    el.className = 'content active';
+//    el.style.paddingLeft = '5px';
+//    return el;
+//  },
+//  markTabActive: function(tab) {
+//    tab.className += ' active';
+//  },
+//  markTabInactive: function(tab) {
+//    tab.className = tab.className.replace(/\s*active/g,'');
+//  },
+//  addTab: function(holder, tab) {
+//    holder.children[0].appendChild(tab);
+//  }
+//});
 
 JSONEditor.defaults.themes.html = JSONEditor.AbstractTheme.extend({
   getFormInputLabel: function(text) {
@@ -6735,7 +6768,8 @@ JSONEditor.defaults.theme = 'html';
 JSONEditor.defaults.template = 'default';
 
 // Default options when initializing JSON Editor
-JSONEditor.defaults.options = {};
+JSONEditor.defaults.options = {
+};
 
 // String translate function
 JSONEditor.defaults.translate = function(key, variables) {

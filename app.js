@@ -62,7 +62,8 @@ var app = (function() {
             if(jsoneditor) jsoneditor.destroy();
             jsoneditor = new JSONEditor($editor,{
                 schema: schema,
-                startval: startval
+                startval: startval,
+                children_expanded: false
             });
             window.jsoneditor = jsoneditor;
 
