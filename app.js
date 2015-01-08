@@ -48,6 +48,7 @@ var app = (function() {
         */
         var $editor = document.getElementById('editor');
         var $validate = document.getElementById('validate');
+//        var $download_button = document.getElementById('download_query');
 
         /**
         *   Buttons
@@ -108,12 +109,26 @@ var app = (function() {
         });
         query_editor.setValue("");
 
+        var updateDownloadBase64 = function(val){
+
+//            var newLink = "data:application/octet-stream;charset=utf-8;base64,";
+//            var base64 = btoa(val);
+//            newLink += base64;
+//
+//            console.log(newLink);
+//
+//            $download_button.href = newLink;
+
+        };
+
 
         /**
         *   Event listeners
         */
         $set_value_button.addEventListener('click',function() {
-            var parsed = JSON.parse(query_editor.getValue());
+            var currentVal = query_editor.getValue();
+            updateDownloadBase64(currentVal);
+            var parsed = JSON.parse(currentVal);
             var verdict = jsoneditor.validate(parsed);
             if(verdict == true){
                 jsoneditor.setValue(parsed);
