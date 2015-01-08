@@ -138,8 +138,8 @@ var app = (function() {
         *   Theme loading, styling
         */
         var setTheme = function(no_reload) {
-            JSONEditor.defaults.options.theme = 'bootstrap3';
-            document.getElementById('theme_stylesheet').href = './css/bootstrap.min.css';
+            JSONEditor.defaults.options.theme = 'bootstrap2';
+            document.getElementById('theme_stylesheet').href = './css/bootstrap-combined.min.css';
             if(!no_reload) reload(true);
         };
         setTheme(true);
