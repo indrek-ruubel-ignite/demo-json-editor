@@ -1,0 +1,37 @@
+/*======================================
+=            NO GUTTER CODE            =
+======================================*/
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
+.form-horizontal .control-label {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+.form-horizontal .controls {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.clear {
+    clear:both;
+}
+
+.btn-default {
+    background-color: #78b200 !important;
+    background-image: -webkit-linear-gradient(top, #82c100, #689c00) !important;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
+    color: #ffffff !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-radius: 4px !important;
+}
+
+.margin-left-5 {
+    margin-left: 5px;
+}
