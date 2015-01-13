@@ -7,8 +7,8 @@ var query_schema = {
     "properties": {
         "queryId": {
           "type": "string",
-          "title" : "QueryId",
-          "description": "UniqueId",
+          "title" : "Id",
+          "description": "Query Id",
           "default": "default from schema"
         },
 
@@ -17,8 +17,14 @@ var query_schema = {
             "type": "object",
             "additionalProperties" : false,
             "properties" : {
-                "FI" : {"type" : "string"},
-                "EN" : {"type" : "string"}
+                "FI" : {
+                    "description"   :   "Finnish title",
+                    "type"          :   "string"
+                },
+                "EN" : {
+                    "description"   :   "English title",
+                    "type"          :   "string"
+                }
             }
         },
         "purpose" : {
@@ -40,7 +46,8 @@ var query_schema = {
                 "additionalProperties" : false,
                 "properties" : {
                     "sectionId" : {
-                        "type" : "string"
+                        "title" :   "Id",
+                        "type"  :   "string"
                     },
                     "help"  : {
                         "type" : "object",
@@ -54,6 +61,7 @@ var query_schema = {
                         "type" : "boolean"
                     },
                     "name" : {
+                        "title" :   "Name",
                         "type" : "object",
                         "additionalProperties" : false,
                         "properties" : {
@@ -509,13 +517,16 @@ var query_schema = {
             }
         },
         "last_modified" : {
-            "type" : "string"
+            "title" : "Modified",
+            "type"  : "string"
         },
         "owner" : {
-            "type" : "string"
+            "title" :   "Owner",
+            "type"  :   "string"
         },
         "status" : {
-            "type" : "string"
+            "title" :   "Status",
+            "type"  :   "string"
         }
     }
 }
