@@ -17,8 +17,8 @@ var Validator = (function() {
             return true;
         }else{
             var accustomed_error = {
-                path: error.error.schemaPath,
-                property: error.error.code,
+                path: error.error.dataPath,
+                property: error.error.params.key,//.code,
                 message: error.error.message
             };
 
