@@ -190,6 +190,7 @@ var query_schema = {
                                     "propertyOrder": 8
                                 },
                                 "multipleChoicesAllowed" : {
+                                    "title" : "Multiple choices",
                                     "type" : "boolean",
                                     "propertyOrder": 9
                                 },
@@ -620,6 +621,7 @@ var query_schema = {
                                              "propertyOrder": 8
                                          },
                                          "multipleChoicesAllowed" : {
+                                             "title" : "Multiple choices",
                                              "type" : "boolean",
                                              "propertyOrder": 9
                                          },
