@@ -2837,13 +2837,17 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
     * Event function
     */
     var checkboxChangeEvent = function(){
+
       if(checkbox.checked) {
         self.addObjectProperty(key);
       }
       else {
         self.removeObjectProperty(key);
       }
-      self.onChange(true);
+      setTimeout(function(){
+        self.onChange(true);
+      }, 10);
+
     };
 
     checkbox.addEventListener('minusButton',function() {

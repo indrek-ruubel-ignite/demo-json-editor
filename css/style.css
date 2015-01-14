@@ -35,3 +35,7 @@
 .margin-left-5 {
     margin-left: 5px;
 }
+
+.col-lg-1 > label {
+    word-break: break-all;
+}
