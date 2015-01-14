@@ -1967,7 +1967,7 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
     // Normal text input
     else {
       this.input_type = 'text';
-      this.input = this.theme.getFormInputField(this.input_type);
+      this.input = this.theme.getFormInputField(this.input_type, this.isRequired(this));
     }
 
     // minLength, maxLength, and pattern
@@ -2010,14 +2010,19 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
     if(this.format) this.input.setAttribute('data-schemaformat',this.format);
 
     // MODIFICATION_INC
-    this.control = this.theme.getFormControl(this.label, this.input, this.description, function(){
-        /**
-        * Remove callback, do object manipulation
-        */
-        // Path to disable
-        var path = self.path;
-        GlobalTriggers.removeObjectProperty(path);
-    });
+
+    if(this.isRequired(this)){
+      this.control = this.theme.getFormControl(this.label, this.input, this.description, false);
+    }else{
+      this.control = this.theme.getFormControl(this.label, this.input, this.description, function(){
+          /**
+          * Remove callback, do object manipulation
+          */
+          // Path to disable
+          var path = self.path;
+          GlobalTriggers.removeObjectProperty(path);
+      });
+    }
 
     this.container.appendChild(this.control);
 
@@ -2038,6 +2043,17 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
       this.refreshValue();
     }
   },
+
+  isRequired: function(editor) {
+    // MODIFICATION_INC
+    if(Array.isArray(editor.parent.options.schema.required)) return editor.parent.options.schema.required.indexOf(editor.key) > -1;
+    return false;
+//    if(typeof editor.schema.required === "boolean") return editor.schema.required;
+//    else if(Array.isArray(this.schema.required)) return this.schema.required.indexOf(editor.key) > -1;
+//    else if(this.jsoneditor.options.required_by_default) return true;
+//    else return false;
+  },
+
   enable: function() {
     if(!this.always_disabled) {
       this.input.disabled = false;
@@ -2584,6 +2600,9 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 //          self.onChange(true);
 //        }
 //      });
+
+//      this.isRequired(this.cached_editors[i]) && i in this.editors
+
 
       this.addproperty_holder.appendChild(this.addproperty_list);
 //      this.addproperty_holder.appendChild(this.addproperty_input);
@@ -5862,12 +5881,12 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
     // TODO: use better slider
     return this._super(min, max, step);
   },
-  getFormInputField: function(type) {
+  getFormInputField: function(type, required) {
     var el = this._super(type);
     if(type !== 'checkbox') {
         // MODIFICATION_INC
         var wrapper = document.createElement('div');
-        wrapper.className = 'col-lg-10';
+        wrapper.className = 'col-lg-' + (required ? '11' : '10');
         el.className += 'form-control';
         wrapper.appendChild(el);
         return wrapper;
@@ -5904,18 +5923,21 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
       * Remove button if not a checkbox
       */
 
-      var removeButtonWrapper = document.createElement('div');
-      removeButtonWrapper.className = 'col-lg-1 remove';
-      var button = document.createElement('button');
-      button.className = 'btn btn-default json-editor-btn-delete margin-left-5';
-      var icon = document.createElement('i');
-      icon.className = 'fa fa-minus';
-      button.appendChild(icon);
-      removeButtonWrapper.appendChild(button);
+      if(removeCallback){
+        var removeButtonWrapper = document.createElement('div');
+        removeButtonWrapper.className = 'col-lg-1 remove';
+        var button = document.createElement('button');
+        button.className = 'btn btn-default json-editor-btn-delete margin-left-5';
+        var icon = document.createElement('i');
+        icon.className = 'fa fa-minus';
+        button.appendChild(icon);
+        removeButtonWrapper.appendChild(button);
 
-      button.addEventListener('click',function() {
-        removeCallback();
-      });
+        button.addEventListener('click',function() {
+          removeCallback();
+        });
+      }
+
     }
 
     if(removeButtonWrapper != null){
