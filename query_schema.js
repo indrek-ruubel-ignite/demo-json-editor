@@ -941,6 +941,8 @@ var query_schema = {
             "propertyOrder": 9
         },
         "disableHighlight" : {
+            "title": "Disable highlight",
+            "description" : "Disable the highlight",
             "type" : "boolean",
             "propertyOrder": 10
         },

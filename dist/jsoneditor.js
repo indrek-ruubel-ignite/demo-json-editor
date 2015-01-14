@@ -4769,6 +4769,7 @@ JSONEditor.defaults.editors.enum = JSONEditor.AbstractEditor.extend({
 
 JSONEditor.defaults.editors.select = JSONEditor.AbstractEditor.extend({
   setValue: function(value,initial) {
+
     value = this.typecast(value||'');
 
     // Sanitize value before setting it
@@ -4781,8 +4782,12 @@ JSONEditor.defaults.editors.select = JSONEditor.AbstractEditor.extend({
       return;
     }
 
-    this.input.value = this.enum_options[this.enum_values.indexOf(sanitized)];
-    if(this.select2) this.select2.select2('val',this.input.value);
+    var selects = this.input.getElementsByTagName('select');
+    var select = selects[0];
+
+//    this.input.value = this.enum_options[this.enum_values.indexOf(sanitized)];
+    select.value = this.enum_options[this.enum_values.indexOf(sanitized)];
+    if(this.select2) this.select2.select2('val', select.value);//this.input.value);
     this.value = sanitized;
     this.onChange();
   },
@@ -4950,13 +4955,22 @@ JSONEditor.defaults.editors.select = JSONEditor.AbstractEditor.extend({
     var select = selects[0];
     var val = select.value;
 
-
     var sanitized = val;
     if(this.enum_options.indexOf(val) === -1) {
       sanitized = this.enum_options[0];
     }
 
+    if(this.schema.type === 'boolean'){
+      if(sanitized === '1'){
+        sanitized = true;
+      }else{
+        sanitized = false;
+      }
+    }
+
     this.value = this.enum_values[this.enum_options.indexOf(val)];
+
+    console.log(this.value);
 
     this.onChange(true);
   },
@@ -5899,6 +5913,7 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
     var self = this;
     var group = document.createElement('div');
 
+
     if(label && input.type === 'checkbox') {
       group.className += ' checkbox';
       label.appendChild(input);
@@ -5915,6 +5930,8 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
         wrapper.className = 'col-lg-1';
         label.className += ' control-label';
         wrapper.appendChild(label);
+//        row.appendChild(wrapper);
+//        group.appendChild(row);
         group.appendChild(wrapper);
       }
       group.appendChild(input);
@@ -5941,6 +5958,7 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
     }
 
     if(removeButtonWrapper != null){
+//      row.appendChild(removeButtonWrapper);
       group.appendChild(removeButtonWrapper);
     }
 
