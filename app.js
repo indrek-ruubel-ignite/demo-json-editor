@@ -132,7 +132,7 @@ var app = (function() {
             updateDownloadBase64(currentVal);
             var parsed = JSON.parse(currentVal);
             var verdict = jsoneditor.validate(parsed);
-            if(verdict == true){
+            if(!verdict.length || verdict == true){
                 jsoneditor.setValue(parsed);
             }else{
                 setValidationErrors(verdict);

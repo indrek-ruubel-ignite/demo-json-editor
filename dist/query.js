@@ -150,20 +150,15 @@ var query_schema = {
             "propertyOrder": 17
         },
 
-        // Comment: One query had mupltiple "v" and "update" fields,
-        // but the last one will be overridden.
         "history" : {
             "title" : "History",
             "type" : "object",
-            "propertyOrder": 18,
-            "properties" : {
-                "v" : {
-                    "type" : "string"
-                },
-                "update" : {
-                    "type" : "string"
-                }
-            }
+            "propertyOrder": 18
+//            "patternProperties": {
+//                "^1": {
+//                  "type": "string"
+//                }
+//            }
         }
     }
 }
