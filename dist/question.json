@@ -6,10 +6,13 @@
   "additionalProperties" : false,
   "properties" : {
     "questionId" : {
+      "title" : "Id",
+      "description" : "Question Id",
       "type" : "string",
       "propertyOrder": 1
     },
     "question" : {
+      "title" : "Question",
       "type" : "object",
       "propertyOrder": 2,
       "additionalProperties" : false,
@@ -25,6 +28,7 @@
       }
     },
     "help"  : {
+      "title" : "Help",
       "type" : "object",
       "propertyOrder": 3,
       "additionalProperties" : false,
@@ -40,6 +44,7 @@
       }
     },
     "inputType" : {
+      "title" : "Input type",
       "type": "string",
       "propertyOrder": 4,
       "enum" : [
@@ -52,6 +57,7 @@
       ]
     },
     "sliderParameters" : {
+      "title" : "Slider parameters",
       "type" : "object",
       "propertyOrder": 5,
       "additionalProperties" : false,
@@ -59,10 +65,12 @@
       }
     },
     "resourceGroups" : {
+      "title" : "Resource groups",
       "type" : "array",
       "propertyOrder": 6
     },
     "filterResources" : {
+      "title" : "Filter resources",
       "type" : "object",
       "propertyOrder": 7,
       "additionalProperties" : false,
@@ -70,6 +78,7 @@
       }
     },
     "useTextIfListEmpty" : {
+      "title" : "Use text if list empty",
       "type" : "boolean",
       "propertyOrder": 8
     },
@@ -79,10 +88,12 @@
       "propertyOrder": 9
     },
     "persistent" : {
+      "title" : "Persistent",
       "type" : "boolean",
       "propertyOrder": 10
     },
     "unit"  : {
+      "title" : "Unit",
       "type" : "object",
       "propertyOrder": 11,
       "additionalProperties" : false,
@@ -98,13 +109,16 @@
       }
     },
     "showAnswerInResults" : {
+      "title" : "Show answer in results",
       "type" : "boolean"
     },
     "optional" : {
+      "title" : "Optional",
       "type" : "boolean",
       "propertyOrder": 12
     },
     "entityClasses" : {
+      "title" : "Entity classes",
       "type" : "array",
       "propertyOrder": 13,
       "items" : {
@@ -112,14 +126,17 @@
       }
     },
     "inputWidth" : {
+      "title" : "Input width",
       "type" : "number",
       "propertyOrder": 14
     },
     "inputHeight" : {
+      "title" : "Input height",
       "type" : "number",
       "propertyOrder": 15
     },
     "additionalQuestionIds" :{
+      "title" : "Additional question Ids",
       "type" : "array",
       "propertyOrder": 16,
       "items" : {
@@ -127,22 +144,27 @@
       }
     },
     "defaultValue" : {
+      "title" : "Default value",
       "type" : "string",
       "propertyOrder": 17
     },
     "quantity" : {
+      "title" : "Quantity",
       "type" : "boolean",
       "propertyOrder": 18
     },
     "recurringReplacement" : {
+      "title" : "Recurring replacement",
       "type" : "boolean",
       "propertyOrder": 19
     },
     "showTypeahead" : {
+      "title" : "Show type ahead",
       "type" : "boolean",
       "propertyOrder": 20
     },
     "valueConstraints" : {
+      "title" : "Value constraints",
       "type" : "object",
       "propertyOrder": 21,
       "additionalProperties" : false,
@@ -151,6 +173,7 @@
     },
 
     "choices" : {
+      "title" : "Choices",
       "type"  : "array",
       "propertyOrder": 22,
       "items" : {
@@ -159,6 +182,7 @@
     },
 
     "allowedExtensions" : {
+      "title" : "Allowed extensions",
       "type" : "array",
       "propertyOrder": 23,
       "items" : {
@@ -169,39 +193,42 @@
       }
     },
     "maximumSize" : {
+      "title" : "Max size",
       "type" : "number",
       "propertyOrder": 24
     },
     "preventDoubleEntries" : {
+      "title" : "Prevent double entries",
       "type" : "boolean",
       "propertyOrder": 25
     },
 
     "defaultResourceId" : {
+      "title" : "Default resource Id",
       "type" : "string",
       "propertyOrder": 26
     },
 
     "defaultValueFromResource" : {
+      "title" : "Default value from resource",
       "type" : "string",
       "propertyOrder": 27
     },
 
-
-
-
-
     "mapToResourceType" : {
+      "title" : "Map to resource type",
       "type" : "string",
       "propertyOrder": 28
     },
 
     "defaultValue" : {
+      "title" : "Default value",
       "type" : "string",
       "propertyOrder": 29
     },
 
     "valueConstraints" : {
+      "title" : "Value constraints",
       "type" : "object",
       "propertyOrder": 30,
       "properties" : {
@@ -218,6 +245,7 @@
     },
 
     "licenseKey" : {
+      "title" : "License key",
       "type" : "string",
       "propertyOrder": 31
     }

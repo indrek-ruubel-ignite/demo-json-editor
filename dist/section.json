@@ -59,6 +59,7 @@
       }
     },
     "defaults" : {
+      "title" : "Defaults",
       "type" : "object",
       "propertyOrder": 6,
       "additionalProperties" : false,
@@ -79,75 +80,7 @@
       "propertyOrder": 8,
       "type" : "array",
       "items" : {
-        "title": "Section",
-        "type" : "object",
-        "required" : ["sectionId", "name"],
-        "defaultProperties": ["sectionId", "name"],
-        "additionalProperties" : false,
-        "properties" : {
-          "sectionId" : {
-            "title" :   "Id",
-            "propertyOrder": 1,
-            "type"  :   "string"
-          },
-          "name" : {
-            "title" :   "Name",
-            "propertyOrder": 2,
-            "type" : "object",
-            "additionalProperties" : false,
-            "properties" : {
-              "FI" : {
-                "description"   :   "Finnish title",
-                "type"          :   "string"
-              },
-              "EN" : {
-                "description"   :   "English title",
-                "type"          :   "string"
-              }
-            }
-          },
-          "help"  : {
-            "type" : "object",
-            "propertyOrder": 3,
-            "additionalProperties" : false,
-            "properties" : {
-              "FI" : {
-                "description"   :   "Finnish title",
-                "type"          :   "string"
-              },
-              "EN" : {
-                "description"   :   "English title",
-                "type"          :   "string"
-              }
-            }
-          },
-          "skipInResultsView" : {
-            "type" : "boolean",
-            "propertyOrder": 4
-          },
-          "includeSectionIds" : {
-            "type" : "object",
-            "propertyOrder": 5,
-            "additionalProperties" : false,
-            "properties" : {
-            }
-          },
-          "defaults" : {
-            "type" : "object",
-            "propertyOrder": 6,
-            "additionalProperties" : false,
-            "properties" : {
-            }
-          },
-          "questions" : {
-            "title" : "Questions",
-            "propertyOrder": 7,
-            "type" : "array",
-            "items" : {
-              "$ref" : "dist/question.json"
-            }
-          }
-        }
+        "$ref" : "dist/section.json"
       }
     }
   }
