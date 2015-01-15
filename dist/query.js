@@ -130,18 +130,22 @@ var query_schema = {
         // in questions - illegal param "licenseKey"
 
         "lastUpdated" : {
+            "title" : "Last updated",
             "type" : "string",
             "propertyOrder": 14,
         },
         "owner" : {
+            "title" : "Owner",
             "type"  :   "string",
             "propertyOrder": 15,
         },
         "status" : {
+            "title" : "Status",
             "type"  :   "string",
             "propertyOrder": 16
         },
         "last_modified" : {
+            "title" : "Last modified",
             "type"  : "string",
             "propertyOrder": 17
         },
@@ -149,6 +153,7 @@ var query_schema = {
         // Comment: One query had mupltiple "v" and "update" fields,
         // but the last one will be overridden.
         "history" : {
+            "title" : "History",
             "type" : "object",
             "propertyOrder": 18,
             "properties" : {
