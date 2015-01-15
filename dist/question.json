@@ -114,6 +114,7 @@
     },
     "optional" : {
       "title" : "Optional",
+      "description" : "If true, the question will be allowed to be left empty. By default all questions are mandatory.",
       "type" : "boolean",
       "propertyOrder": 12
     },
