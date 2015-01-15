@@ -1,0 +1,225 @@
+{
+  "title" : "Question",
+  "type" : "object",
+  "required" : ["questionId", "question"],
+  "defaultProperties": ["questionId", "question"],
+  "additionalProperties" : false,
+  "properties" : {
+    "questionId" : {
+      "type" : "string",
+      "propertyOrder": 1
+    },
+    "question" : {
+      "type" : "object",
+      "propertyOrder": 2,
+      "additionalProperties" : false,
+      "properties" : {
+        "FI" : {
+          "description"   :   "Finnish title",
+          "type"          :   "string"
+        },
+        "EN" : {
+          "description"   :   "English title",
+          "type"          :   "string"
+        }
+      }
+    },
+    "help"  : {
+      "type" : "object",
+      "propertyOrder": 3,
+      "additionalProperties" : false,
+      "properties" : {
+        "FI" : {
+          "description"   :   "Finnish title",
+          "type"          :   "string"
+        },
+        "EN" : {
+          "description"   :   "English title",
+          "type"          :   "string"
+        }
+      }
+    },
+    "inputType" : {
+      "type": "string",
+      "propertyOrder": 4,
+      "enum" : [
+        "text",
+        "checkbox",
+        "select",
+        "hidden",
+        "textArea",
+        "slider"
+      ]
+    },
+    "sliderParameters" : {
+      "type" : "object",
+      "propertyOrder": 5,
+      "additionalProperties" : false,
+      "properties" : {
+      }
+    },
+    "resourceGroups" : {
+      "type" : "array",
+      "propertyOrder": 6
+    },
+    "filterResources" : {
+      "type" : "object",
+      "propertyOrder": 7,
+      "additionalProperties" : false,
+      "properties" : {
+      }
+    },
+    "useTextIfListEmpty" : {
+      "type" : "boolean",
+      "propertyOrder": 8
+    },
+    "multipleChoicesAllowed" : {
+      "title" : "Multiple choices",
+      "type" : "boolean",
+      "propertyOrder": 9
+    },
+    "persistent" : {
+      "type" : "boolean",
+      "propertyOrder": 10
+    },
+    "unit"  : {
+      "type" : "object",
+      "propertyOrder": 11,
+      "additionalProperties" : false,
+      "properties" : {
+        "FI" : {
+          "description"   :   "Finnish title",
+          "type"          :   "string"
+        },
+        "EN" : {
+          "description"   :   "English title",
+          "type"          :   "string"
+        }
+      }
+    },
+    "showAnswerInResults" : {
+      "type" : "boolean"
+    },
+    "optional" : {
+      "type" : "boolean",
+      "propertyOrder": 12
+    },
+    "entityClasses" : {
+      "type" : "array",
+      "propertyOrder": 13,
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "inputWidth" : {
+      "type" : "number",
+      "propertyOrder": 14
+    },
+    "inputHeight" : {
+      "type" : "number",
+      "propertyOrder": 15
+    },
+    "additionalQuestionIds" :{
+      "type" : "array",
+      "propertyOrder": 16,
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "defaultValue" : {
+      "type" : "string",
+      "propertyOrder": 17
+    },
+    "quantity" : {
+      "type" : "boolean",
+      "propertyOrder": 18
+    },
+    "recurringReplacement" : {
+      "type" : "boolean",
+      "propertyOrder": 19
+    },
+    "showTypeahead" : {
+      "type" : "boolean",
+      "propertyOrder": 20
+    },
+    "valueConstraints" : {
+      "type" : "object",
+      "propertyOrder": 21,
+      "additionalProperties" : false,
+      "properties" : {
+      }
+    },
+
+    "choices" : {
+      "type"  : "array",
+      "propertyOrder": 22,
+      "items" : {
+        "$ref" : "dist/choice.json"
+      }
+    },
+
+    "allowedExtensions" : {
+      "type" : "array",
+      "propertyOrder": 23,
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+        }
+      }
+    },
+    "maximumSize" : {
+      "type" : "number",
+      "propertyOrder": 24
+    },
+    "preventDoubleEntries" : {
+      "type" : "boolean",
+      "propertyOrder": 25
+    },
+
+    "defaultResourceId" : {
+      "type" : "string",
+      "propertyOrder": 26
+    },
+
+    "defaultValueFromResource" : {
+      "type" : "string",
+      "propertyOrder": 27
+    },
+
+
+
+
+
+    "mapToResourceType" : {
+      "type" : "string",
+      "propertyOrder": 28
+    },
+
+    "defaultValue" : {
+      "type" : "string",
+      "propertyOrder": 29
+    },
+
+    "valueConstraints" : {
+      "type" : "object",
+      "propertyOrder": 30,
+      "properties" : {
+        "type" : {
+          "type" : "string"
+        },
+        "min" : {
+          "type" : "number"
+        },
+        "max" : {
+          "type" : "number"
+        }
+      }
+    },
+
+    "licenseKey" : {
+      "type" : "string",
+      "propertyOrder": 31
+    }
+  }
+}

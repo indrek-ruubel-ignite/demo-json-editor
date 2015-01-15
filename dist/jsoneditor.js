@@ -283,10 +283,13 @@ JSONEditor.prototype = {
     // MODIFICATION_INC
     // Set the root well visible
     var wells = this.root_container.getElementsByClassName("well-sm");
-    if(wells.length){
-      var root = wells[0];
-      root.style.display = '';
-    }
+    // Needs to wait for render to finish
+    setTimeout(function(){
+      if(wells.length > 0){
+        var root = wells[0];
+        root.style.display = '';
+      }
+    }, 1000);
 
   },
   getValue: function() {

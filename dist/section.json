@@ -1,0 +1,154 @@
+{
+  "title": "Section",
+  "type" : "object",
+  "required" : ["sectionId", "name"],
+  "defaultProperties": ["sectionId", "name"],
+  "additionalProperties" : false,
+  "properties" : {
+    "sectionId" : {
+      "title" :   "Id",
+      "description" : "Id of the section",
+      "propertyOrder": 1,
+      "type"  :   "string"
+    },
+    "name" : {
+      "title" :   "Name",
+      "description" : "Name for the section in different languages",
+      "propertyOrder": 2,
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "FI" : {
+          "description"   :   "Finnish title",
+          "type"          :   "string"
+        },
+        "EN" : {
+          "description"   :   "English title",
+          "type"          :   "string"
+        }
+      }
+    },
+    "help"  : {
+      "title" : "Help",
+      "type" : "object",
+      "propertyOrder": 3,
+      "additionalProperties" : false,
+      "properties" : {
+        "FI" : {
+          "description"   :   "Finnish title",
+          "type"          :   "string"
+        },
+        "EN" : {
+          "description"   :   "English title",
+          "type"          :   "string"
+        }
+      }
+    },
+    "skipInResultsView" : {
+      "title" : "Skip in results view",
+      "description" : "If true the values are not repeated in generated reports.",
+      "type" : "boolean",
+      "propertyOrder": 4
+    },
+    "includeSectionIds" : {
+      "title" : "Include section Ids",
+      "type" : "object",
+      "propertyOrder": 5,
+      "additionalProperties" : false,
+      "properties" : {
+      }
+    },
+    "defaults" : {
+      "type" : "object",
+      "propertyOrder": 6,
+      "additionalProperties" : false,
+      "properties" : {
+      }
+    },
+    "questions" : {
+      "title" : "Questions",
+      "propertyOrder": 7,
+      "type" : "array",
+      "items" : {
+        "$ref" : "dist/question.json"
+      }
+    },
+
+    "sections" : {
+      "title": "Sections",
+      "propertyOrder": 8,
+      "type" : "array",
+      "items" : {
+        "title": "Section",
+        "type" : "object",
+        "required" : ["sectionId", "name"],
+        "defaultProperties": ["sectionId", "name"],
+        "additionalProperties" : false,
+        "properties" : {
+          "sectionId" : {
+            "title" :   "Id",
+            "propertyOrder": 1,
+            "type"  :   "string"
+          },
+          "name" : {
+            "title" :   "Name",
+            "propertyOrder": 2,
+            "type" : "object",
+            "additionalProperties" : false,
+            "properties" : {
+              "FI" : {
+                "description"   :   "Finnish title",
+                "type"          :   "string"
+              },
+              "EN" : {
+                "description"   :   "English title",
+                "type"          :   "string"
+              }
+            }
+          },
+          "help"  : {
+            "type" : "object",
+            "propertyOrder": 3,
+            "additionalProperties" : false,
+            "properties" : {
+              "FI" : {
+                "description"   :   "Finnish title",
+                "type"          :   "string"
+              },
+              "EN" : {
+                "description"   :   "English title",
+                "type"          :   "string"
+              }
+            }
+          },
+          "skipInResultsView" : {
+            "type" : "boolean",
+            "propertyOrder": 4
+          },
+          "includeSectionIds" : {
+            "type" : "object",
+            "propertyOrder": 5,
+            "additionalProperties" : false,
+            "properties" : {
+            }
+          },
+          "defaults" : {
+            "type" : "object",
+            "propertyOrder": 6,
+            "additionalProperties" : false,
+            "properties" : {
+            }
+          },
+          "questions" : {
+            "title" : "Questions",
+            "propertyOrder": 7,
+            "type" : "array",
+            "items" : {
+              "$ref" : "dist/question.json"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -31,7 +31,7 @@ var app = (function() {
     *   Load schema
     */
     var loadSchema = function(callback){
-        loadScript("query_schema.js", function(){
+        loadScript("dist/query.js", function(){
             callback(query_schema);
         });
     };
@@ -63,7 +63,8 @@ var app = (function() {
             jsoneditor = new JSONEditor($editor,{
                 schema: schema,
                 startval: startval,
-                children_expanded: false
+                children_expanded: false,
+                ajax: true
             });
             window.jsoneditor = jsoneditor;
 

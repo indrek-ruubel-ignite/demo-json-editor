@@ -1,0 +1,62 @@
+{
+  "title" : "Choice",
+  "type"  : "object",
+  "additionalProperties" : false,
+  "required" : ["answer", "answerId"],
+  "defaultProperties": ["answer", "answerId"],
+  "properties"    :   {
+    "answerId" : {
+      "type" : "string"
+    },
+    "answer" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "FI" : {
+          "description"   :   "Finnish title",
+          "type"          :   "string"
+        },
+        "EN" : {
+          "description"   :   "English title",
+          "type"          :   "string"
+        }
+      }
+    },
+    "help"  : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "FI" : {
+          "description"   :   "Finnish title",
+          "type"          :   "string"
+        },
+        "EN" : {
+          "description"   :   "English title",
+          "type"          :   "string"
+        }
+      }
+    },
+    "pointsFactor" : {
+      "type" : "number"
+    },
+    "ifChosen" : {
+      "title" : "If chosen",
+      "type" : "array",
+      "items": {
+        "$ref" : "dist/question.json"
+      }
+    },
+    "ifChoseSectionIds" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "additionalQuestionIds" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    }
+  }
+}

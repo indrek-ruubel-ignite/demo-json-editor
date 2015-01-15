@@ -34,6 +34,7 @@ var query_schema = {
             "type": "object",
             "propertyOrder": 3,
             "additionalProperties" : false,
+            "defaultProperties": ["EN", "FI"],
             "properties" : {
                 "FI" : {
                     "description"   :   "Finnish title",
@@ -58,11 +59,13 @@ var query_schema = {
                 "properties" : {
                     "sectionId" : {
                         "title" :   "Id",
+                        "description" : "Id of the section",
                         "propertyOrder": 1,
                         "type"  :   "string"
                     },
                     "name" : {
                         "title" :   "Name",
+                        "description" : "Name for the section in different languages",
                         "propertyOrder": 2,
                         "type" : "object",
                         "additionalProperties" : false,
@@ -78,6 +81,7 @@ var query_schema = {
                         }
                     },
                     "help"  : {
+                        "title" : "Help",
                         "type" : "object",
                         "propertyOrder": 3,
                         "additionalProperties" : false,
@@ -93,10 +97,13 @@ var query_schema = {
                         }
                     },
                     "skipInResultsView" : {
+                        "title" : "Skip in results view",
+                        "description" : "If true the values are not repeated in generated reports.",
                         "type" : "boolean",
                         "propertyOrder": 4
                     },
                     "includeSectionIds" : {
+                        "title" : "Include section Ids",
                         "type" : "object",
                         "propertyOrder": 5,
                         "additionalProperties" : false,
@@ -914,29 +921,32 @@ var query_schema = {
             }
         },
         "allowMonthlyData" : {
+            "title" : "Allow monthly data",
             "type" : "boolean",
             "propertyOrder": 5
         },
         "summaryData" : {
+            "title" : "Summary data",
             "type"  :   "array",
             "propertyOrder": 6,
             "items" :   {
                 "type"          :   "object",
-                "additionalProperties" : false,
                 "properties"    :   {
-
                 }
             }
         },
         "importTime" : {
+            "title" : "Import time",
             "type" : "string",
             "propertyOrder": 7,
         },
         "importFile" : {
+            "title" : "Import file",
             "type" : "string",
             "propertyOrder": 8
         },
         "active" : {
+            "title" : "Active",
             "type" : "boolean",
             "propertyOrder": 9
         },
@@ -947,6 +957,7 @@ var query_schema = {
             "propertyOrder": 10
         },
         "help" : {
+            "title" : "Help",
             "type" : "object",
             "propertyOrder": 11,
             "additionalProperties" : false,
@@ -956,10 +967,13 @@ var query_schema = {
             }
         },
         "componentQuery" : {
+            "title" : "Component Query",
+            "description" : "Query can only be used for entity with entityClass == “component” and componentAbilityLicensed (mapping entity datasets as resources).",
             "type" : "boolean",
             "propertyOrder": 12,
         },
         "includedSections" : {
+            "title" : "Included sections",
             "type" : "array",
             "propertyOrder": 13,
             "items" : {
