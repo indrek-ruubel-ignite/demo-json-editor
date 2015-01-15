@@ -6,9 +6,14 @@
   "defaultProperties": ["answer", "answerId"],
   "properties"    :   {
     "answerId" : {
+      "title" : "Id",
+      "propertyOrder": 1,
+      "description" : "Answer id",
       "type" : "string"
     },
     "answer" : {
+      "title" : "Answer",
+      "propertyOrder": 2,
       "type" : "object",
       "additionalProperties" : false,
       "properties" : {
@@ -23,6 +28,8 @@
       }
     },
     "help"  : {
+      "title" : "Help",
+      "propertyOrder": 3,
       "type" : "object",
       "additionalProperties" : false,
       "properties" : {
@@ -37,25 +44,32 @@
       }
     },
     "pointsFactor" : {
+      "title" : "Points factor",
+      "propertyOrder": 4,
       "type" : "number"
     },
-    "ifChosen" : {
-      "title" : "If chosen",
+    "additionalQuestionIds" : {
+      "title" : "Additional question Ids",
       "type" : "array",
-      "items": {
-        "$ref" : "dist/question.json"
+      "propertyOrder": 5,
+      "items" : {
+        "type" : "string"
       }
     },
     "ifChoseSectionIds" : {
+      "title" : "If chosen section Ids",
+      "propertyOrder": 6,
       "type" : "array",
       "items" : {
         "type" : "string"
       }
     },
-    "additionalQuestionIds" : {
+    "ifChosen" : {
+      "title" : "If chosen",
+      "propertyOrder": 7,
       "type" : "array",
-      "items" : {
-        "type" : "string"
+      "items": {
+        "$ref" : "dist/question.json"
       }
     }
   }

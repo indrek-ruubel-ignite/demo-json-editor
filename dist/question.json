@@ -64,15 +64,10 @@
       "properties" : {
       }
     },
-    "resourceGroups" : {
-      "title" : "Resource groups",
-      "type" : "array",
-      "propertyOrder": 6
-    },
     "filterResources" : {
       "title" : "Filter resources",
       "type" : "object",
-      "propertyOrder": 7,
+      "propertyOrder": 6,
       "additionalProperties" : false,
       "properties" : {
       }
@@ -80,22 +75,22 @@
     "useTextIfListEmpty" : {
       "title" : "Use text if list empty",
       "type" : "boolean",
-      "propertyOrder": 8
+      "propertyOrder": 7
     },
     "multipleChoicesAllowed" : {
       "title" : "Multiple choices",
       "type" : "boolean",
-      "propertyOrder": 9
+      "propertyOrder": 8
     },
     "persistent" : {
       "title" : "Persistent",
       "type" : "boolean",
-      "propertyOrder": 10
+      "propertyOrder": 9
     },
     "unit"  : {
       "title" : "Unit",
       "type" : "object",
-      "propertyOrder": 11,
+      "propertyOrder": 10,
       "additionalProperties" : false,
       "properties" : {
         "FI" : {
@@ -110,7 +105,8 @@
     },
     "showAnswerInResults" : {
       "title" : "Show answer in results",
-      "type" : "boolean"
+      "type" : "boolean",
+      "propertyOrder": 11
     },
     "optional" : {
       "title" : "Optional",
@@ -118,120 +114,78 @@
       "type" : "boolean",
       "propertyOrder": 12
     },
-    "entityClasses" : {
-      "title" : "Entity classes",
-      "type" : "array",
-      "propertyOrder": 13,
-      "items" : {
-        "type" : "string"
-      }
-    },
     "inputWidth" : {
       "title" : "Input width",
       "type" : "number",
-      "propertyOrder": 14
+      "propertyOrder": 13
     },
     "inputHeight" : {
       "title" : "Input height",
       "type" : "number",
-      "propertyOrder": 15
-    },
-    "additionalQuestionIds" :{
-      "title" : "Additional question Ids",
-      "type" : "array",
-      "propertyOrder": 16,
-      "items" : {
-        "type" : "string"
-      }
+      "propertyOrder": 14
     },
     "defaultValue" : {
       "title" : "Default value",
       "type" : "string",
-      "propertyOrder": 17
+      "propertyOrder": 15
     },
     "quantity" : {
       "title" : "Quantity",
       "type" : "boolean",
-      "propertyOrder": 18
+      "propertyOrder": 16
     },
     "recurringReplacement" : {
       "title" : "Recurring replacement",
       "type" : "boolean",
-      "propertyOrder": 19
+      "propertyOrder": 17
     },
     "showTypeahead" : {
       "title" : "Show type ahead",
       "type" : "boolean",
-      "propertyOrder": 20
+      "propertyOrder": 18
     },
     "valueConstraints" : {
       "title" : "Value constraints",
       "type" : "object",
-      "propertyOrder": 21,
+      "propertyOrder": 19,
       "additionalProperties" : false,
       "properties" : {
-      }
-    },
-
-    "choices" : {
-      "title" : "Choices",
-      "type"  : "array",
-      "propertyOrder": 22,
-      "items" : {
-        "$ref" : "dist/choice.json"
-      }
-    },
-
-    "allowedExtensions" : {
-      "title" : "Allowed extensions",
-      "type" : "array",
-      "propertyOrder": 23,
-      "items" : {
-        "type" : "object",
-        "additionalProperties" : false,
-        "properties" : {
-        }
       }
     },
     "maximumSize" : {
       "title" : "Max size",
       "type" : "number",
-      "propertyOrder": 24
+      "propertyOrder": 20
     },
     "preventDoubleEntries" : {
       "title" : "Prevent double entries",
       "type" : "boolean",
-      "propertyOrder": 25
+      "propertyOrder": 21
     },
-
     "defaultResourceId" : {
       "title" : "Default resource Id",
       "type" : "string",
-      "propertyOrder": 26
+      "propertyOrder": 22
     },
-
     "defaultValueFromResource" : {
       "title" : "Default value from resource",
       "type" : "string",
-      "propertyOrder": 27
+      "propertyOrder": 23
     },
-
     "mapToResourceType" : {
       "title" : "Map to resource type",
       "type" : "string",
-      "propertyOrder": 28
+      "propertyOrder": 24
     },
-
     "defaultValue" : {
       "title" : "Default value",
       "type" : "string",
-      "propertyOrder": 29
+      "propertyOrder": 25
     },
-
     "valueConstraints" : {
       "title" : "Value constraints",
       "type" : "object",
-      "propertyOrder": 30,
+      "propertyOrder": 26,
       "properties" : {
         "type" : {
           "type" : "string"
@@ -244,11 +198,50 @@
         }
       }
     },
-
     "licenseKey" : {
       "title" : "License key",
       "type" : "string",
+      "propertyOrder": 27
+    },
+    "allowedExtensions" : {
+      "title" : "Allowed extensions",
+      "type" : "array",
+      "propertyOrder": 28,
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+        }
+      }
+    },
+    "additionalQuestionIds" :{
+      "title" : "Additional question Ids",
+      "type" : "array",
+      "propertyOrder": 29,
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "entityClasses" : {
+      "title" : "Entity classes",
+      "type" : "array",
+      "propertyOrder": 30,
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "resourceGroups" : {
+      "title" : "Resource groups",
+      "type" : "array",
       "propertyOrder": 31
+    },
+    "choices" : {
+      "title" : "Choices",
+      "type"  : "array",
+      "propertyOrder": 32,
+      "items" : {
+        "$ref" : "dist/choice.json"
+      }
     }
   }
 }

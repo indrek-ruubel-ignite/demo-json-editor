@@ -46,54 +46,36 @@ var query_schema = {
                 }
             }
         },
-        "sections" : {
-            "title": "Sections",
-            "type" : "array",
-            "propertyOrder": 4,
-            "items" : {
-                "$ref"  : "dist/section.json"
-            }
-        },
         "allowMonthlyData" : {
             "title" : "Allow monthly data",
             "type" : "boolean",
-            "propertyOrder": 5
-        },
-        "summaryData" : {
-            "title" : "Summary data",
-            "type"  :   "array",
-            "propertyOrder": 6,
-            "items" :   {
-                "type"          :   "object",
-                "properties"    :   {
-                }
-            }
+            "propertyOrder": 4
         },
         "importTime" : {
             "title" : "Import time",
             "type" : "string",
-            "propertyOrder": 7,
+            "propertyOrder": 5,
         },
         "importFile" : {
             "title" : "Import file",
             "type" : "string",
-            "propertyOrder": 8
+            "propertyOrder": 6
         },
         "active" : {
             "title" : "Active",
             "type" : "boolean",
-            "propertyOrder": 9
+            "propertyOrder": 7
         },
         "disableHighlight" : {
             "title": "Disable highlight",
             "description" : "Disable the highlight",
             "type" : "boolean",
-            "propertyOrder": 10
+            "propertyOrder": 8
         },
         "help" : {
             "title" : "Help",
             "type" : "object",
-            "propertyOrder": 11,
+            "propertyOrder": 9,
             "additionalProperties" : false,
             "properties" : {
                 "FI" : { "type" : "string" },
@@ -104,12 +86,37 @@ var query_schema = {
             "title" : "Component Query",
             "description" : "Query can only be used for entity with entityClass == “component” and componentAbilityLicensed (mapping entity datasets as resources).",
             "type" : "boolean",
+            "propertyOrder": 10,
+        },
+        "lastUpdated" : {
+            "title" : "Last updated",
+            "type" : "string",
+            "propertyOrder": 11,
+        },
+        "owner" : {
+            "title" : "Owner",
+            "type"  :   "string",
             "propertyOrder": 12,
+        },
+        "status" : {
+            "title" : "Status",
+            "type"  :   "string",
+            "propertyOrder": 13
+        },
+        "last_modified" : {
+            "title" : "Last modified",
+            "type"  : "string",
+            "propertyOrder": 14
+        },
+        "history" : {
+            "title" : "History",
+            "type" : "object",
+            "propertyOrder": 15
         },
         "includedSections" : {
             "title" : "Included sections",
             "type" : "array",
-            "propertyOrder": 13,
+            "propertyOrder": 16,
             "items" : {
                 "type" : "object",
                 "additionalProperties" : false,
@@ -118,47 +125,23 @@ var query_schema = {
                 }
             }
         },
-
-        /**
-        *   Illegal parameters, according to spec
-        */
-        // inputType - additional option "checkbox"
-        // in questions - illegal param "mapToResourceType"
-        // in questions - illegal param "defaultValue"
-        // in questions - illegal param "valueConstraints"
-        // in questions - "defaultValue" was string and number, can only be one type
-        // in questions - illegal param "licenseKey"
-
-        "lastUpdated" : {
-            "title" : "Last updated",
-            "type" : "string",
-            "propertyOrder": 14,
+        "summaryData" : {
+            "title" : "Summary data",
+            "type"  :   "array",
+            "propertyOrder": 17,
+            "items" :   {
+                "type"          :   "object",
+                "properties"    :   {
+                }
+            }
         },
-        "owner" : {
-            "title" : "Owner",
-            "type"  :   "string",
-            "propertyOrder": 15,
+        "sections" : {
+            "title": "Sections",
+            "type" : "array",
+            "propertyOrder": 18,
+            "items" : {
+                "$ref"  : "dist/section.json"
+            }
         },
-        "status" : {
-            "title" : "Status",
-            "type"  :   "string",
-            "propertyOrder": 16
-        },
-        "last_modified" : {
-            "title" : "Last modified",
-            "type"  : "string",
-            "propertyOrder": 17
-        },
-
-        "history" : {
-            "title" : "History",
-            "type" : "object",
-            "propertyOrder": 18
-//            "patternProperties": {
-//                "^1": {
-//                  "type": "string"
-//                }
-//            }
-        }
     }
 }
