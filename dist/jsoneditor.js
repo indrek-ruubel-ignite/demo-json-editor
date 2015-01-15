@@ -5931,7 +5931,7 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
       input.style.cssFloat = 'left';
     }
     else {
-      group.className += ' form-group no-gutter form-horizontal';
+      group.className += ' form-group no-gutter';// form-horizontal';
       if(label) {
         var wrapper = document.createElement('div');
         wrapper.className = 'col-lg-1';
