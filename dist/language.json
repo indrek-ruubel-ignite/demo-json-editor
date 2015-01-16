@@ -1,0 +1,27 @@
+{
+  "type" : "object",
+  "additionalProperties" : false,
+  "defaultProperties": ["EN"],
+  "properties" : {
+    "EN" : {
+      "description"   :   "English translation",
+      "type"          :   "string"
+    },
+    "FI" : {
+      "description"   :   "Finnish translation",
+      "type"          :   "string"
+    },
+    "SV" : {
+      "description"   :   "Swedish translation",
+      "type"          :   "string"
+    },
+    "NO" : {
+      "description"   :   "Norwegian translation",
+      "type"          :   "string"
+    },
+    "RU" : {
+      "description"   :   "Russian translation",
+      "type"          :   "string"
+    }
+  }
+}

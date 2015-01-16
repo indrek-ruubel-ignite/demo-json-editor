@@ -7,41 +7,22 @@
   "properties" : {
     "questionId" : {
       "title" : "Id",
+      "minLength" : 1,
+      "optional" : false,
+      "pattern" : "^[a-zA-Z0-9_]+$",
       "description" : "Question Id",
       "type" : "string",
       "propertyOrder": 1
     },
     "question" : {
       "title" : "Question",
-      "type" : "object",
       "propertyOrder": 2,
-      "additionalProperties" : false,
-      "properties" : {
-        "FI" : {
-          "description"   :   "Finnish title",
-          "type"          :   "string"
-        },
-        "EN" : {
-          "description"   :   "English title",
-          "type"          :   "string"
-        }
-      }
+      "$ref" : "dist/language.json"
     },
     "help"  : {
       "title" : "Help",
-      "type" : "object",
       "propertyOrder": 3,
-      "additionalProperties" : false,
-      "properties" : {
-        "FI" : {
-          "description"   :   "Finnish title",
-          "type"          :   "string"
-        },
-        "EN" : {
-          "description"   :   "English title",
-          "type"          :   "string"
-        }
-      }
+      "$ref" : "dist/language.json"
     },
     "inputType" : {
       "title" : "Input type",
@@ -89,19 +70,8 @@
     },
     "unit"  : {
       "title" : "Unit",
-      "type" : "object",
       "propertyOrder": 10,
-      "additionalProperties" : false,
-      "properties" : {
-        "FI" : {
-          "description"   :   "Finnish title",
-          "type"          :   "string"
-        },
-        "EN" : {
-          "description"   :   "English title",
-          "type"          :   "string"
-        }
-      }
+      "$ref" : "dist/language.json"
     },
     "showAnswerInResults" : {
       "title" : "Show answer in results",

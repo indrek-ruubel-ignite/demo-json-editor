@@ -7,6 +7,9 @@
   "properties"    :   {
     "answerId" : {
       "title" : "Id",
+      "minLength" : 1,
+      "pattern" : "^[a-zA-Z0-9_]+$",
+      "optional" : false,
       "propertyOrder": 1,
       "description" : "Answer id",
       "type" : "string"
@@ -14,34 +17,12 @@
     "answer" : {
       "title" : "Answer",
       "propertyOrder": 2,
-      "type" : "object",
-      "additionalProperties" : false,
-      "properties" : {
-        "FI" : {
-          "description"   :   "Finnish title",
-          "type"          :   "string"
-        },
-        "EN" : {
-          "description"   :   "English title",
-          "type"          :   "string"
-        }
-      }
+      "$ref" : "dist/language.json"
     },
     "help"  : {
       "title" : "Help",
       "propertyOrder": 3,
-      "type" : "object",
-      "additionalProperties" : false,
-      "properties" : {
-        "FI" : {
-          "description"   :   "Finnish title",
-          "type"          :   "string"
-        },
-        "EN" : {
-          "description"   :   "English title",
-          "type"          :   "string"
-        }
-      }
+      "$ref" : "dist/language.json"
     },
     "pointsFactor" : {
       "title" : "Points factor",

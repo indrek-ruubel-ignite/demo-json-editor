@@ -1,12 +1,16 @@
 {
   "title": "Section",
   "type" : "object",
+  "description" : "Section item",
   "required" : ["sectionId", "name"],
   "defaultProperties": ["sectionId", "name"],
   "additionalProperties" : false,
   "properties" : {
     "sectionId" : {
       "title" :   "Id",
+      "minLength" : 1,
+      "pattern" : "^[a-zA-Z0-9_]+$",
+      "optional" : false,
       "description" : "Id of the section",
       "propertyOrder": 1,
       "type"  :   "string"
@@ -15,34 +19,12 @@
       "title" :   "Name",
       "description" : "Name for the section in different languages",
       "propertyOrder": 2,
-      "type" : "object",
-      "additionalProperties" : false,
-      "properties" : {
-        "FI" : {
-          "description"   :   "Finnish title",
-          "type"          :   "string"
-        },
-        "EN" : {
-          "description"   :   "English title",
-          "type"          :   "string"
-        }
-      }
+      "$ref" : "dist/language.json"
     },
     "help"  : {
       "title" : "Help",
-      "type" : "object",
       "propertyOrder": 3,
-      "additionalProperties" : false,
-      "properties" : {
-        "FI" : {
-          "description"   :   "Finnish title",
-          "type"          :   "string"
-        },
-        "EN" : {
-          "description"   :   "English title",
-          "type"          :   "string"
-        }
-      }
+      "$ref" : "dist/language.json"
     },
     "skipInResultsView" : {
       "title" : "Skip in results view",

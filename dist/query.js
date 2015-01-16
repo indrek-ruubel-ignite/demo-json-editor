@@ -4,67 +4,32 @@ var query_schema = {
     "type": "object",
     "required"	:	["queryId", "name", "sections"],
     "defaultProperties": ["queryId", "name", "sections"],
-    "additionalProperties" : false,
+//    "additionalProperties" : false,
     "properties": {
         "queryId": {
           "type": "string",
+          "minLength" : 1,
+          "pattern" : "^[a-zA-Z0-9_]+$",
+          "optional" : false,
           "title" : "Id",
           "description": "Query Id",
           "propertyOrder": 1,
-          "default": "default from schema"
+          "default": "1"
         },
         "name": {
             "title" : "Title",
-            "type": "object",
             "propertyOrder": 2,
-            "additionalProperties" : false,
-            "properties" : {
-                "FI" : {
-                    "description"   :   "Finnish title",
-                    "type"          :   "string"
-                },
-                "EN" : {
-                    "description"   :   "English title",
-                    "type"          :   "string"
-                }
-            }
+            "$ref" : "dist/language.json"
         },
         "purpose" : {
             "title" : "Purpose",
-            "type": "object",
             "propertyOrder": 3,
-            "additionalProperties" : false,
-            "defaultProperties": ["EN", "FI"],
-            "properties" : {
-                "FI" : {
-                    "description"   :   "Finnish title",
-                    "type"          :   "string"
-                },
-                "EN" : {
-                    "description"   :   "English title",
-                    "type"          :   "string"
-                }
-            }
+            "$ref" : "dist/language.json"
         },
         "allowMonthlyData" : {
             "title" : "Allow monthly data",
             "type" : "boolean",
             "propertyOrder": 4
-        },
-        "importTime" : {
-            "title" : "Import time",
-            "type" : "string",
-            "propertyOrder": 5,
-        },
-        "importFile" : {
-            "title" : "Import file",
-            "type" : "string",
-            "propertyOrder": 6
-        },
-        "active" : {
-            "title" : "Active",
-            "type" : "boolean",
-            "propertyOrder": 7
         },
         "disableHighlight" : {
             "title": "Disable highlight",
@@ -74,29 +39,14 @@ var query_schema = {
         },
         "help" : {
             "title" : "Help",
-            "type" : "object",
             "propertyOrder": 9,
-            "additionalProperties" : false,
-            "properties" : {
-                "FI" : { "type" : "string" },
-                "EN" : { "type" : "string" }
-            }
+            "$ref" : "dist/language.json"
         },
         "componentQuery" : {
             "title" : "Component Query",
             "description" : "Query can only be used for entity with entityClass == “component” and componentAbilityLicensed (mapping entity datasets as resources).",
             "type" : "boolean",
             "propertyOrder": 10,
-        },
-        "lastUpdated" : {
-            "title" : "Last updated",
-            "type" : "string",
-            "propertyOrder": 11,
-        },
-        "owner" : {
-            "title" : "Owner",
-            "type"  :   "string",
-            "propertyOrder": 12,
         },
         "status" : {
             "title" : "Status",
@@ -137,6 +87,7 @@ var query_schema = {
         },
         "sections" : {
             "title": "Sections",
+            "description" : "Sections",
             "type" : "array",
             "propertyOrder": 18,
             "items" : {

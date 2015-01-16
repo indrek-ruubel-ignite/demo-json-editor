@@ -819,7 +819,7 @@ JSONEditor.Validator = Class.extend({
     // Work on a copy of the schema
     schema = $extend({},this.jsoneditor.expandRefs(schema));
 
-    return Validator.validate(value, schema);
+//    return Validator.validate(value, schema);
 
     // Follows old not used
 
@@ -1073,6 +1073,7 @@ JSONEditor.Validator = Class.extend({
 
       // `minLength`
       if(schema.minLength) {
+        value = value.trim();
         if((value+"").length < schema.minLength) {
           errors.push({
             path: path,
@@ -1868,7 +1869,7 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
   build: function() {
     var self = this, i;
     if(!this.options.compact) this.header = this.label = this.theme.getFormInputLabel(this.getTitle());
-    if(this.schema.description) this.description = this.theme.getFormInputDescription(this.schema.description);
+//    if(this.schema.description) this.description = this.theme.getFormInputDescription(this.schema.description);
 
     this.format = this.schema.format;
     if(!this.format && this.schema.media && this.schema.media.type) {
@@ -1971,6 +1972,8 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
       this.input_type = 'text';
       this.input = this.theme.getFormInputField(this.input_type, this.isRequired(this));
     }
+
+    if(this.schema.description) this.input.title = this.schema.description;
 
     // minLength, maxLength, and pattern
     if(typeof this.schema.maxLength !== "undefined") this.input.setAttribute('maxlength',this.schema.maxLength);
@@ -2537,6 +2540,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
     // If the object should be rendered as a div
     else {
       this.header = document.createElement('span');
+      if(this.schema.description) this.header.title = this.schema.description;
       this.header.textContent = this.getTitle();
       this.title = this.theme.getHeader(this.header);
       this.container.appendChild(this.title);
@@ -2634,10 +2638,10 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
 
       // Description
-      if(this.schema.description) {
-        this.description = this.theme.getDescription(this.schema.description);
-        this.container.appendChild(this.description);
-      }
+//      if(this.schema.description) {
+//        this.description = this.theme.getDescription(this.schema.description);
+//        this.container.appendChild(this.description);
+//      }
 
       // Validation error placeholder area
       this.error_holder = document.createElement('div');
@@ -3289,14 +3293,15 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
     if(!this.options.compact) {
       this.header = document.createElement('span');
       this.header.textContent = this.getTitle();
+      if(this.schema.description) this.header.title = this.schema.description;
       this.title = this.theme.getHeader(this.header);
       this.container.appendChild(this.title);
       this.title_controls = this.theme.getHeaderButtonHolder();
       this.title.appendChild(this.title_controls);
-      if(this.schema.description) {
-        this.description = this.theme.getDescription(this.schema.description);
-        this.container.appendChild(this.description);
-      }
+//      if(this.schema.description) {
+//        this.description = this.theme.getDescription(this.schema.description);
+//        this.container.appendChild(this.description);
+//      }
       this.error_holder = document.createElement('div');
       this.container.appendChild(this.error_holder);
 
@@ -4954,12 +4959,14 @@ JSONEditor.defaults.editors.select = JSONEditor.AbstractEditor.extend({
   build: function() {
     var self = this;
     if(!this.options.compact) this.header = this.label = this.theme.getFormInputLabel(this.getTitle());
-    if(this.schema.description) this.description = this.theme.getFormInputDescription(this.schema.description);
+//    if(this.schema.description) this.description = this.theme.getFormInputDescription(this.schema.description);
 
     if(this.options.compact) this.container.setAttribute('class',this.container.getAttribute('class')+' compact');
 
     this.input = this.theme.getSelectInput(this.enum_options);
     this.theme.setSelectOptions(this.input,this.enum_options,this.enum_display);
+
+    if(this.schema.description) this.input.title = this.schema.description;
 
     if(this.schema.readOnly || this.schema.readonly) {
       this.always_disabled = true;
@@ -5178,7 +5185,7 @@ JSONEditor.defaults.editors.multiselect = JSONEditor.AbstractEditor.extend({
   build: function() {
     var self = this, i;
     if(!this.options.compact) this.header = this.label = this.theme.getFormInputLabel(this.getTitle());
-    if(this.schema.description) this.description = this.theme.getFormInputDescription(this.schema.description);
+//    if(this.schema.description) this.description = this.theme.getFormInputDescription(this.schema.description);
 
     if((!this.schema.format && this.option_keys.length < 8) || this.schema.format === "checkbox") {
       this.input_type = 'checkboxes';
@@ -5211,6 +5218,8 @@ JSONEditor.defaults.editors.multiselect = JSONEditor.AbstractEditor.extend({
 
       this.control = this.theme.getFormControl(this.label, this.input, this.description);
     }
+
+    if(this.schema.description) this.input.title = this.schema.description;
 
     this.container.appendChild(this.control);
     this.control.addEventListener('change',function(e) {
@@ -5356,8 +5365,10 @@ JSONEditor.defaults.editors.base64 = JSONEditor.AbstractEditor.extend({
       });
     }
 
-    this.preview = this.theme.getFormInputDescription(this.schema.description);
-    this.container.appendChild(this.preview);
+//    this.preview = this.theme.getFormInputDescription(this.schema.description);
+//    this.container.appendChild(this.preview);
+
+    if(this.schema.description) this.container.title = this.schema.description;
 
     this.control = this.theme.getFormControl(this.label, this.uploader||this.input, this.preview);
     this.container.appendChild(this.control);
@@ -5454,8 +5465,9 @@ JSONEditor.defaults.editors.upload = JSONEditor.AbstractEditor.extend({
     var description = this.schema.description;
     if (!description) description = '';
 
-    this.preview = this.theme.getFormInputDescription(description);
-    this.container.appendChild(this.preview);
+//    this.preview = this.theme.getFormInputDescription(description);
+//    this.container.appendChild(this.preview);
+    if(this.schema.description) this.container.title = this.schema.description;
 
     this.control = this.theme.getFormControl(this.label, this.uploader||this.input, this.preview);
     this.container.appendChild(this.control);
