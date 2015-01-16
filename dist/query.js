@@ -61,6 +61,7 @@ var query_schema = {
         "history" : {
             "title" : "History",
             "type" : "object",
+            "additionalProperties" : true,
             "propertyOrder": 15
         },
         "includedSections" : {

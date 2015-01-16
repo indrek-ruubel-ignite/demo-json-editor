@@ -12,18 +12,6 @@
 /**
 * Global API to model manipulation
 */
-var GlobalTriggers = {
-
-'removeCallbacks' : {},
-
-'removeObjectProperty' : function(key){
- this.removeCallbacks[key]();
-},
-
-'addRemoveCallback' : function(key, callback){
- this.removeCallbacks[key] = callback;
-}
-};
 
 // If children sections of root should be expanded at first
 var children_expanded = false;
@@ -315,6 +303,7 @@ JSONEditor.prototype = {
       return this.validation_results;
     }
   },
+
   destroy: function() {
     if(this.destroyed) return;
     if(!this.ready) return;
@@ -1391,6 +1380,7 @@ JSONEditor.AbstractEditor = Class.extend({
 
     if(options.container) this.setContainer(options.container);
   },
+
   setContainer: function(container) {
     this.container = container;
     if(this.schema.id) this.container.setAttribute('data-schemaid',this.schema.id);
@@ -1626,7 +1616,7 @@ JSONEditor.AbstractEditor = Class.extend({
       }
     }
     if(this.link_watchers.length) {
-      vars = this.getWatchedFieldValues();
+      vars = thgeis.tWatchedFieldValues();
       for(var i=0; i<this.link_watchers.length; i++) {
         this.link_watchers[i](vars);
       }
@@ -1652,6 +1642,7 @@ JSONEditor.AbstractEditor = Class.extend({
   getChildEditors: function() {
     return false;
   },
+
   destroy: function() {
     var self = this;
     this.unregister(this);
@@ -1801,6 +1792,20 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
   },
   setValue: function(value,initial,from_template) {
     var self = this;
+
+    // MODIFICATION_INC
+
+    if(self.key === "sectionId" && value.trim().length){
+      var spans = self.parent.container.getElementsByClassName('sectionTitle');
+      var span = spans[0];
+      span.textContent = value;
+    }
+
+    if(self.key === "questionId" && value.trim().length){
+      var spans = self.parent.container.getElementsByClassName('sectionTitle');
+      var span = spans[0];
+      span.textContent = value;
+    }
 
     if(this.template && !from_template) {
       return;
@@ -1987,10 +1992,17 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
       this.input.disabled = true;
     }
 
-    this.input
-      .addEventListener('change',function(e) {
+    this.input.addEventListener('change',function(e) {
         e.preventDefault();
         e.stopPropagation();
+
+        if(self.key === "questionId"){
+          console.log("QuestionId changing");
+          var spans = self.parent.container.getElementsByClassName('sectionTitle');
+          var span = spans[0];
+          span.textContent = self.value;
+          span.textContent = self.container.getElementsByTagName('input')[0].value;
+        }
 
         // Don't allow changing if this field is a template
         if(self.schema.template) {
@@ -2023,9 +2035,8 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
           /**
           * Remove callback, do object manipulation
           */
-          // Path to disable
-          var path = self.path;
-          GlobalTriggers.removeObjectProperty(path);
+          self.parent.removeObjectProperty(self.key);
+          self.onChange(true);
       });
     }
 
@@ -2541,6 +2552,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
     else {
       this.header = document.createElement('span');
       if(this.schema.description) this.header.title = this.schema.description;
+      this.header.className = 'sectionTitle';
       this.header.textContent = this.getTitle();
       this.title = this.theme.getHeader(this.header);
       this.container.appendChild(this.title);
@@ -2848,15 +2860,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
     this.insertPropertyControlUsingPropertyOrder(key, control, this.addproperty_list);
 
     checkbox.checked = key in this.editors;
-//    checkbox.addEventListener('change',function() {
-//      if(checkbox.checked) {
-//        self.addObjectProperty(key);
-//      }
-//      else {
-//        self.removeObjectProperty(key);
-//      }
-//      self.onChange(true);
-//    });
 
     // MODIFICATION_INC
 
@@ -2877,37 +2880,9 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
     };
 
-    checkbox.addEventListener('minusButton',function() {
-      checkbox.click();
-      checkboxChangeEvent();
-    });
-
     checkbox.addEventListener('change',function() {
       checkboxChangeEvent();
     });
-
-    var fireEvent = function(element,event) {
-       if (document.createEvent) {
-           // dispatch for firefox + others
-           var evt = document.createEvent("HTMLEvents");
-           evt.initEvent(event, true, true ); // event type,bubbling,cancelable
-           return !element.dispatchEvent(evt);
-       } else {
-           // dispatch for IE
-           var evt = document.createEventObject();
-           return element.fireEvent('on'+event,evt)
-       }
-    }
-
-    /**
-    * Global remove access point
-    */
-    var absPathKey = self.path + "." + key;
-    var callback = function(){
-      fireEvent(checkbox, "minusButton");
-    };
-    GlobalTriggers.addRemoveCallback(absPathKey, callback);
-
 
     self.addproperty_checkboxes[key] = checkbox;
 
@@ -3292,6 +3267,7 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
 
     if(!this.options.compact) {
       this.header = document.createElement('span');
+      this.header.className = 'sectionsTitle';
       this.header.textContent = this.getTitle();
       if(this.schema.description) this.header.title = this.schema.description;
       this.title = this.theme.getHeader(this.header);
@@ -4981,18 +4957,16 @@ JSONEditor.defaults.editors.select = JSONEditor.AbstractEditor.extend({
 
     this.control = this.theme.getFormControl(this.label, this.input, this.description, function(){
       // MODIFICATION_INC
-
       /**
       * Remove callback, do object manipulation
       */
-      // Path to disable
-      var path = self.path;
-      GlobalTriggers.removeObjectProperty(path);
+      self.parent.removeObjectProperty(self.key);
     });
     this.container.appendChild(this.control);
 
     this.value = this.enum_values[0];
   },
+
   onInputChange: function() {
     // MODIFCATION_INC
     var selects = this.input.getElementsByTagName('select');
@@ -5562,6 +5536,9 @@ JSONEditor.defaults.editors.upload = JSONEditor.AbstractEditor.extend({
 });
 
 JSONEditor.AbstractTheme = Class.extend({
+  getExistingContainer: function(){
+    return this.container;
+  },
   getContainer: function() {
     return document.createElement('div');
   },
