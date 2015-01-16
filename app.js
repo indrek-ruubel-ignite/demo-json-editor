@@ -4,7 +4,7 @@ var app = (function() {
     var t = {};
 
     var schema = null;
-    var schema_editor_id = "schema";
+//    var schema_editor_id = "schema";
     var query_editor_id = "output";
 
     /**
@@ -53,7 +53,7 @@ var app = (function() {
         /**
         *   Buttons
         */
-        var $set_schema_button = document.getElementById('setschema');
+//        var $set_schema_button = document.getElementById('setschema');
         var $set_value_button = document.getElementById('setvalue');
 
         var reload = function(keep_value) {
@@ -95,13 +95,13 @@ var app = (function() {
         /**
         *   Setup ACE editors
         */
-        var schema_editor = ace.edit(schema_editor_id);
-        schema_editor.setTheme("ace/theme/monokai");
-        schema_editor.getSession().setMode("ace/mode/javascript");
-        schema_editor.setOptions({
-            maxLines: Infinity
-        });
-        schema_editor.setValue("");
+//        var schema_editor = ace.edit(schema_editor_id);
+//        schema_editor.setTheme("ace/theme/monokai");
+//        schema_editor.getSession().setMode("ace/mode/javascript");
+//        schema_editor.setOptions({
+//            maxLines: Infinity
+//        });
+//        schema_editor.setValue("");
 
         var query_editor = ace.edit(query_editor_id);
         query_editor.setTheme("ace/theme/monokai");
@@ -139,17 +139,17 @@ var app = (function() {
             }
         });
 
-        $set_schema_button.addEventListener('click',function() {
-            try {
-                schema = JSON.parse(schema_editor.getValue());
-            }
-            catch(e) {
-                alert('Invalid Schema: '+e.message);
-                return;
-            }
-
-            reload();
-        });
+//        $set_schema_button.addEventListener('click',function() {
+//            try {
+//                schema = JSON.parse(schema_editor.getValue());
+//            }
+//            catch(e) {
+//                alert('Invalid Schema: '+e.message);
+//                return;
+//            }
+//
+//            reload();
+//        });
 
         /**
         *   Theme loading, styling
@@ -174,7 +174,7 @@ var app = (function() {
         */
         loadSchema(function(res){
             schema = res;
-            schema_editor.setValue(JSON.stringify(res, null, 2));
+//            schema_editor.setValue(JSON.stringify(res, null, 2));
             reload();
         });
     };
