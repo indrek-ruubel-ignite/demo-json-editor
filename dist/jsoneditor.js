@@ -277,7 +277,7 @@ JSONEditor.prototype = {
         var root = wells[0];
         root.style.display = '';
       }
-    }, 1000);
+    }, 100);
 
   },
   getValue: function() {
