@@ -1996,8 +1996,7 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
         e.preventDefault();
         e.stopPropagation();
 
-        if(self.key === "questionId"){
-          console.log("QuestionId changing");
+        if(self.key === "questionId" || self.key === "sectionId"){
           var spans = self.parent.container.getElementsByClassName('sectionTitle');
           var span = spans[0];
           span.textContent = self.value;
