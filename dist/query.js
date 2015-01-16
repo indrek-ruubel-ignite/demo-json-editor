@@ -17,7 +17,7 @@ var query_schema = {
           "default": "1"
         },
         "name": {
-            "title" : "Title",
+            "title" : "Name",
             "propertyOrder": 2,
             "$ref" : "dist/language.json"
         },
