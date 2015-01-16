@@ -4,7 +4,7 @@ var query_schema = {
     "type": "object",
     "required"	:	["queryId", "name", "sections"],
     "defaultProperties": ["queryId", "name", "sections"],
-//    "additionalProperties" : false,
+    "additionalProperties" : false,
     "properties": {
         "queryId": {
           "type": "string",
