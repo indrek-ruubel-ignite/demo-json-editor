@@ -2034,7 +2034,11 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
           /**
           * Remove callback, do object manipulation
           */
-          self.parent.removeObjectProperty(self.key);
+          if(self.formname.indexOf("history") > -1){
+            self.parent.parent.removeObjectProperty(self.key);
+          }else{
+            self.parent.removeObjectProperty(self.key);
+          }
           self.onChange(true);
       });
     }
@@ -2918,6 +2922,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
     else this.showAddProperty();
   },
   removeObjectProperty: function(property) {
+
     if(this.editors[property]) {
       this.editors[property].unregister();
       delete this.editors[property];
@@ -2946,7 +2951,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
       var schema = self.getPropertySchema(name);
 
-
       // Add the property
       var editor = self.jsoneditor.getEditorClass(schema);
 
@@ -2956,6 +2960,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         path: self.path+'.'+name,
         parent: self
       });
+
       self.editors[name].preBuild();
 
       if(!prebuild_only) {
@@ -3060,7 +3065,9 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
           this.addproperty_checkboxes[i].disabled = true;
         }
         else {
-          this.addproperty_checkboxes[i].disabled = false;
+          if(typeof this.addproperty_checkboxes[i] !== 'undefined'){
+            this.addproperty_checkboxes[i].disabled = false;
+          }
           show_modal = true;
         }
       }
