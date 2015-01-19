@@ -2034,7 +2034,8 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
           /**
           * Remove callback, do object manipulation
           */
-          if(self.formname.indexOf("history") > -1){
+//          if(self.formname.indexOf("history") > -1){
+          if(typeof self.parent.removeObjectProperty === 'undefined'){
             self.parent.parent.removeObjectProperty(self.key);
           }else{
             self.parent.removeObjectProperty(self.key);
@@ -2934,6 +2935,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
   addObjectProperty: function(name, prebuild_only) {
     var self = this;
 
+    // . notation fails
     name = name.replace(".", "_");
 
     // Property is already added
