@@ -2611,7 +2611,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
       if(typeof this.parent !== 'undefined' && Array.isArray(this.parent.schema.required)){
         fieldIsRequired = this.parent.schema.required.indexOf(self.key) > -1;
         if(!fieldIsRequired){
-
           this.removefield_holder = document.createElement('div');
           this.removefield_holder.className = 'btn-group';
           this.removefield_holder.style.marginLeft = '10px';
@@ -3319,8 +3318,6 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
       var fieldIsRequired = true;
       if(typeof this.parent !== 'undefined' && Array.isArray(this.parent.schema.required)){
         fieldIsRequired = this.parent.schema.required.indexOf(self.key) > -1;
-        console.log(self.key + " isRequired: "+ fieldIsRequired);
-
         if(!fieldIsRequired){
 
           this.removefield_holder = document.createElement('div');
