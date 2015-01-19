@@ -2606,6 +2606,31 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
       this.addproperty_list.style.overflowX = 'hidden';
       this.addproperty_list.style.paddingLeft = '5px';
 
+      // Remove button
+      var fieldIsRequired = true;
+      if(typeof this.parent !== 'undefined' && Array.isArray(this.parent.schema.required)){
+        fieldIsRequired = this.parent.schema.required.indexOf(self.key) > -1;
+        if(!fieldIsRequired){
+
+          this.removefield_holder = document.createElement('div');
+          this.removefield_holder.className = 'btn-group';
+          this.removefield_holder.style.marginLeft = '10px';
+          this.removefield_button = document.createElement('button');
+          this.removefield_button.title = 'Remove';
+          this.removefield_button.className = 'btn btn-default json-editor-btn-delete';
+          var icon = document.createElement('i');
+          icon.className = 'fa fa-minus';
+          this.removefield_button.appendChild(icon);
+          this.removefield_holder.appendChild(this.removefield_button);
+
+          this.removefield_button.addEventListener('click', function(){
+            self.parent.removeObjectProperty(self.key);
+            self.onChange(true);
+          });
+        }
+      }
+
+
 
       if(can_add){
         this.addproperty_add = this.getButton('add','add','add');
@@ -2691,6 +2716,9 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
       this.title.appendChild(this.title_controls);
 //      this.title.appendChild(this.editjson_controls);
       this.title.appendChild(this.addproperty_controls);
+      if(!fieldIsRequired){
+        this.title.appendChild(this.removefield_holder);
+      }
 
       // Show/Hide button
       // MODIFICATION_INC
@@ -3287,10 +3315,34 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
       this.container.appendChild(this.title);
       this.title_controls = this.theme.getHeaderButtonHolder();
       this.title.appendChild(this.title_controls);
-//      if(this.schema.description) {
-//        this.description = this.theme.getDescription(this.schema.description);
-//        this.container.appendChild(this.description);
-//      }
+
+      var fieldIsRequired = true;
+      if(typeof this.parent !== 'undefined' && Array.isArray(this.parent.schema.required)){
+        fieldIsRequired = this.parent.schema.required.indexOf(self.key) > -1;
+        console.log(self.key + " isRequired: "+ fieldIsRequired);
+
+        if(!fieldIsRequired){
+
+          this.removefield_holder = document.createElement('div');
+          this.removefield_holder.className = 'btn-group';
+          this.removefield_holder.style.marginLeft = '10px';
+          this.removefield_button = document.createElement('button');
+          this.removefield_button.title = 'Remove';
+          this.removefield_button.className = 'btn btn-default json-editor-btn-delete';
+          var icon = document.createElement('i');
+          icon.className = 'fa fa-minus';
+          this.removefield_button.appendChild(icon);
+          this.removefield_holder.appendChild(this.removefield_button);
+          this.title.appendChild(this.removefield_holder);
+
+          this.removefield_button.addEventListener('click', function(){
+            self.parent.removeObjectProperty(self.key);
+            self.onChange(true);
+          });
+        }
+
+      }
+
       this.error_holder = document.createElement('div');
       this.container.appendChild(this.error_holder);
 
