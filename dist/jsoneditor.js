@@ -1798,13 +1798,13 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
     if(self.key === "sectionId" && value.trim().length){
       var spans = self.parent.container.getElementsByClassName('sectionTitle');
       var span = spans[0];
-      span.textContent = value;
+      span.textContent = "Section: " + value;
     }
 
     if(self.key === "questionId" && value.trim().length){
       var spans = self.parent.container.getElementsByClassName('sectionTitle');
       var span = spans[0];
-      span.textContent = value;
+      span.textContent = "Question: " + value;
     }
 
     if(this.template && !from_template) {
