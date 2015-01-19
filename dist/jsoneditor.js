@@ -2629,8 +2629,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         }
       }
 
-
-
       if(can_add){
         this.addproperty_add = this.getButton('add','add','add');
         this.addproperty_input = this.theme.getFormInputField('text');
@@ -3337,7 +3335,6 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
             self.onChange(true);
           });
         }
-
       }
 
       this.error_holder = document.createElement('div');
