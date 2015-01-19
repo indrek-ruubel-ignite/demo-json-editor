@@ -2003,7 +2003,7 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
           var spans = self.parent.container.getElementsByClassName('sectionTitle');
           var span = spans[0];
           span.textContent = self.value;
-          span.textContent = self.container.getElementsByTagName('input')[0].value;
+          span.textContent = (self.key === "questionId" ? "Question: " : "Section: ") + self.container.getElementsByTagName('input')[0].value;
         }
 
         // Don't allow changing if this field is a template
