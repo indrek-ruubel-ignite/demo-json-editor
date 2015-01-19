@@ -265,19 +265,22 @@ JSONEditor.prototype = {
         self.root.showValidationErrors(self.validation_results);
         self.trigger('ready');
         self.trigger('change');
+        if(!children_expanded){
+          openFirstWell();
+        }
       });
     });
 
     // MODIFICATION_INC
     // Set the root well visible
-    var wells = this.root_container.getElementsByClassName("well-sm");
-    // Needs to wait for render to finish
-    setTimeout(function(){
+
+    var openFirstWell = function(){
+      var wells = self.root_container.getElementsByClassName("well-sm");
       if(wells.length > 0){
         var root = wells[0];
         root.style.display = '';
       }
-    }, 1000);
+    }
 
   },
   getValue: function() {
