@@ -2934,6 +2934,8 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
   addObjectProperty: function(name, prebuild_only) {
     var self = this;
 
+    name = name.replace(".", "_");
+
     // Property is already added
     if(this.editors[name]) return;
 
