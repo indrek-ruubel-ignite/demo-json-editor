@@ -1979,6 +1979,45 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
     else {
       this.input_type = 'text';
       this.input = this.theme.getFormInputField(this.input_type, this.isRequired(this));
+      var forms = this.container.getElementsByClassName('form-group');
+      // INFO ICON
+
+      if(this.key === 'queryId' || this.key === 'questionId'){
+        setTimeout(function(){
+          var infoWrapper = document.createElement('div');
+          infoWrapper.className = 'col-lg-1';
+
+          var a = document.createElement('a');
+          a.rel = "popover";
+          a.className = 'margin-left-5 form-horizontal';
+          a.href = "javascript:;";
+          var img = document.createElement('img');
+          img.src = "./css/infosign_small.png";
+          a.appendChild(img);
+
+          $(a).popover({
+            "html"        : true,
+            "trigger"     : "hover",
+            "title"       : "Info",
+            "content"     : "What goes here?",
+            "placement"   : "top"
+          });
+
+          infoWrapper.appendChild(a);
+
+          // Remove previous clear
+          forms[0].getElementsByClassName('clear')[0].remove();
+
+          forms[0].appendChild(infoWrapper);
+
+          // Add new clear
+          var clear = document.createElement('div');
+          clear.className = 'clear';
+          forms[0].appendChild(clear);
+
+        }, 100);
+      }
+
     }
 
     if(this.schema.description) this.input.title = this.schema.description;
@@ -5985,11 +6024,17 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
     if(type !== 'checkbox') {
         // MODIFICATION_INC
         var wrapper = document.createElement('div');
-        wrapper.className = 'col-lg-' + (required ? '11' : '10');
+        wrapper.className = 'col-lg-10';// + (required ? '11' : '10');
         el.className += 'form-control';
         wrapper.appendChild(el);
         return wrapper;
-//      el.className += 'form-control';
+
+//        document.createElement
+//
+//        <a data-content="<strong>Environment Data Source:</strong> DEFRA Carbon Facto…/strong> null<br /><strong>Data Created:</strong> 2014<br />" rel="popover" href="javascript:;" data-original-title="">
+//            <img src="www.360optimi.com/app/img/infosign_small.png"></img>
+//        </a>
+
     }
     return el;
   },

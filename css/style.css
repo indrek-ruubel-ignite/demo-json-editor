@@ -6,6 +6,12 @@
     padding-left:0;
 }
 
+.form-horizontal {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
 .form-horizontal .control-label {
     display: inline-block;
     vertical-align: middle;
