@@ -1984,7 +1984,6 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
 
       if(this.key === 'queryId' || this.key === 'questionId' || this.key === 'sectionId'){
         setTimeout(function(){
-
           var strategies = {
 
             "buildHTML" : function(arr){
