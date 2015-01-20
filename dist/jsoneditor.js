@@ -2040,7 +2040,7 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
             "trigger"     : "hover",
             "title"       : "Info",
             "content"     : strategies[self.key]["getContent"](),
-            "placement"   : "top"
+            "placement"   : "right"
           });
           infoWrapper.appendChild(a);
 
