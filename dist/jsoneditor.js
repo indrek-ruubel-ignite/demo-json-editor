@@ -1982,8 +1982,48 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
       var forms = this.container.getElementsByClassName('form-group');
       // INFO ICON
 
-      if(this.key === 'queryId' || this.key === 'questionId'){
+      if(this.key === 'queryId' || this.key === 'questionId' || this.key === 'sectionId'){
         setTimeout(function(){
+
+          var strategies = {
+
+            "buildHTML" : function(arr){
+              var out = "";
+              for(i in arr){
+                out += "<strong>" + arr[i]["lang"] + ": </strong> " + arr[i]["text"] + "</br>"
+              }
+              return out;
+            },
+
+            "queryId" : {
+              "getContent" : function(){
+                return strategies.buildHTML([
+                  { "lang" : "EN", "text" : "Query"},
+                  { "lang" : "FI", "text" : "Kysymys"},
+                  { "lang" : "SV", "text" : "Query"}
+                ]);
+              }
+            },
+            "questionId" : {
+              "getContent" : function(){
+                return strategies.buildHTML([
+                  { "lang" : "EN", "text" : "Question"},
+                  { "lang" : "FI", "text" : "Kysymys"},
+                  { "lang" : "SV", "text" : "Fråga"}
+                ]);
+              }
+            },
+            "sectionId" : {
+              "getContent" : function(){
+                return strategies.buildHTML([
+                  { "lang" : "EN", "text" : "Section"},
+                  { "lang" : "FI", "text" : "Jakso"},
+                  { "lang" : "SV", "text" : "Sektion"}
+                ]);
+              }
+            }
+          };
+
           var infoWrapper = document.createElement('div');
           infoWrapper.className = 'col-lg-1';
 
@@ -1999,10 +2039,9 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
             "html"        : true,
             "trigger"     : "hover",
             "title"       : "Info",
-            "content"     : "What goes here?",
+            "content"     : strategies[self.key]["getContent"](),
             "placement"   : "top"
           });
-
           infoWrapper.appendChild(a);
 
           // Remove previous clear
