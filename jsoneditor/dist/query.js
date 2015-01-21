@@ -19,12 +19,12 @@ var query_schema = {
         "name": {
             "title" : "Name",
             "propertyOrder": 2,
-            "$ref" : "dist/language.json"
+            "$ref" : "jsoneditor/dist/language.json"
         },
         "purpose" : {
             "title" : "Purpose",
             "propertyOrder": 3,
-            "$ref" : "dist/language.json"
+            "$ref" : "jsoneditor/dist/language.json"
         },
         "allowMonthlyData" : {
             "title" : "Allow monthly data",
@@ -40,7 +40,7 @@ var query_schema = {
         "help" : {
             "title" : "Help",
             "propertyOrder": 9,
-            "$ref" : "dist/language.json"
+            "$ref" : "jsoneditor/dist/language.json"
         },
         "componentQuery" : {
             "title" : "Component Query",
@@ -92,7 +92,7 @@ var query_schema = {
             "type" : "array",
             "propertyOrder": 18,
             "items" : {
-                "$ref"  : "dist/section.json"
+                "$ref"  : "jsoneditor/dist/section.json"
             }
         },
     }

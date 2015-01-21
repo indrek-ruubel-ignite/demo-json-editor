@@ -17,12 +17,12 @@
     "question" : {
       "title" : "Question",
       "propertyOrder": 2,
-      "$ref" : "dist/language.json"
+      "$ref" : "jsoneditor/dist/language.json"
     },
     "help"  : {
       "title" : "Help",
       "propertyOrder": 3,
-      "$ref" : "dist/language.json"
+      "$ref" : "jsoneditor/dist/language.json"
     },
     "inputType" : {
       "title" : "Input type",
@@ -71,7 +71,7 @@
     "unit"  : {
       "title" : "Unit",
       "propertyOrder": 10,
-      "$ref" : "dist/language.json"
+      "$ref" : "jsoneditor/dist/language.json"
     },
     "showAnswerInResults" : {
       "title" : "Show answer in results",
@@ -210,7 +210,7 @@
       "type"  : "array",
       "propertyOrder": 32,
       "items" : {
-        "$ref" : "dist/choice.json"
+        "$ref" : "jsoneditor/dist/choice.json"
       }
     }
   }

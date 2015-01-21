@@ -17,12 +17,12 @@
     "answer" : {
       "title" : "Answer",
       "propertyOrder": 2,
-      "$ref" : "dist/language.json"
+      "$ref" : "jsoneditor/dist/language.json"
     },
     "help"  : {
       "title" : "Help",
       "propertyOrder": 3,
-      "$ref" : "dist/language.json"
+      "$ref" : "jsoneditor/dist/language.json"
     },
     "pointsFactor" : {
       "title" : "Points factor",
@@ -50,7 +50,7 @@
       "propertyOrder": 7,
       "type" : "array",
       "items": {
-        "$ref" : "dist/question.json"
+        "$ref" : "jsoneditor/dist/question.json"
       }
     }
   }

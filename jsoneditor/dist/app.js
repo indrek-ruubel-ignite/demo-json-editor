@@ -31,7 +31,7 @@ var app = (function() {
     *   Load schema
     */
     var loadSchema = function(callback){
-        loadScript("dist/query.js", function(){
+        loadScript("jsoneditor/dist/query.js", function(){
             callback(query_schema);
         });
     };
@@ -156,14 +156,14 @@ var app = (function() {
         */
         var setTheme = function(no_reload) {
             JSONEditor.defaults.options.theme = 'bootstrap3';
-            document.getElementById('theme_stylesheet').href = './css/bootstrap.min.css';
+            document.getElementById('theme_stylesheet').href = 'jsoneditor/css/bootstrap.min.css';
             if(!no_reload) reload(true);
         };
         setTheme(true);
 
         var setIconlib = function(no_reload) {
             JSONEditor.defaults.options.iconlib = 'fontawesome4';
-            document.getElementById('icon_stylesheet').href = './css/font-awesome.css';
+            document.getElementById('icon_stylesheet').href = 'jsoneditor/css/font-awesome.css';
             if(!no_reload) reload(true);
         };
         setIconlib(true);

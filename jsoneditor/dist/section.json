@@ -19,12 +19,12 @@
       "title" :   "Name",
       "description" : "Name for the section in different languages",
       "propertyOrder": 2,
-      "$ref" : "dist/language.json"
+      "$ref" : "jsoneditor/dist/language.json"
     },
     "help"  : {
       "title" : "Help",
       "propertyOrder": 3,
-      "$ref" : "dist/language.json"
+      "$ref" : "jsoneditor/dist/language.json"
     },
     "skipInResultsView" : {
       "title" : "Skip in results view",
@@ -53,7 +53,7 @@
       "propertyOrder": 7,
       "type" : "array",
       "items" : {
-        "$ref" : "dist/question.json"
+        "$ref" : "jsoneditor/dist/question.json"
       }
     },
     "sections" : {
@@ -61,7 +61,7 @@
       "propertyOrder": 8,
       "type" : "array",
       "items" : {
-        "$ref" : "dist/section.json"
+        "$ref" : "jsoneditor/dist/section.json"
       }
     }
   }
