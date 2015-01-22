@@ -123,20 +123,28 @@ var app = (function() {
 
         };
 
+        // Takes tring as
+        t.setValue = function(obj){
+            if(typeof obj !== 'object'){
+                obj = JSON.parse(obj);
+            }
+            query_editor.setValue(JSON.stringify(obj, null, 2));
+//            updateDownloadBase64(currentVal);
+            var verdict = jsoneditor.validate(obj);
+            if(!verdict.length || verdict == true){
+                jsoneditor.setValue(obj);
+            }else{
+                setValidationErrors(verdict);
+            }
+        };
+
 
         /**
         *   Event listeners
         */
         $set_value_button.addEventListener('click',function() {
             var currentVal = query_editor.getValue();
-            updateDownloadBase64(currentVal);
-            var parsed = JSON.parse(currentVal);
-            var verdict = jsoneditor.validate(parsed);
-            if(!verdict.length || verdict == true){
-                jsoneditor.setValue(parsed);
-            }else{
-                setValidationErrors(verdict);
-            }
+            t.setValue(currentVal);
         });
 
 //        $set_schema_button.addEventListener('click',function() {

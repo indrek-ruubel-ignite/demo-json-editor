@@ -2031,7 +2031,7 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
           a.className = 'margin-left-5 form-horizontal';
           a.href = "javascript:;";
           var img = document.createElement('img');
-          img.src = "./css/infosign_small.png";
+          img.src = "jsoneditor/css/infosign_small.png";
           a.appendChild(img);
 
           $(a).popover({
