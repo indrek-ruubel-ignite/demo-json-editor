@@ -5789,6 +5789,7 @@ JSONEditor.AbstractTheme = Class.extend({
   },
   getHeader: function(text) {
     var el = document.createElement('h3');
+    el.className = 'section-header';
     if(typeof text === "string") {
       el.textContent = text;
     }
