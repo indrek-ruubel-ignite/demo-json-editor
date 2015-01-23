@@ -2691,13 +2691,23 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
           this.removefield_holder = document.createElement('div');
           this.removefield_holder.className = 'btn-group';
           this.removefield_holder.style.marginLeft = '10px';
-          this.removefield_button = document.createElement('button');
-          this.removefield_button.title = 'Remove';
-          this.removefield_button.className = 'btn btn-default json-editor-btn-delete';
-          var icon = document.createElement('i');
-          icon.className = 'fa fa-minus';
-          this.removefield_button.appendChild(icon);
+
+
+          this.removefield_button = document.createElement('a');
+          this.removefield_button.text = "Delete";
+          this.removefield_button.href = "javascript:void(0);";
+          this.removefield_button.style.color = "#689c00";
+//          this.removefield_button.style.fontWeight = "bold";
+          this.removefield_button.style.fontSize = "0.5em";
           this.removefield_holder.appendChild(this.removefield_button);
+
+//          this.removefield_button = document.createElement('button');
+//          this.removefield_button.title = 'Remove';
+//          this.removefield_button.className = 'btn btn-default json-editor-btn-delete';
+//          var icon = document.createElement('i');
+//          icon.className = 'fa fa-minus';
+//          this.removefield_button.appendChild(icon);
+//          this.removefield_holder.appendChild(this.removefield_button);
 
           this.removefield_button.addEventListener('click', function(){
             self.parent.removeObjectProperty(self.key);
@@ -2864,6 +2874,16 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
       // Object Properties Button
       this.addproperty_button = this.getButton('Fields','edit','Object Properties');
       this.addproperty_button.addEventListener('click',function(e) {
+
+        // MODIFICATION_INC
+        if(typeof self.adding_property === 'undefined' || !self.adding_property){
+          // Closed
+          self.addproperty_button.innerHTML = 'Fields <i class="fa fa-caret-down"></i>';
+        }else{
+          // Open
+          self.addproperty_button.innerHTML = 'Fields <i class="fa fa-caret-right"></i>';
+        }
+
         e.preventDefault();
         e.stopPropagation();
         self.toggleAddProperty();
@@ -3398,13 +3418,22 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
           this.removefield_holder = document.createElement('div');
           this.removefield_holder.className = 'btn-group';
           this.removefield_holder.style.marginLeft = '10px';
-          this.removefield_button = document.createElement('button');
-          this.removefield_button.title = 'Remove';
-          this.removefield_button.className = 'btn btn-default json-editor-btn-delete';
-          var icon = document.createElement('i');
-          icon.className = 'fa fa-minus';
-          this.removefield_button.appendChild(icon);
+
+          this.removefield_button = document.createElement('a');
+          this.removefield_button.text = "Delete";
+          this.removefield_button.href = "javascript:void(0);";
+          this.removefield_button.style.color = "#689c00";
+//          this.removefield_button.style.fontWeight = "bold";
+          this.removefield_button.style.fontSize = "0.5em";
           this.removefield_holder.appendChild(this.removefield_button);
+
+//          this.removefield_button = document.createElement('button');
+//          this.removefield_button.title = 'Remove';
+//          this.removefield_button.className = 'btn btn-default json-editor-btn-delete';
+//          var icon = document.createElement('i');
+//          icon.className = 'fa fa-minus';
+//          this.removefield_button.appendChild(icon);
+//          this.removefield_holder.appendChild(this.removefield_button);
           this.title.appendChild(this.removefield_holder);
 
           this.removefield_button.addEventListener('click', function(){
@@ -5887,11 +5916,20 @@ JSONEditor.AbstractTheme = Class.extend({
   },
   setButtonText: function(button, text, icon, title) {
     button.innerHTML = '';
-    if(icon) {
-      button.appendChild(icon);
+
+    if(text === 'Fields'){
+      button.appendChild(document.createTextNode(text));
       button.innerHTML += ' ';
+      icon.className = 'fa fa-caret-right';
+      button.appendChild(icon);
+    }else{
+
+      if(icon) {
+        button.appendChild(icon);
+        button.innerHTML += ' ';
+        button.appendChild(document.createTextNode(text));
+      }
     }
-    button.appendChild(document.createTextNode(text));
     if(title) button.setAttribute('title',title);
   },
   getTable: function() {
@@ -6111,14 +6149,21 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
       if(removeCallback){
         var removeButtonWrapper = document.createElement('div');
         removeButtonWrapper.className = 'col-lg-1 remove';
-        var button = document.createElement('button');
-        button.className = 'btn btn-default json-editor-btn-delete margin-left-5';
-        var icon = document.createElement('i');
-        icon.className = 'fa fa-minus';
-        button.appendChild(icon);
-        removeButtonWrapper.appendChild(button);
+//        var button = document.createElement('button');
+//        button.className = 'btn btn-default json-editor-btn-delete margin-left-5';
+//        var icon = document.createElement('i');
+//        icon.className = 'fa fa-minus';
+//        button.appendChild(icon);
+        var a = document.createElement('a');
+        a.text = "Delete";
+        a.href = "javascript:void(0);";
+        a.style.color = "#689c00";
+//        a.style.fontWeight = "bold";
+        a.style.fontSize = "0.9em";
+        removeButtonWrapper.innerHTML = ' ';
+        removeButtonWrapper.appendChild(a);//button);
 
-        button.addEventListener('click',function() {
+        a.addEventListener('click',function() {
           removeCallback();
         });
       }
