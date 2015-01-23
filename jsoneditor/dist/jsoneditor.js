@@ -2114,7 +2114,6 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
           /**
           * Remove callback, do object manipulation
           */
-//          if(self.formname.indexOf("history") > -1){
           if(typeof self.parent.removeObjectProperty === 'undefined'){
             self.parent.parent.removeObjectProperty(self.key);
           }else{
@@ -2677,7 +2676,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
       this.addproperty_holder = this.theme.getModal();
       this.addproperty_list = document.createElement('div');
       this.addproperty_list.style.width = '295px';
-//      this.addproperty_list.style.maxHeight = '160px';
       this.addproperty_list.style.padding = '5px 0';
       this.addproperty_list.style.overflowY = 'auto';
       this.addproperty_list.style.overflowX = 'hidden';
@@ -2750,11 +2748,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         });
 
       }
-
-
-
-//      this.isRequired(this.cached_editors[i]) && i in this.editors
-
 
       this.addproperty_holder.appendChild(this.addproperty_list);
       if(can_add){
@@ -2872,10 +2865,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         this.editjson_button.style.display = 'none';
       }
 
-      // Object Properties Button
-      this.addproperty_button = this.getButton('Edit content','edit','Object Properties');
-      this.addproperty_button.addEventListener('click',function(e) {
-
+      var toggle = function(e){
         // MODIFICATION_INC
         if(typeof self.adding_property === 'undefined' || !self.adding_property){
           // Closed
@@ -2884,11 +2874,24 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
           // Open
           self.addproperty_button.innerHTML = 'Edit content <i class="fa fa-caret-right"></i>';
         }
+        self.toggleAddProperty();
+      }
+
+      // Object Properties Button
+      this.addproperty_button = this.getButton('Edit content','edit','Object Properties');
+      this.addproperty_button.addEventListener('click',function(e) {
 
         e.preventDefault();
         e.stopPropagation();
-        self.toggleAddProperty();
+        toggle(e);
       });
+
+      document.addEventListener('click', function(e){
+        if(self.adding_property){
+          toggle();
+        }
+      });
+
       this.addproperty_controls.appendChild(this.addproperty_button);
       this.addproperty_controls.appendChild(this.addproperty_holder);
       this.refreshAddProperties();
@@ -3180,10 +3183,13 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
     for(i in this.cached_editors) {
       if(!this.cached_editors.hasOwnProperty(i)) continue;
 
-      this.addPropertyCheckbox(i);
-
       if(this.isRequired(this.cached_editors[i]) && i in this.editors) {
-        this.addproperty_checkboxes[i].disabled = true;
+        //this.addPropertyCheckbox(i);
+      }else{
+        this.addPropertyCheckbox(i);
+        if(this.isRequired(this.cached_editors[i]) && i in this.editors) {
+          this.addproperty_checkboxes[i].disabled = true;
+        }
       }
 
       if(typeof this.schema.minProperties !== "undefined" && num_props <= this.schema.minProperties) {
@@ -3859,7 +3865,7 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
     }
 
     if(i && !self.hide_move_buttons) {
-      self.rows[i].moveup_button = this.getButton('','moveup','Move up');
+      self.rows[i].moveup_button = this.getButton('','moveup','Move upwards');
       self.rows[i].moveup_button.className += ' moveup';
       self.rows[i].moveup_button.setAttribute('data-i',i);
       self.rows[i].moveup_button.addEventListener('click',function(e) {
@@ -3886,7 +3892,7 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
     }
 
     if(!self.hide_move_buttons) {
-      self.rows[i].movedown_button = this.getButton('','movedown','Move down');
+      self.rows[i].movedown_button = this.getButton('','movedown','Move downwards');
       self.rows[i].movedown_button.className += ' movedown';
       self.rows[i].movedown_button.setAttribute('data-i',i);
       self.rows[i].movedown_button.addEventListener('click',function(e) {
@@ -6162,7 +6168,6 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
         a.href = "javascript:void(0);";
         a.style.paddingLeft = '10px';
         a.style.color = "#689c00";
-//        a.style.fontWeight = "bold";
         a.style.fontSize = "0.9em";
         removeButtonWrapper.innerHTML = ' ';
         removeButtonWrapper.appendChild(a);//button);
