@@ -2888,7 +2888,12 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
       document.addEventListener('click', function(e){
         if(self.adding_property){
-          toggle();
+          if(self.addproperty_holder.contains(e.target) || e.target.nodeName === 'INPUT'){
+//            console.log(e.target.nodeName);
+//            console.log("Clicked inside the box");
+          }else{
+            toggle();
+          }
         }
       });
 
@@ -3979,6 +3984,7 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
     this.add_row_button = this.getButton(/*this.getItemTitle()*/"Add",'add','Add '+this.getItemTitle());
 
     this.add_row_button.addEventListener('click',function(e) {
+      console.log("Adding new");
       e.preventDefault();
       e.stopPropagation();
       var i = self.rows.length;
