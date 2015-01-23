@@ -15,7 +15,7 @@
       "propertyOrder": 1
     },
     "question" : {
-      "title" : "Question",
+      "title" : "Question text",
       "propertyOrder": 2,
       "$ref" : "jsoneditor/dist/language.json"
     },

@@ -2715,8 +2715,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
         if(key != null){
 
-          console.log(key);
-
           var strategies = {
             "buildHTML" : function(arr){
               var out = "<div style=\"font-size : 14px;\">";
@@ -3750,30 +3748,30 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
       var controls_needed = false;
 
       if(!this.value.length) {
-        this.delete_last_row_button.style.display = 'none';
-        this.remove_all_rows_button.style.display = 'none';
+//        this.delete_last_row_button.style.display = 'none';
+//        this.remove_all_rows_button.style.display = 'none';
       }
       else if(this.value.length === 1) {
-        this.remove_all_rows_button.style.display = 'none';
+//        this.remove_all_rows_button.style.display = 'none';
 
         // If there are minItems items in the array, hide the delete button beneath the rows
         if(minItems || this.hide_delete_buttons) {
-          this.delete_last_row_button.style.display = 'none';
+//          this.delete_last_row_button.style.display = 'none';
         }
         else {
-          this.delete_last_row_button.style.display = '';
+//          this.delete_last_row_button.style.display = '';
           controls_needed = true;
         }
       }
       else {
         // If there are minItems items in the array, hide the delete button beneath the rows
         if(minItems || this.hide_delete_buttons) {
-          this.delete_last_row_button.style.display = 'none';
-          this.remove_all_rows_button.style.display = 'none';
+//          this.delete_last_row_button.style.display = 'none';
+//          this.remove_all_rows_button.style.display = 'none';
         }
         else {
-          this.delete_last_row_button.style.display = '';
-          this.remove_all_rows_button.style.display = '';
+//          this.delete_last_row_button.style.display = '';
+//          this.remove_all_rows_button.style.display = '';
           controls_needed = true;
         }
       }
@@ -3996,33 +3994,33 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
     });
     self.controls.appendChild(this.add_row_button);
 
-    this.delete_last_row_button = this.getButton('Last '+this.getItemTitle(),'delete','Delete Last '+this.getItemTitle());
-    this.delete_last_row_button.addEventListener('click',function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var rows = self.getValue();
+//    this.delete_last_row_button = this.getButton('Last '+this.getItemTitle(),'delete','Delete Last '+this.getItemTitle());
+//    this.delete_last_row_button.addEventListener('click',function(e) {
+//      e.preventDefault();
+//      e.stopPropagation();
+//      var rows = self.getValue();
+//
+//      var new_active_tab = null;
+//      if(self.rows.length > 1 && self.rows[self.rows.length-1].tab === self.active_tab) new_active_tab = self.rows[self.rows.length-2].tab;
+//
+//      rows.pop();
+//      self.setValue(rows);
+//      if(new_active_tab) {
+//        self.active_tab = new_active_tab;
+//        self.refreshTabs();
+//      }
+//      self.onChange(true);
+//    });
+//    self.controls.appendChild(this.delete_last_row_button);
 
-      var new_active_tab = null;
-      if(self.rows.length > 1 && self.rows[self.rows.length-1].tab === self.active_tab) new_active_tab = self.rows[self.rows.length-2].tab;
-
-      rows.pop();
-      self.setValue(rows);
-      if(new_active_tab) {
-        self.active_tab = new_active_tab;
-        self.refreshTabs();
-      }
-      self.onChange(true);
-    });
-    self.controls.appendChild(this.delete_last_row_button);
-
-    this.remove_all_rows_button = this.getButton('All','delete','Delete All');
-    this.remove_all_rows_button.addEventListener('click',function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      self.setValue([]);
-      self.onChange(true);
-    });
-    self.controls.appendChild(this.remove_all_rows_button);
+//    this.remove_all_rows_button = this.getButton('All','delete','Delete All');
+//    this.remove_all_rows_button.addEventListener('click',function(e) {
+//      e.preventDefault();
+//      e.stopPropagation();
+//      self.setValue([]);
+//      self.onChange(true);
+//    });
+//    self.controls.appendChild(this.remove_all_rows_button);
 
     if(self.tabs) {
       this.add_row_button.style.width = '100%';
