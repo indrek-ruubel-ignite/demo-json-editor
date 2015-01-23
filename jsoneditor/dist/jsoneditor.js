@@ -2677,7 +2677,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
       this.addproperty_holder = this.theme.getModal();
       this.addproperty_list = document.createElement('div');
       this.addproperty_list.style.width = '295px';
-      this.addproperty_list.style.maxHeight = '160px';
+//      this.addproperty_list.style.maxHeight = '160px';
       this.addproperty_list.style.padding = '5px 0';
       this.addproperty_list.style.overflowY = 'auto';
       this.addproperty_list.style.overflowX = 'hidden';
@@ -2697,6 +2697,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
           this.removefield_button.text = "Delete";
           this.removefield_button.href = "javascript:void(0);";
           this.removefield_button.style.color = "#689c00";
+//          this.removefield_button.style.paddingLeft = '10px';
 //          this.removefield_button.style.fontWeight = "bold";
           this.removefield_button.style.fontSize = "0.5em";
           this.removefield_holder.appendChild(this.removefield_button);
@@ -2872,16 +2873,16 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
       }
 
       // Object Properties Button
-      this.addproperty_button = this.getButton('Fields','edit','Object Properties');
+      this.addproperty_button = this.getButton('Edit content','edit','Object Properties');
       this.addproperty_button.addEventListener('click',function(e) {
 
         // MODIFICATION_INC
         if(typeof self.adding_property === 'undefined' || !self.adding_property){
           // Closed
-          self.addproperty_button.innerHTML = 'Fields <i class="fa fa-caret-down"></i>';
+          self.addproperty_button.innerHTML = 'Edit content <i class="fa fa-caret-down"></i>';
         }else{
           // Open
-          self.addproperty_button.innerHTML = 'Fields <i class="fa fa-caret-right"></i>';
+          self.addproperty_button.innerHTML = 'Edit content <i class="fa fa-caret-right"></i>';
         }
 
         e.preventDefault();
@@ -3422,6 +3423,7 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
           this.removefield_button = document.createElement('a');
           this.removefield_button.text = "Delete";
           this.removefield_button.href = "javascript:void(0);";
+//          this.removefield_button.style.paddingLeft = '10px';
           this.removefield_button.style.color = "#689c00";
 //          this.removefield_button.style.fontWeight = "bold";
           this.removefield_button.style.fontSize = "0.5em";
@@ -3968,7 +3970,7 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
     }
 
     // Add "new row" and "delete last" buttons below editor
-    this.add_row_button = this.getButton(this.getItemTitle(),'add','Add '+this.getItemTitle());
+    this.add_row_button = this.getButton(/*this.getItemTitle()*/"Add",'add','Add '+this.getItemTitle());
 
     this.add_row_button.addEventListener('click',function(e) {
       e.preventDefault();
@@ -5717,8 +5719,9 @@ JSONEditor.AbstractTheme = Class.extend({
   getModal: function() {
     var el = document.createElement('div');
     el.style.backgroundColor = 'white';
-    el.style.border = '1px solid black';
-    el.style.boxShadow = '3px 3px black';
+    el.style.border = '1px solid rgb(208, 208, 208)';
+    el.style.borderRadius = '5px';
+    el.style.boxShadow = '3px 3px 15px rgb(166, 166, 166)';
     el.style.position = 'absolute';
     el.style.zIndex = '10';
     el.style.display = 'none';
@@ -5917,7 +5920,7 @@ JSONEditor.AbstractTheme = Class.extend({
   setButtonText: function(button, text, icon, title) {
     button.innerHTML = '';
 
-    if(text === 'Fields'){
+    if(text === 'Edit content'){
       button.appendChild(document.createTextNode(text));
       button.innerHTML += ' ';
       icon.className = 'fa fa-caret-right';
@@ -6157,6 +6160,7 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
         var a = document.createElement('a');
         a.text = "Delete";
         a.href = "javascript:void(0);";
+        a.style.paddingLeft = '10px';
         a.style.color = "#689c00";
 //        a.style.fontWeight = "bold";
         a.style.fontSize = "0.9em";
