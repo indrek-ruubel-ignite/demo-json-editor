@@ -2644,11 +2644,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         this.addproperty_input = this.theme.getFormInputField('text');
         this.addproperty_input.setAttribute('placeholder','Property name...');
 
-
-//      this.addproperty_input.style.width = '220px';
-//      this.addproperty_input.style.marginBottom = '0';
-//      this.addproperty_input.style.display = 'inline-block';
-
         this.addproperty_add.addEventListener('click',function(e) {
           e.preventDefault();
           e.stopPropagation();
@@ -2681,13 +2676,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
       var spacer = document.createElement('div');
       spacer.style.clear = 'both';
       this.addproperty_holder.appendChild(spacer);
-
-
-      // Description
-//      if(this.schema.description) {
-//        this.description = this.theme.getDescription(this.schema.description);
-//        this.container.appendChild(this.description);
-//      }
 
       // Validation error placeholder area
       this.error_holder = document.createElement('div');
@@ -2785,7 +2773,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
             "placement"   : "right"
           });
     //      infoWrapper.appendChild(a);
-          self.title.appendChild(a);
+          self.title_controls.appendChild(a);
 
         }
       }, 100);
@@ -2793,14 +2781,11 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
       // Control buttons
       this.title_controls = this.theme.getHeaderButtonHolder();
+//      this.title_controls.style.float = 'right';
 //      this.editjson_controls = this.theme.getHeaderButtonHolder();
       this.addproperty_controls = this.theme.getHeaderButtonHolder();
       this.title.appendChild(this.title_controls);
 //      this.title.appendChild(this.editjson_controls);
-      this.title.appendChild(this.addproperty_controls);
-      if(!fieldIsRequired){
-        this.title.appendChild(this.removefield_holder);
-      }
 
       // Show/Hide button
       // MODIFICATION_INC
@@ -2818,11 +2803,14 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
             this.toggle_button = this.getButton('','collapse','Collapse');
         }
 
-//      this.collapsed = false;
-//      this.toggle_button = this.getButton('','collapse','Collapse');
-
-
       this.title_controls.appendChild(this.toggle_button);
+
+      this.title_controls.appendChild(this.addproperty_controls);
+      if(!fieldIsRequired){
+        this.title_controls.appendChild(this.removefield_holder);
+      }
+
+
       this.toggle_button.addEventListener('click',function(e) {
         e.preventDefault();
         e.stopPropagation();
