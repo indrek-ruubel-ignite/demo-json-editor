@@ -1980,82 +1980,6 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
       this.input_type = 'text';
       this.input = this.theme.getFormInputField(this.input_type, this.isRequired(this));
       var forms = this.container.getElementsByClassName('form-group');
-      // INFO ICON
-
-      if(this.key === 'queryId' || this.key === 'questionId' || this.key === 'sectionId'){
-        setTimeout(function(){
-          var strategies = {
-
-            "buildHTML" : function(arr){
-              var out = "";
-              for(i in arr){
-                out += "<strong>" + arr[i]["lang"] + ": </strong> " + arr[i]["text"] + "</br>"
-              }
-              return out;
-            },
-
-            "queryId" : {
-              "getContent" : function(){
-                return strategies.buildHTML([
-                  { "lang" : "EN", "text" : "Query"},
-                  { "lang" : "FI", "text" : "Kysymys"},
-                  { "lang" : "SV", "text" : "Query"}
-                ]);
-              }
-            },
-            "questionId" : {
-              "getContent" : function(){
-                return strategies.buildHTML([
-                  { "lang" : "EN", "text" : "Question"},
-                  { "lang" : "FI", "text" : "Kysymys"},
-                  { "lang" : "SV", "text" : "Fråga"}
-                ]);
-              }
-            },
-            "sectionId" : {
-              "getContent" : function(){
-                return strategies.buildHTML([
-                  { "lang" : "EN", "text" : "Section"},
-                  { "lang" : "FI", "text" : "Jakso"},
-                  { "lang" : "SV", "text" : "Sektion"}
-                ]);
-              }
-            }
-          };
-
-          var infoWrapper = document.createElement('div');
-          infoWrapper.className = 'col-lg-1';
-
-          var a = document.createElement('a');
-          a.rel = "popover";
-          a.className = 'margin-left-5 form-horizontal';
-          a.href = "javascript:;";
-          var img = document.createElement('img');
-          img.src = "jsoneditor/css/infosign_small.png";
-          a.appendChild(img);
-
-          $(a).popover({
-            "html"        : true,
-            "trigger"     : "hover",
-            "title"       : "Info",
-            "content"     : strategies[self.key]["getContent"](),
-            "placement"   : "right"
-          });
-          infoWrapper.appendChild(a);
-
-          // Remove previous clear
-          forms[0].getElementsByClassName('clear')[0].remove();
-
-          forms[0].appendChild(infoWrapper);
-
-          // Add new clear
-          var clear = document.createElement('div');
-          clear.className = 'clear';
-          forms[0].appendChild(clear);
-
-        }, 100);
-      }
-
     }
 
     if(this.schema.description) this.input.title = this.schema.description;
@@ -2786,6 +2710,86 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         editor.build();
         editor.postBuild();
       });
+
+      var a = null;
+
+      setTimeout(function(){
+
+        var key = null;
+
+        if(self.value.hasOwnProperty("queryId")){
+          key = "queryId";
+        }else if(self.value.hasOwnProperty("sectionId")){
+          key = "sectionId";
+        }else if(self.value.hasOwnProperty("questionId")){
+          key = "questionId";
+        }
+
+        if(key != null){
+
+          console.log(key);
+
+          var strategies = {
+            "buildHTML" : function(arr){
+              var out = "<div style=\"font-size : 14px;\">";
+              for(i in arr){
+                out += "<strong>" + arr[i]["lang"] + ": </strong> " + arr[i]["text"] + "</br>"
+              }
+              out += "</div>";
+              return out;
+            },
+
+            "queryId" : {
+              "getContent" : function(){
+                return strategies.buildHTML([
+                  { "lang" : "EN", "text" : "Query"},
+                  { "lang" : "FI", "text" : "Kysymys"},
+                  { "lang" : "SV", "text" : "Query"}
+                ]);
+              }
+            },
+            "questionId" : {
+              "getContent" : function(){
+                return strategies.buildHTML([
+                  { "lang" : "EN", "text" : "Question"},
+                  { "lang" : "FI", "text" : "Kysymys"},
+                  { "lang" : "SV", "text" : "Fråga"}
+                ]);
+              }
+            },
+            "sectionId" : {
+              "getContent" : function(){
+                return strategies.buildHTML([
+                  { "lang" : "EN", "text" : "Section"},
+                  { "lang" : "FI", "text" : "Jakso"},
+                  { "lang" : "SV", "text" : "Sektion"}
+                ]);
+              }
+            }
+          };
+
+
+          a = document.createElement('a');
+          a.rel = "popover";
+          a.className = 'margin-left-5 form-horizontal';
+          a.href = "javascript:;";
+          var img = document.createElement('img');
+          img.src = "jsoneditor/css/infosign_small.png";
+          a.appendChild(img);
+
+          $(a).popover({
+            "html"        : true,
+            "trigger"     : "hover",
+            "title"       : "Info",
+            "content"     : strategies[key]["getContent"](),
+            "placement"   : "right"
+          });
+    //      infoWrapper.appendChild(a);
+          self.title.appendChild(a);
+
+        }
+      }, 100);
+
 
       // Control buttons
       this.title_controls = this.theme.getHeaderButtonHolder();
