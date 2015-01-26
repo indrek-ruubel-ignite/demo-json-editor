@@ -39,7 +39,7 @@ var app = (function() {
     /**
     *   Main
     */
-    t.init = function(){
+    t.init = function(readyCallback){
 
         var jsoneditor;
 
@@ -65,6 +65,8 @@ var app = (function() {
                 startval: startval,
                 children_expanded: false,
                 ajax: true
+            }, function(){
+                readyCallback();
             });
             window.jsoneditor = jsoneditor;
 

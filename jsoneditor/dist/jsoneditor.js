@@ -203,14 +203,14 @@ var $triggerc = function(el,event) {
   el.dispatchEvent(e);
 };
 
-var JSONEditor = function(element,options) {
+var JSONEditor = function(element,options, readyCallback) {
   options = $extend({},JSONEditor.defaults.options,options||{});
   this.element = element;
   this.options = options;
-  this.init();
+  this.init(readyCallback);
 };
 JSONEditor.prototype = {
-  init: function() {
+  init: function(readyCallback) {
     var self = this;
 
     this.ready = false;
@@ -268,6 +268,7 @@ JSONEditor.prototype = {
         if(!children_expanded){
           openFirstWell();
         }
+        readyCallback();
       });
     });
 
