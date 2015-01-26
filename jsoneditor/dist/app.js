@@ -66,7 +66,9 @@ var app = (function() {
                 children_expanded: false,
                 ajax: true
             }, function(){
-                readyCallback();
+                if(typeof readyCallback !== 'undefined'){
+                    readyCallback();
+                }
             });
             window.jsoneditor = jsoneditor;
 
