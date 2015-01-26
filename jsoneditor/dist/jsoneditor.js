@@ -2725,6 +2725,8 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
           key = "sectionId";
         }else if(self.value.hasOwnProperty("questionId")){
           key = "questionId";
+        }else if(self.value.hasOwnProperty("answerId")){
+          key = "answerId";
         }
 
         if(key != null){
@@ -2763,6 +2765,15 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
                   { "lang" : "EN", "text" : "Section"},
                   { "lang" : "FI", "text" : "Jakso"},
                   { "lang" : "SV", "text" : "Sektion"}
+                ]);
+              }
+            },
+            "answerId" : {
+              "getContent" : function(){
+                return strategies.buildHTML([
+                  { "lang" : "EN", "text" : "Answer"},
+                  { "lang" : "FI", "text" : "Vastaus"},
+                  { "lang" : "SV", "text" : "Svar"}
                 ]);
               }
             }
