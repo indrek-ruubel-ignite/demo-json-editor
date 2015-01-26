@@ -1,5 +1,5 @@
 {
-  "title" : "Choice",
+  "title" : "Answer",
   "type"  : "object",
   "additionalProperties" : false,
   "required" : ["answer", "answerId"],
@@ -15,7 +15,7 @@
       "type" : "string"
     },
     "answer" : {
-      "title" : "Answer",
+      "title" : "Answer text",
       "propertyOrder": 2,
       "$ref" : "jsoneditor/dist/language.json"
     },

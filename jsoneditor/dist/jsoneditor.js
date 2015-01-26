@@ -1810,6 +1810,13 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
       span.textContent = "Question: " + value;
     }
 
+    if(self.key === "answerId" && value.trim().length){
+      var spans = self.parent.container.getElementsByClassName('sectionTitle');
+      var span = spans[0];
+      span.textContent = "Answer: " + value;
+    }
+
+
     if(this.template && !from_template) {
       return;
     }
@@ -2000,11 +2007,18 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
         e.preventDefault();
         e.stopPropagation();
 
-        if(self.key === "questionId" || self.key === "sectionId"){
+        if(self.key === "questionId" || self.key === "sectionId" || self.key === "answerId"){
           var spans = self.parent.container.getElementsByClassName('sectionTitle');
           var span = spans[0];
           span.textContent = self.value;
-          span.textContent = (self.key === "questionId" ? "Question: " : "Section: ") + self.container.getElementsByTagName('input')[0].value;
+//          span.textContent = (self.key === "questionId" ? "Question: " : "Section: ") + self.container.getElementsByTagName('input')[0].value;
+          if(self.key === "questionId"){
+            span.textContent = "Question: " + self.container.getElementsByTagName('input')[0].value
+          }else if(self.key === "sectionId"){
+            span.textContent = "Section: " + self.container.getElementsByTagName('input')[0].value
+          }else if(self.key === "answerId"){
+            span.textContent = "Answer: " + self.container.getElementsByTagName('input')[0].value
+          }
         }
 
         // Don't allow changing if this field is a template

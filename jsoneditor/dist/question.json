@@ -206,7 +206,7 @@
       "propertyOrder": 31
     },
     "choices" : {
-      "title" : "Choices",
+      "title" : "Answers",
       "type"  : "array",
       "propertyOrder": 32,
       "items" : {
