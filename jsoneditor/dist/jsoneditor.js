@@ -2744,11 +2744,14 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
             "queryId" : {
               "getContent" : function(){
-                return strategies.buildHTML([
-                  { "lang" : "EN", "text" : "Query"},
-                  { "lang" : "FI", "text" : "Kysymys"},
-                  { "lang" : "SV", "text" : "Query"}
-                ]);
+                var arr = [];
+                for(i in self.value.name){
+                  arr.push({
+                    "lang"  : i,
+                    "text"  : self.value.name[i]
+                  });
+                };
+                return strategies.buildHTML(arr);
               }
             },
             "questionId" : {
@@ -2762,20 +2765,27 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
             },
             "sectionId" : {
               "getContent" : function(){
-                return strategies.buildHTML([
-                  { "lang" : "EN", "text" : "Section"},
-                  { "lang" : "FI", "text" : "Jakso"},
-                  { "lang" : "SV", "text" : "Sektion"}
-                ]);
+                var arr = [];
+
+                for(i in self.value.name){
+                  arr.push({
+                    "lang"  : i,
+                    "text"  : self.value.name[i]
+                  });
+                }
+                return strategies.buildHTML(arr);
               }
             },
             "answerId" : {
               "getContent" : function(){
-                return strategies.buildHTML([
-                  { "lang" : "EN", "text" : "Answer"},
-                  { "lang" : "FI", "text" : "Vastaus"},
-                  { "lang" : "SV", "text" : "Svar"}
-                ]);
+                var arr = [];
+                for(i in self.value.answer){
+                  arr.push({
+                    "lang"  : i,
+                    "text"  : self.value.answer[i]
+                  });
+                }
+                return strategies.buildHTML(arr);
               }
             }
           };
