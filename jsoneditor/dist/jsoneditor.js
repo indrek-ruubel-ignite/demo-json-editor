@@ -2808,20 +2808,24 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         this.title_controls.appendChild(this.removefield_holder);
       }
 
+      var toggleExpand = function(){
+        if(self.collapsed) {
+            self.editor_holder.style.display = '';
+            self.collapsed = false;
+            self.setButtonText(self.toggle_button,'','collapse','Collapse');
+          }
+          else {
+            self.editor_holder.style.display = 'none';
+            self.collapsed = true;
+            self.setButtonText(self.toggle_button,'','expand','Expand');
+          }
+      }
+
 
       this.toggle_button.addEventListener('click',function(e) {
         e.preventDefault();
         e.stopPropagation();
-        if(self.collapsed) {
-          self.editor_holder.style.display = '';
-          self.collapsed = false;
-          self.setButtonText(self.toggle_button,'','collapse','Collapse');
-        }
-        else {
-          self.editor_holder.style.display = 'none';
-          self.collapsed = true;
-          self.setButtonText(self.toggle_button,'','expand','Expand');
-        }
+        toggleExpand();
       });
 
       // If it should start collapsed
@@ -3974,7 +3978,6 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
     this.add_row_button = this.getButton(/*this.getItemTitle()*/"Add",'add','Add '+this.getItemTitle());
 
     this.add_row_button.addEventListener('click',function(e) {
-      console.log("Adding new");
       e.preventDefault();
       e.stopPropagation();
       var i = self.rows.length;
@@ -3991,6 +3994,8 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
       self.refreshTabs();
       self.refreshValue();
       self.onChange(true);
+      // Open new
+      $trigger(self.rows[i].toggle_button,'click');
     });
     self.controls.appendChild(this.add_row_button);
 
