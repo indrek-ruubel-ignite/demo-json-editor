@@ -38,26 +38,26 @@
     <div class="row">
         <div class="span12 col-md-12 columns twelve large-12">
             <h2>Languages:</h2>
-            <div class="span12 col-md-12 columns twelve large-12">
+            <div class="span12 col-md-12 columns twelve large-12" id="languages">
                 <!--<div class="row">-->
-                    <label>EN</label>
-                    <input type="checkbox" value="EN" class="language">
+                    <!--<label>EN</label>-->
+                    <!--<input type="checkbox" value="EN" class="language">-->
                 <!--</div>-->
                 <!--<div class="row">-->
-                    <label>FI</label>
-                    <input type="checkbox" value="FI" class="language">
+                    <!--<label>FI</label>-->
+                    <!--<input type="checkbox" value="FI" class="language">-->
                 <!--</div>-->
                 <!--<div class="row">-->
-                    <label>SV</label>
-                    <input type="checkbox" value="SV" class="language">
+                    <!--<label>SV</label>-->
+                    <!--<input type="checkbox" value="SV" class="language">-->
                 <!--</div>-->
                 <!--<div class="row">-->
-                    <label>RU</label>
-                    <input type="checkbox" value="RU" class="language">
+                    <!--<label>RU</label>-->
+                    <!--<input type="checkbox" value="RU" class="language">-->
                 <!--</div>-->
                 <!--<div class="row">-->
-                    <label>NO</label>
-                    <input type="checkbox" value="NO" class="language">
+                    <!--<label>NO</label>-->
+                    <!--<input type="checkbox" value="NO" class="language">-->
                 <!--</div>-->
             </div>
         </div>
@@ -101,7 +101,11 @@
     </div>
 </div>
 <script>
-    app.init();
+    app.init(function(){
+        app.setupLocales(["FI","EN","SV","NO","RU"]);
+    });
+
+    //var systemLocales = ["FI","EN","SV","NO","RU"];
 
 
     /*

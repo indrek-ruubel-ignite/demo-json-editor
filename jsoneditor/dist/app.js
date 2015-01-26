@@ -6,7 +6,7 @@ var app = (function() {
     var schema = null;
 //    var schema_editor_id = "schema";
     var query_editor_id = "output";
-    var lang_checkbox_class = "language";
+    var languages_wrapper_id = "languages";
 
     /**
     *   Load a file
@@ -49,7 +49,7 @@ var app = (function() {
         */
         var $editor = document.getElementById('editor');
         var $validate = document.getElementById('validate');
-        var langCheckboxes = document.getElementsByClassName(lang_checkbox_class);//(langs_button_id);
+        var langsWrapper = document.getElementById(languages_wrapper_id);//(langs_button_id);
 //        var $download_button = document.getElementById('download_query');
 
         /**
@@ -118,7 +118,6 @@ var app = (function() {
         query_editor.setValue("");
 
         var updateDownloadBase64 = function(val){
-
 //            var newLink = "data:application/octet-stream;charset=utf-8;base64,";
 //            var base64 = btoa(val);
 //            newLink += base64;
@@ -126,7 +125,6 @@ var app = (function() {
 //            console.log(newLink);
 //
 //            $download_button.href = newLink;
-
         };
 
         // Takes tring as
@@ -143,6 +141,36 @@ var app = (function() {
                 setValidationErrors(verdict);
             }
         };
+
+        t.setupLocales = function(arr){
+
+            for(i in arr){
+                var lang = arr[i];
+                var label = document.createElement('label');
+                label.innerHTML = lang + " ";
+                langsWrapper.appendChild(label);
+
+                var checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.value = lang;
+                langsWrapper.appendChild(checkbox);
+
+//                langsWrapper.appendChild(document.createElement('br'));
+
+                checkbox.addEventListener('click', function(){
+                    var json = jsoneditor.getValue();
+                    var txt = JSON.stringify(json);
+                    if(this.checked){
+                        txt = addTranslationWithKey(txt, this.value);
+                    }else{
+                        txt = removeAttributesWithKey(txt, this.value);
+                    }
+                    t.setValue(txt);
+                });
+
+            }
+
+        }
 
 
         /**
@@ -220,8 +248,6 @@ var app = (function() {
                 if(newObj.indexOf("{") > -1)
                     continue;
 
-//                console.log(txt.substring(charsFromBeginning - 20, charsFromBeginning));
-
                 newObj = "{" + newObj;
                 var parsed = JSON.parse(newObj);
                 parsed[key] = "";
@@ -243,22 +269,22 @@ var app = (function() {
             return txt;
         }
 
-        for(i in langCheckboxes){
-            var checkbox = langCheckboxes[i];
-
-            if(checkbox.nodeName === "INPUT"){
-                checkbox.addEventListener('click', function(){
-                    var json = jsoneditor.getValue();
-                    var txt = JSON.stringify(json);
-                    if(this.checked){
-                        txt = addTranslationWithKey(txt, this.value);
-                    }else{
-                        txt = removeAttributesWithKey(txt, this.value);
-                    }
-                    t.setValue(txt);
-                });
-            }
-        }
+//        for(i in langCheckboxes){
+//            var checkbox = langCheckboxes[i];
+//
+//            if(checkbox.nodeName === "INPUT"){
+//                checkbox.addEventListener('click', function(){
+//                    var json = jsoneditor.getValue();
+//                    var txt = JSON.stringify(json);
+//                    if(this.checked){
+//                        txt = addTranslationWithKey(txt, this.value);
+//                    }else{
+//                        txt = removeAttributesWithKey(txt, this.value);
+//                    }
+//                    t.setValue(txt);
+//                });
+//            }
+//        }
 
 //        $set_schema_button.addEventListener('click',function() {
 //            try {
