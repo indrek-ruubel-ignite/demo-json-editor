@@ -36,6 +36,33 @@
         </div>
     </div>
     <div class="row">
+        <div class="span12 col-md-12 columns twelve large-12">
+            <h2>Languages:</h2>
+            <div class="span12 col-md-12 columns twelve large-12">
+                <!--<div class="row">-->
+                    <label>EN</label>
+                    <input type="checkbox" value="EN" class="language">
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <label>FI</label>
+                    <input type="checkbox" value="FI" class="language">
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <label>SV</label>
+                    <input type="checkbox" value="SV" class="language">
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <label>RU</label>
+                    <input type="checkbox" value="RU" class="language">
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <label>NO</label>
+                    <input type="checkbox" value="NO" class="language">
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class='span12 col-md-12 columns twelve large-12'>
             <h2>Validation</h2>
             <p>If something is wrong in the query json, the errors will be shown here.</p>
@@ -76,12 +103,14 @@
 <script>
     //app.init();
 
+    //,
+    //"FI": "Tuotantopanokset"
+
 
     app.init(function(){
         app.setValue({
   "queryId": "productionMaterials",
   "name": {
-    "FI": "Tuotantopanokset",
     "EN": "Production materials"
   },
   "purpose": {
@@ -346,7 +375,7 @@
   ]
 });
     });
-    
+
 
 
 </script>

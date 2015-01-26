@@ -2734,7 +2734,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
           var strategies = {
             "buildHTML" : function(arr){
-              var out = "<div style=\"font-size : 14px;\">";
+              var out = "<div style=\"font-size : 14px; min-width: 300px;\">";
               for(i in arr){
                 out += "<strong>" + arr[i]["lang"] + ": </strong> " + arr[i]["text"] + "</br>"
               }
@@ -2790,7 +2790,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
             }
           };
 
-
           a = document.createElement('a');
           a.rel = "popover";
           a.className = 'margin-left-5 form-horizontal';
@@ -2801,14 +2800,13 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
           $(a).popover({
             "html"        : true,
+            "width"       : 600,
             "trigger"     : "hover",
             "title"       : "Info",
             "content"     : strategies[key]["getContent"](),
             "placement"   : "right"
           });
-    //      infoWrapper.appendChild(a);
           self.title_controls.appendChild(a);
-
         }
       }, 100);
 

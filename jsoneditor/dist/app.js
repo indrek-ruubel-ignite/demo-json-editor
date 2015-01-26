@@ -6,6 +6,7 @@ var app = (function() {
     var schema = null;
 //    var schema_editor_id = "schema";
     var query_editor_id = "output";
+    var lang_checkbox_class = "language";
 
     /**
     *   Load a file
@@ -48,6 +49,7 @@ var app = (function() {
         */
         var $editor = document.getElementById('editor');
         var $validate = document.getElementById('validate');
+        var langCheckboxes = document.getElementsByClassName(lang_checkbox_class);//(langs_button_id);
 //        var $download_button = document.getElementById('download_query');
 
         /**
@@ -150,6 +152,113 @@ var app = (function() {
             var currentVal = query_editor.getValue();
             t.setValue(currentVal);
         });
+
+        function nth_occurrence (string, char, nth) {
+            var first_index = string.indexOf(char);
+            var length_up_to_first_index = first_index + 1;
+
+            if (nth == 1) {
+                return first_index;
+            } else {
+                var string_after_first_occurrence = string.slice(length_up_to_first_index);
+                var next_occurrence = nth_occurrence(string_after_first_occurrence, char, nth - 1);
+
+                if (next_occurrence === -1) {
+                    return -1;
+                } else {
+                    return length_up_to_first_index + next_occurrence;
+                }
+            }
+        }
+
+        var removeAttributesWithKey = function(txt, key){
+            var lookfor = '"' + key + '"';
+            var startIndex = null;
+
+            while((startIndex = txt.indexOf(lookfor)) > -1){
+                var temp = txt.substring(startIndex, txt.length);
+                var endIndex = nth_occurrence(temp, '"', 4);
+
+                var beforeCommaRemove = false;
+
+                if(txt.substring(startIndex-1, startIndex) === ","){
+                    beforeCommaRemove = true;
+                }
+
+                if(txt.substring(startIndex+endIndex+1, startIndex+endIndex+2) === ","){
+                    var toRemove = txt.substring(startIndex + (beforeCommaRemove ? -1 : 0), startIndex+endIndex+2);
+                }else{
+                    var toRemove = txt.substring(startIndex + (beforeCommaRemove ? -1 : 0), startIndex+endIndex+1);
+                }
+                txt = txt.replace(toRemove, "");
+            }
+            return txt;
+        }
+
+        var addTranslationWithKey = function(txt, key){
+            /**
+            *   Find suspects
+            */
+
+            var lookfor = "{";
+            var startIndex = null;
+            var temp = txt;
+            var charsFromBeginning = 0;
+
+            var replacements = [];
+
+            while((startIndex = temp.indexOf(lookfor)) > -1){
+                charsFromBeginning += startIndex + 1;
+
+                var temp = temp.substring(startIndex + 1, temp.length);
+
+                var endIndex = temp.indexOf("}");
+                var newObj = temp.substring(0, endIndex + 1);
+
+
+                // Analyze if language obj
+                if(newObj.indexOf("{") > -1)
+                    continue;
+
+//                console.log(txt.substring(charsFromBeginning - 20, charsFromBeginning));
+
+                newObj = "{" + newObj;
+                var parsed = JSON.parse(newObj);
+                parsed[key] = "";
+                newObj = JSON.stringify(parsed);
+
+                var real = txt.substring(charsFromBeginning - 1, charsFromBeginning + endIndex + 1);
+
+                replacements.push({
+                    "new" : newObj,
+                    "old" : real
+                });
+            }
+
+            for(i in replacements){
+                var obj = replacements[i];
+                txt = txt.replace(obj["old"], obj["new"]);
+            }
+
+            return txt;
+        }
+
+        for(i in langCheckboxes){
+            var checkbox = langCheckboxes[i];
+
+            if(checkbox.nodeName === "INPUT"){
+                checkbox.addEventListener('click', function(){
+                    var json = jsoneditor.getValue();
+                    var txt = JSON.stringify(json);
+                    if(this.checked){
+                        txt = addTranslationWithKey(txt, this.value);
+                    }else{
+                        txt = removeAttributesWithKey(txt, this.value);
+                    }
+                    t.setValue(txt);
+                });
+            }
+        }
 
 //        $set_schema_button.addEventListener('click',function() {
 //            try {
