@@ -186,7 +186,7 @@ var app = (function() {
                 }
 
                 if(txt.substring(startIndex+endIndex+1, startIndex+endIndex+2) === ","){
-                    var toRemove = txt.substring(startIndex + (beforeCommaRemove ? -1 : 0), startIndex+endIndex+2);
+                    var toRemove = txt.substring(startIndex, startIndex+endIndex+2);
                 }else{
                     var toRemove = txt.substring(startIndex + (beforeCommaRemove ? -1 : 0), startIndex+endIndex+1);
                 }
