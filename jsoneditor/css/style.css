@@ -61,3 +61,7 @@
 .form-control {
     height: 30px !important;
 }
+
+.btn {
+    font-size: 12px !important;
+}
