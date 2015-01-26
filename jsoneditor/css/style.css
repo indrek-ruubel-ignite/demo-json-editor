@@ -58,7 +58,7 @@
     border-radius: 7px;
 }*/
 
-.form-control input {
+input.form-control {
     height: 30px !important;
 }
 
