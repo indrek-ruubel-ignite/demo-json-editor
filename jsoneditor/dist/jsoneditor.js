@@ -2804,17 +2804,30 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
           if(this.formname !== 'root'){
               if(!children_expanded){
                   this.collapsed = true;
-                  this.toggle_button = this.getButton('','expand', 'Expand');
+//                  this.toggle_button = this.getButton('','expand', 'Expand');
+                  this.toggle_button = document.createElement('a');
+                  this.toggle_button.style.width = "20px";
+                  this.toggle_button.style.display = "inline-block";
+                  this.toggle_button.title = "Expand";
+                  this.toggle_button.style.color = "black";
+                  this.toggle_button.innerHTML = "<i class=\"fa fa-angle-right\"></i>";
               }else{
                   this.collapsed = false;
-                  this.toggle_button = this.getButton('','collapse','Collapse');
+//                  this.toggle_button = this.getButton('','collapse','Collapse');
+                  this.toggle_button = document.createElement('a');
+                  this.toggle_button.style.width = "20px";
+                  this.toggle_button.style.display = "inline-block";
+                  this.toggle_button.title = "Collapse";
+                  this.toggle_button.style.color = "black";
+                  this.toggle_button.innerHTML = "<i class=\"fa fa-angle-down\"></i>";
               }
           }else{
               this.collapsed = false;
               this.toggle_button = this.getButton('','collapse','Collapse');
           }
 
-        this.title_controls.appendChild(this.toggle_button);
+//        this.title/*_controls*/.appendChild(this.toggle_button);
+        this.title.insertBefore(this.toggle_button, this.title.firstChild);
 
         this.title_controls.appendChild(this.addproperty_controls);
         if(!fieldIsRequired){
@@ -2825,12 +2838,21 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
           if(self.collapsed) {
               self.editor_holder.style.display = '';
               self.collapsed = false;
-              self.setButtonText(self.toggle_button,'','collapse','Collapse');
+
+              var a = self.toggle_button.getElementsByTagName('a');
+              a.title = "Collapse"
+              var is = self.toggle_button.getElementsByTagName('i');
+              is[0].className = "fa fa-angle-down";
+//              self.setButtonText(self.toggle_button,'','collapse','Collapse');
             }
             else {
               self.editor_holder.style.display = 'none';
               self.collapsed = true;
-              self.setButtonText(self.toggle_button,'','expand','Expand');
+              var a = self.toggle_button.getElementsByTagName('a');
+              a.title = "Expand"
+              var is = self.toggle_button.getElementsByTagName('i');
+              is[0].className = "fa fa-angle-right";
+//              self.setButtonText(self.toggle_button,'','expand','Expand');
             }
         }
 
