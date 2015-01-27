@@ -2580,29 +2580,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
       this.container.appendChild(this.title);
       this.container.style.position = 'relative';
 
-      // Edit JSON modal
-      // MODIFICATION_INC
-//      this.editjson_holder = this.theme.getModal();
-//      this.editjson_textarea = this.theme.getTextareaInput();
-//      this.editjson_textarea.style.height = '170px';
-//      this.editjson_textarea.style.width = '300px';
-//      this.editjson_textarea.style.display = 'block';
-//      this.editjson_save = this.getButton('Save','save','Save');
-//      this.editjson_save.addEventListener('click',function(e) {
-//        e.preventDefault();
-//        e.stopPropagation();
-//        self.saveJSON();
-//      });
-//      this.editjson_cancel = this.getButton('Cancel','cancel','Cancel');
-//      this.editjson_cancel.addEventListener('click',function(e) {
-//        e.preventDefault();
-//        e.stopPropagation();
-//        self.hideEditJSON();
-//      });
-//      this.editjson_holder.appendChild(this.editjson_textarea);
-//      this.editjson_holder.appendChild(this.editjson_save);
-//      this.editjson_holder.appendChild(this.editjson_cancel);
-
       // MODIFICATION_INC
 
       var can_add = false;
@@ -2815,122 +2792,120 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
 
       // Control buttons
-      this.title_controls = this.theme.getHeaderButtonHolder();
-//      this.title_controls.style.float = 'right';
-//      this.editjson_controls = this.theme.getHeaderButtonHolder();
-      this.addproperty_controls = this.theme.getHeaderButtonHolder();
-      this.title.appendChild(this.title_controls);
-//      this.title.appendChild(this.editjson_controls);
+      if(this.key !== "root"){
+        this.title_controls = this.theme.getHeaderButtonHolder();
+        this.title_controls.style.float = 'right';
+        this.addproperty_controls = this.theme.getHeaderButtonHolder();
+        this.title.appendChild(this.title_controls);
 
-      // Show/Hide button
-      // MODIFICATION_INC
-
-        if(this.formname !== 'root'){
-            if(!children_expanded){
-                this.collapsed = true;
-                this.toggle_button = this.getButton('','expand', 'Expand');
-            }else{
-                this.collapsed = false;
-                this.toggle_button = this.getButton('','collapse','Collapse');
-            }
-        }else{
-            this.collapsed = false;
-            this.toggle_button = this.getButton('','collapse','Collapse');
-        }
-
-      this.title_controls.appendChild(this.toggle_button);
-
-      this.title_controls.appendChild(this.addproperty_controls);
-      if(!fieldIsRequired){
-        this.title_controls.appendChild(this.removefield_holder);
-      }
-
-      var toggleExpand = function(){
-        if(self.collapsed) {
-            self.editor_holder.style.display = '';
-            self.collapsed = false;
-            self.setButtonText(self.toggle_button,'','collapse','Collapse');
-          }
-          else {
-            self.editor_holder.style.display = 'none';
-            self.collapsed = true;
-            self.setButtonText(self.toggle_button,'','expand','Expand');
-          }
-      }
-
-
-      this.toggle_button.addEventListener('click',function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        toggleExpand();
-      });
-
-      // If it should start collapsed
-      if(this.options.collapsed) {
-        $trigger(this.toggle_button,'click');
-      }
-
-      // Collapse button disabled
-      if(this.schema.options && typeof this.schema.options.disable_collapse !== "undefined") {
-        if(this.schema.options.disable_collapse) this.toggle_button.style.display = 'none';
-      }
-      else if(this.jsoneditor.options.disable_collapse) {
-        this.toggle_button.style.display = 'none';
-      }
-
-      // Edit JSON Button
-      this.editjson_button = this.getButton('JSON','edit','Edit JSON');
-      this.editjson_button.addEventListener('click',function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        self.toggleEditJSON();
-      });
-//      this.editjson_controls.appendChild(this.editjson_button);
-//      this.editjson_controls.appendChild(this.editjson_holder);
-
-      // Edit JSON Buttton disabled
-      if(this.schema.options && typeof this.schema.options.disable_edit_json !== "undefined") {
-        if(this.schema.options.disable_edit_json) this.editjson_button.style.display = 'none';
-      }
-      else if(this.jsoneditor.options.disable_edit_json) {
-        this.editjson_button.style.display = 'none';
-      }
-
-      var toggle = function(e){
+        // Show/Hide button
         // MODIFICATION_INC
-        if(typeof self.adding_property === 'undefined' || !self.adding_property){
-          // Closed
-          self.addproperty_button.innerHTML = 'Edit content <i class="fa fa-caret-down"></i>';
-        }else{
-          // Open
-          self.addproperty_button.innerHTML = 'Edit content <i class="fa fa-caret-right"></i>';
-        }
-        self.toggleAddProperty();
-      }
 
-      // Object Properties Button
-      this.addproperty_button = this.getButton('Edit content','edit','Object Properties');
-      this.addproperty_button.addEventListener('click',function(e) {
-
-        e.preventDefault();
-        e.stopPropagation();
-        toggle(e);
-      });
-
-      document.addEventListener('click', function(e){
-        if(self.adding_property){
-          if(self.addproperty_holder.contains(e.target) || e.target.nodeName === 'INPUT'){
-//            console.log(e.target.nodeName);
-//            console.log("Clicked inside the box");
+          if(this.formname !== 'root'){
+              if(!children_expanded){
+                  this.collapsed = true;
+                  this.toggle_button = this.getButton('','expand', 'Expand');
+              }else{
+                  this.collapsed = false;
+                  this.toggle_button = this.getButton('','collapse','Collapse');
+              }
           }else{
-            toggle();
+              this.collapsed = false;
+              this.toggle_button = this.getButton('','collapse','Collapse');
           }
-        }
-      });
 
-      this.addproperty_controls.appendChild(this.addproperty_button);
-      this.addproperty_controls.appendChild(this.addproperty_holder);
-      this.refreshAddProperties();
+        this.title_controls.appendChild(this.toggle_button);
+
+        this.title_controls.appendChild(this.addproperty_controls);
+        if(!fieldIsRequired){
+          this.title_controls.appendChild(this.removefield_holder);
+        }
+
+        var toggleExpand = function(){
+          if(self.collapsed) {
+              self.editor_holder.style.display = '';
+              self.collapsed = false;
+              self.setButtonText(self.toggle_button,'','collapse','Collapse');
+            }
+            else {
+              self.editor_holder.style.display = 'none';
+              self.collapsed = true;
+              self.setButtonText(self.toggle_button,'','expand','Expand');
+            }
+        }
+
+
+        this.toggle_button.addEventListener('click',function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleExpand();
+        });
+
+        // If it should start collapsed
+        if(this.options.collapsed) {
+          $trigger(this.toggle_button,'click');
+        }
+
+        // Collapse button disabled
+        if(this.schema.options && typeof this.schema.options.disable_collapse !== "undefined") {
+          if(this.schema.options.disable_collapse) this.toggle_button.style.display = 'none';
+        }
+        else if(this.jsoneditor.options.disable_collapse) {
+          this.toggle_button.style.display = 'none';
+        }
+
+        // Edit JSON Button
+        this.editjson_button = this.getButton('JSON','edit','Edit JSON');
+        this.editjson_button.addEventListener('click',function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          self.toggleEditJSON();
+        });
+  //      this.editjson_controls.appendChild(this.editjson_button);
+  //      this.editjson_controls.appendChild(this.editjson_holder);
+
+        // Edit JSON Buttton disabled
+        if(this.schema.options && typeof this.schema.options.disable_edit_json !== "undefined") {
+          if(this.schema.options.disable_edit_json) this.editjson_button.style.display = 'none';
+        }
+        else if(this.jsoneditor.options.disable_edit_json) {
+          this.editjson_button.style.display = 'none';
+        }
+
+        var toggle = function(e){
+          // MODIFICATION_INC
+          if(typeof self.adding_property === 'undefined' || !self.adding_property){
+            // Closed
+            self.addproperty_button.innerHTML = 'Edit content <i class="fa fa-caret-down"></i>';
+          }else{
+            // Open
+            self.addproperty_button.innerHTML = 'Edit content <i class="fa fa-caret-right"></i>';
+          }
+          self.toggleAddProperty();
+        }
+
+        // Object Properties Button
+        this.addproperty_button = this.getButton('Edit content','edit','Object Properties');
+        this.addproperty_button.addEventListener('click',function(e) {
+
+          e.preventDefault();
+          e.stopPropagation();
+          toggle(e);
+        });
+
+        document.addEventListener('click', function(e){
+          if(self.adding_property){
+            if(self.addproperty_holder.contains(e.target) || e.target.nodeName === 'INPUT'){
+            }else{
+              toggle();
+            }
+          }
+        });
+
+        this.addproperty_controls.appendChild(this.addproperty_button);
+        this.addproperty_controls.appendChild(this.addproperty_holder);
+        this.refreshAddProperties();
+      }
     }
 
     // Fix table cell ordering
