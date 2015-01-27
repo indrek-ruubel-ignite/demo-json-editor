@@ -3960,10 +3960,22 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
 
     if(!children_expanded){
       this.collapsed = true;
-      this.toggle_button = this.getButton('','expand', 'Expand');
+//      this.toggle_button = this.getButton('','expand', 'Expand');
+      this.toggle_button = document.createElement('a');
+      this.toggle_button.style.width = "20px";
+      this.toggle_button.style.display = "inline-block";
+      this.toggle_button.title = "Expand";
+      this.toggle_button.style.color = "black";
+      this.toggle_button.innerHTML = "<i class=\"fa fa-angle-right\"></i>";
     }else{
       this.collapsed = false;
-      this.toggle_button = this.getButton('','collapse','Collapse');
+//      this.toggle_button = this.getButton('','collapse','Collapse');
+      this.toggle_button = document.createElement('a');
+      this.toggle_button.style.width = "20px";
+      this.toggle_button.style.display = "inline-block";
+      this.toggle_button.title = "Collapse";
+      this.toggle_button.style.color = "black";
+      this.toggle_button.innerHTML = "<i class=\"fa fa-angle-down\"></i>";
     }
 
 
@@ -3971,7 +3983,8 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
 //    this.toggle_button = this.getButton('','collapse','Collapse');
 
 
-    this.title_controls.appendChild(this.toggle_button);
+//    this.title_controls.appendChild(this.toggle_button);
+    this.title.insertBefore(this.toggle_button, this.title.firstChild);
     var row_holder_display = self.row_holder.style.display;
     var controls_display = self.controls.style.display;
     this.toggle_button.addEventListener('click',function(e) {
@@ -3983,7 +3996,11 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
         self.row_holder.style.display = row_holder_display;
         if(self.tabs_holder) self.tabs_holder.style.display = '';
         self.controls.style.display = controls_display;
-        self.setButtonText(this,'','collapse','Collapse');
+//        self.setButtonText(this,'','collapse','Collapse');
+        var a = self.toggle_button.getElementsByTagName('a');
+        a.title = "Collapse"
+        var is = self.toggle_button.getElementsByTagName('i');
+        is[0].className = "fa fa-angle-down";
       }
       else {
         self.collapsed = true;
@@ -3991,7 +4008,11 @@ JSONEditor.defaults.editors.array = JSONEditor.AbstractEditor.extend({
         if(self.tabs_holder) self.tabs_holder.style.display = 'none';
         self.controls.style.display = 'none';
         if(self.panel) self.panel.style.display = 'none';
-        self.setButtonText(this,'','expand','Expand');
+//        self.setButtonText(this,'','expand','Expand');
+        var a = self.toggle_button.getElementsByTagName('a');
+        a.title = "Expand"
+        var is = self.toggle_button.getElementsByTagName('i');
+        is[0].className = "fa fa-angle-right";
       }
     });
 
