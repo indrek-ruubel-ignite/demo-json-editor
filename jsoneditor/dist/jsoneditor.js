@@ -2714,7 +2714,9 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         editor.postBuild();
       });
 
-      var a = null;
+
+      var iconContainer = document.createElement('span');
+      this.title.appendChild(iconContainer);
 
       setTimeout(function(){
 
@@ -2731,6 +2733,16 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         }
 
         if(key != null){
+
+          var a = document.createElement('a');
+          a.rel = "popover";
+          a.className = 'margin-left-5';
+          a.href = "javascript:;";
+          var img = document.createElement('img');
+          img.src = "jsoneditor/css/infosign_small.png";
+          a.appendChild(img);
+          iconContainer.appendChild(a);
+
 
           var strategies = {
             "buildHTML" : function(arr){
@@ -2790,14 +2802,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
             }
           };
 
-          a = document.createElement('a');
-          a.rel = "popover";
-          a.className = 'margin-left-5 form-horizontal';
-          a.href = "javascript:;";
-          var img = document.createElement('img');
-          img.src = "jsoneditor/css/infosign_small.png";
-          a.appendChild(img);
-
           $(a).popover({
             "html"        : true,
             "width"       : 600,
@@ -2806,7 +2810,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
             "content"     : strategies[key]["getContent"](),
             "placement"   : "right"
           });
-          self.title_controls.appendChild(a);
         }
       }, 100);
 
