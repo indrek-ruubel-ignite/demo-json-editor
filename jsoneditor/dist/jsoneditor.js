@@ -6088,7 +6088,7 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
   getSelectInput: function(options) {
     // MODIFICATION_INC
     var wrapper = document.createElement('div');
-    wrapper.className = 'col-lg-10';
+    wrapper.className = 'col-lg-5';
 
     var el = this._super(options);
     el.className += 'form-control';
@@ -6123,7 +6123,7 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
     if(type !== 'checkbox') {
         // MODIFICATION_INC
         var wrapper = document.createElement('div');
-        wrapper.className = 'col-lg-10';// + (required ? '11' : '10');
+        wrapper.className = 'col-lg-5';// + (required ? '11' : '10');
         el.className += 'form-control';
         wrapper.appendChild(el);
         return wrapper;
