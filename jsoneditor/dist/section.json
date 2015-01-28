@@ -2,8 +2,8 @@
   "title": "Section",
   "type" : "object",
   "description" : "Section item",
-  "required" : ["sectionId", "name"],
-  "defaultProperties": ["sectionId", "name"],
+  "required" : ["sectionId", "name", "questions"],
+  "defaultProperties": ["sectionId", "name", "questions"],
   "additionalProperties" : false,
   "properties" : {
     "sectionId" : {
