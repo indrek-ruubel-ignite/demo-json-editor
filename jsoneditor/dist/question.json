@@ -184,8 +184,9 @@
         }
       }
     },
-    "additionalQuestionIds" :{
+    "additionalQuestionIds" : {
       "title" : "Additional question Ids",
+      "format" : "table",
       "type" : "array",
       "propertyOrder": 29,
       "items" : {
@@ -203,7 +204,10 @@
     "resourceGroups" : {
       "title" : "Resource groups",
       "type" : "array",
-      "propertyOrder": 31
+      "propertyOrder": 31,
+      "items" : {
+        "type" : "string"
+      }
     },
     "choices" : {
       "title" : "Answers",

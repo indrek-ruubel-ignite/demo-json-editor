@@ -2,8 +2,8 @@ var query_schema = {
     "title": "Query",
     "description": "Query object",
     "type": "object",
-    "required"	:	["queryId", "name", "sections"],
-    "defaultProperties": ["queryId", "name", "sections"],
+    "required"	:	["queryId", "name", "sections", "list"],
+    "defaultProperties": ["queryId", "name", "sections", "list"],
     "additionalProperties" : false,
     "properties": {
         "queryId": {
@@ -60,22 +60,9 @@ var query_schema = {
         },
         "history" : {
             "title" : "History",
-            "format": "table",
-            "type" : "array",
+            "type" : "object",
             "additionalProperties" : true,
-            "propertyOrder": 15,
-            "items" : {
-                "type" : "object",
-                "properties" : {
-                    "version" : {
-                        "type" : "string"
-                    },
-                    "description" : {
-                        "type" : "string"
-                    }
-                }
-            }
-
+            "propertyOrder": 15
         },
         "includedSections" : {
             "title" : "Included sections",
@@ -107,6 +94,12 @@ var query_schema = {
             "items" : {
                 "$ref"  : "jsoneditor/dist/section.json"
             }
-        }
+        },
+        "list" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
     }
 }

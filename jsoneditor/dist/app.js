@@ -189,7 +189,6 @@ var app = (function() {
     *   Update languages
     */
     t.updateLanguages = function(){
-        console.log("updateing languages");
         var langs = getActiveLanguages();
         var txt = query_editor.getValue();
         for(i in langs){
