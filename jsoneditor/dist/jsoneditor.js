@@ -2801,32 +2801,31 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         // Show/Hide button
         // MODIFICATION_INC
 
-          if(this.formname !== 'root'){
-              if(!children_expanded){
-                  this.collapsed = true;
+        if(this.formname !== 'root'){
+            if(!children_expanded){
+                this.collapsed = true;
 //                  this.toggle_button = this.getButton('','expand', 'Expand');
-                  this.toggle_button = document.createElement('a');
-                  this.toggle_button.style.width = "20px";
-                  this.toggle_button.style.display = "inline-block";
-                  this.toggle_button.title = "Expand";
-                  this.toggle_button.style.color = "black";
-                  this.toggle_button.innerHTML = "<i class=\"fa fa-angle-right\"></i>";
-              }else{
-                  this.collapsed = false;
+                this.toggle_button = document.createElement('a');
+                this.toggle_button.style.width = "20px";
+                this.toggle_button.style.display = "inline-block";
+                this.toggle_button.title = "Expand";
+                this.toggle_button.style.color = "black";
+                this.toggle_button.innerHTML = "<i class=\"fa fa-angle-right\"></i>";
+            }else{
+                this.collapsed = false;
 //                  this.toggle_button = this.getButton('','collapse','Collapse');
-                  this.toggle_button = document.createElement('a');
-                  this.toggle_button.style.width = "20px";
-                  this.toggle_button.style.display = "inline-block";
-                  this.toggle_button.title = "Collapse";
-                  this.toggle_button.style.color = "black";
-                  this.toggle_button.innerHTML = "<i class=\"fa fa-angle-down\"></i>";
-              }
-          }else{
-              this.collapsed = false;
-              this.toggle_button = this.getButton('','collapse','Collapse');
-          }
+                this.toggle_button = document.createElement('a');
+                this.toggle_button.style.width = "20px";
+                this.toggle_button.style.display = "inline-block";
+                this.toggle_button.title = "Collapse";
+                this.toggle_button.style.color = "black";
+                this.toggle_button.innerHTML = "<i class=\"fa fa-angle-down\"></i>";
+            }
+        }else{
+            this.collapsed = false;
+            this.toggle_button = this.getButton('','collapse','Collapse');
+        }
 
-//        this.title/*_controls*/.appendChild(this.toggle_button);
         this.title.insertBefore(this.toggle_button, this.title.firstChild);
 
         this.title_controls.appendChild(this.addproperty_controls);
@@ -2883,8 +2882,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
           e.stopPropagation();
           self.toggleEditJSON();
         });
-  //      this.editjson_controls.appendChild(this.editjson_button);
-  //      this.editjson_controls.appendChild(this.editjson_holder);
 
         // Edit JSON Buttton disabled
         if(this.schema.options && typeof this.schema.options.disable_edit_json !== "undefined") {
@@ -2905,6 +2902,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
           }
           self.toggleAddProperty();
         }
+
 
         // Object Properties Button
         this.addproperty_button = this.getButton('Edit content','edit','Object Properties');
