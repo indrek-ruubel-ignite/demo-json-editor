@@ -175,13 +175,11 @@
     },
     "allowedExtensions" : {
       "title" : "Allowed extensions",
+      "format" : "table",
       "type" : "array",
       "propertyOrder": 28,
       "items" : {
-        "type" : "object",
-        "additionalProperties" : false,
-        "properties" : {
-        }
+        "type" : "string"
       }
     },
     "additionalQuestionIds" : {
@@ -203,6 +201,7 @@
     },
     "resourceGroups" : {
       "title" : "Resource groups",
+      "format" : "table",
       "type" : "array",
       "propertyOrder": 31,
       "items" : {
