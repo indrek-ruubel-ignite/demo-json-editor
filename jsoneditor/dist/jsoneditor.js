@@ -2905,13 +2905,34 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
 
         // Object Properties Button
-        this.addproperty_button = this.getButton('Edit content','edit','Object Properties');
-        this.addproperty_button.addEventListener('click',function(e) {
 
-          e.preventDefault();
-          e.stopPropagation();
-          toggle(e);
-        });
+        setTimeout(function(){
+//          FI EN SV NO RU
+
+          if(typeof self.value === 'object'){
+
+            if(self.value.hasOwnProperty("FI") || self.value.hasOwnProperty("EN") || self.value.hasOwnProperty("SV") || self.value.hasOwnProperty("NO") || self.value.hasOwnProperty("RU")){
+            }else{
+              self.addproperty_button = self.getButton('Edit content','edit','Object Properties');
+              self.addproperty_button.addEventListener('click',function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggle(e);
+              });
+              self.addproperty_controls.appendChild(self.addproperty_button);
+              self.addproperty_controls.appendChild(self.addproperty_holder);
+              self.refreshAddProperties();
+            }
+          }
+        }, 200);
+
+//        this.addproperty_button = this.getButton('Edit content','edit','Object Properties');
+//        this.addproperty_button.addEventListener('click',function(e) {
+//
+//          e.preventDefault();
+//          e.stopPropagation();
+//          toggle(e);
+//        });
 
         document.addEventListener('click', function(e){
           if(self.adding_property){
@@ -2922,8 +2943,8 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
           }
         });
 
-        this.addproperty_controls.appendChild(this.addproperty_button);
-        this.addproperty_controls.appendChild(this.addproperty_holder);
+//        this.addproperty_controls.appendChild(this.addproperty_button);
+//        this.addproperty_controls.appendChild(this.addproperty_holder);
         this.refreshAddProperties();
       }
     }
