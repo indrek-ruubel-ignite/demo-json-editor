@@ -193,6 +193,7 @@
     },
     "entityClasses" : {
       "title" : "Entity classes",
+      "format" : "table",
       "type" : "array",
       "propertyOrder": 30,
       "items" : {
