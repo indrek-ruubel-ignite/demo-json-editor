@@ -8,6 +8,7 @@ var app = (function() {
     var languages_wrapper_id = "languages";
     var langsWrapper = null;
     var query_editor = null;
+    var $validate = null;
 
     /**
     *   Load a file
@@ -42,6 +43,33 @@ var app = (function() {
     /**
     *   Helper functions
     */
+
+    var validate = function(){
+        var validation_errors = jsoneditor.validate();
+        // Show validation errors if there are any
+        if(validation_errors.length) {
+            setValidationErrors(validation_errors);
+        }
+        else {
+            $validate.value = 'valid';
+        }
+    };
+
+    var setValidationErrors = function(errors){
+        $validate.value = JSON.stringify(errors,null,2);
+    };
+
+    var getActiveLanguages = function(){
+        var activeLangs = [];
+        var checkboxes = langsWrapper.getElementsByTagName('input');
+        for(i in checkboxes){
+            var checkbox = checkboxes[i];
+            if(checkbox.checked){
+                activeLangs.push(checkbox.value);
+            }
+        }
+        return activeLangs;
+    }
 
     /**
     *   String manipulation
@@ -157,6 +185,20 @@ var app = (function() {
         }
     };
 
+    /**
+    *   Update languages
+    */
+    t.updateLanguages = function(){
+        console.log("updateing languages");
+        var langs = getActiveLanguages();
+        var txt = query_editor.getValue();
+        for(i in langs){
+            var lang = langs[i];
+            txt = addTranslationWithKey(txt, lang);
+        }
+        t.setValue(txt);
+    }
+
 
     /**
     *   Set value to editor, argument as object or string
@@ -186,7 +228,7 @@ var app = (function() {
         *   DOM elements
         */
         var $editor = document.getElementById('editor');
-        var $validate = document.getElementById('validate');
+        $validate = document.getElementById('validate');
         langsWrapper = document.getElementById(languages_wrapper_id);
 
         /**
@@ -216,21 +258,6 @@ var app = (function() {
                 query_editor.setValue(JSON.stringify(json,null,2));
                 validate();
             });
-        };
-
-        var validate = function(){
-            var validation_errors = jsoneditor.validate();
-            // Show validation errors if there are any
-            if(validation_errors.length) {
-                setValidationErrors(validation_errors);
-            }
-            else {
-                $validate.value = 'valid';
-            }
-        };
-
-        var setValidationErrors = function(errors){
-            $validate.value = JSON.stringify(errors,null,2);
         };
 
 

@@ -304,6 +304,7 @@ JSONEditor.prototype = {
     }
     // Current value (use cached result)
     else {
+      app.updateLanguages();
       return this.validation_results;
     }
   },
