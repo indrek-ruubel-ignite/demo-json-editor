@@ -2745,11 +2745,20 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
             },
             "questionId" : {
               "getContent" : function(){
-                return strategies.buildHTML([
-                  { "lang" : "EN", "text" : "Question"},
-                  { "lang" : "FI", "text" : "Kysymys"},
-                  { "lang" : "SV", "text" : "Fråga"}
-                ]);
+                var arr = [];
+                for(i in self.value.question){
+                  arr.push({
+                    "lang"  : i,
+                    "text"  : self.value.question[i]
+                  });
+                }
+                return strategies.buildHTML(arr);
+
+//                return strategies.buildHTML([
+//                  { "lang" : "EN", "text" : "Question"},
+//                  { "lang" : "FI", "text" : "Kysymys"},
+//                  { "lang" : "SV", "text" : "Fråga"}
+//                ]);
               }
             },
             "sectionId" : {
@@ -2924,7 +2933,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
               self.refreshAddProperties();
             }
           }
-        }, 200);
+        }, 100);
 
 //        this.addproperty_button = this.getButton('Edit content','edit','Object Properties');
 //        this.addproperty_button.addEventListener('click',function(e) {
