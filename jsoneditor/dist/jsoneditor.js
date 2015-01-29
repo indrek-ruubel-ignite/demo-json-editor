@@ -2050,7 +2050,7 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
     if(this.isRequired(this)){
       this.control = this.theme.getFormControl(this.label, this.input, this.description, false);
     }else{
-      this.control = this.theme.getFormControl(this.label, this.input, this.description, (this.container.nodeName === 'TD' ? false : function(){
+      this.control = this.theme.getFormControl(this.label, this.input, this.description, (this.container.nodeName === 'TD' || this.container.title.indexOf("translation") == -1 ? false : function(){
           /**
           * Remove callback, do object manipulation
           */
