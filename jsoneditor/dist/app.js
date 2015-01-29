@@ -191,10 +191,12 @@ var app = (function() {
     t.updateLanguages = function(){
         var langs = getActiveLanguages();
         var txt = query_editor.getValue();
+        console.log(txt);
         for(i in langs){
             var lang = langs[i];
             txt = addTranslationWithKey(txt, lang);
         }
+//        console.log(txt);
         t.setValue(txt);
     }
 
