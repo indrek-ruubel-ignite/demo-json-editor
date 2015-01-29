@@ -139,7 +139,9 @@ var app = (function() {
 
             newObj = "{" + newObj;
             var parsed = JSON.parse(newObj);
-            parsed[key] = "";
+            if(!parsed.hasOwnProperty(key)){
+                parsed[key] = "";
+            }
             newObj = JSON.stringify(parsed);
 
             var real = txt.substring(charsFromBeginning - 1, charsFromBeginning + endIndex + 1);
@@ -190,13 +192,12 @@ var app = (function() {
     */
     t.updateLanguages = function(){
         var langs = getActiveLanguages();
-        var txt = query_editor.getValue();
-        console.log(txt);
+        var json = jsoneditor.getValue();
+        var txt = JSON.stringify(json);
         for(i in langs){
             var lang = langs[i];
             txt = addTranslationWithKey(txt, lang);
         }
-//        console.log(txt);
         t.setValue(txt);
     }
 
@@ -209,6 +210,7 @@ var app = (function() {
             obj = JSON.parse(obj);
         }
         query_editor.setValue(JSON.stringify(obj, null, 2));
+        jsoneditor.setValue(obj);
         var verdict = jsoneditor.validate(obj);
         if(!verdict.length || verdict == true){
             jsoneditor.setValue(obj);
@@ -216,7 +218,6 @@ var app = (function() {
             setValidationErrors(verdict);
         }
     };
-
 
     /**
     *   Main

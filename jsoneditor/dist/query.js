@@ -67,15 +67,14 @@ var query_schema = {
             "items" : {
                 "type" : "object",
                 "properties" : {
-                    "version" : {
+                    "v" : {
                         "type" : "string"
                     },
-                    "description" : {
+                    "update" : {
                         "type" : "string"
                     }
                 }
             }
-
         },
         "includedSections" : {
             "title" : "Included sections",
