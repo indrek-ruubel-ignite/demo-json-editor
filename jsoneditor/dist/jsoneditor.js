@@ -5240,7 +5240,7 @@ JSONEditor.defaults.editors.select = JSONEditor.AbstractEditor.extend({
       self.onInputChange();
     });
 
-    this.control = this.theme.getFormControl(this.label, this.input, this.description, function(){
+    this.control = this.theme.getFormControl(this.label, this.input, this.description, this.container.nodeName === 'TD' ? false : function(){
       // MODIFICATION_INC
       /**
       * Remove callback, do object manipulation
@@ -5272,8 +5272,6 @@ JSONEditor.defaults.editors.select = JSONEditor.AbstractEditor.extend({
     }
 
     this.value = this.enum_values[this.enum_options.indexOf(val)];
-
-    console.log(this.value);
 
     this.onChange(true);
   },

@@ -106,6 +106,30 @@ var query_schema = {
             "items" : {
                 "$ref"  : "jsoneditor/dist/section.json"
             }
+        },
+
+        "pets": {
+          "type": "array",
+          "format": "table",
+          "title": "Pets",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "title": "Pet",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "cat",
+                  "dog",
+                  "bird",
+                  "reptile",
+                  "other"
+                ]
+              }
+            }
+          }
         }
+
     }
 }
