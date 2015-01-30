@@ -139,17 +139,21 @@ var app = (function() {
 
             newObj = "{" + newObj;
             var parsed = JSON.parse(newObj);
-            if(!parsed.hasOwnProperty(key)){
-                parsed[key] = "";
+            if(parsed.hasOwnProperty("EN") || parsed.hasOwnProperty("FI") ||
+                parsed.hasOwnProperty("RU") || parsed.hasOwnProperty("SV") || parsed.hasOwnProperty("NO")){
+                console.log(parsed);
+                if(!parsed.hasOwnProperty(key)){
+                    parsed[key] = "";
+                }
+                newObj = JSON.stringify(parsed);
+
+                var real = txt.substring(charsFromBeginning - 1, charsFromBeginning + endIndex + 1);
+
+                replacements.push({
+                    "new" : newObj,
+                    "old" : real
+                });
             }
-            newObj = JSON.stringify(parsed);
-
-            var real = txt.substring(charsFromBeginning - 1, charsFromBeginning + endIndex + 1);
-
-            replacements.push({
-                "new" : newObj,
-                "old" : real
-            });
         }
         for(i in replacements){
             var obj = replacements[i];
