@@ -141,7 +141,6 @@ var app = (function() {
             var parsed = JSON.parse(newObj);
             if(parsed.hasOwnProperty("EN") || parsed.hasOwnProperty("FI") ||
                 parsed.hasOwnProperty("RU") || parsed.hasOwnProperty("SV") || parsed.hasOwnProperty("NO")){
-                console.log(parsed);
                 if(!parsed.hasOwnProperty(key)){
                     parsed[key] = "";
                 }
