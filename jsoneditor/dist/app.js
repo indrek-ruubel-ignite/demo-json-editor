@@ -140,7 +140,7 @@ var app = (function() {
             newObj = "{" + newObj;
             var parsed = JSON.parse(newObj);
             if(parsed.hasOwnProperty("EN") || parsed.hasOwnProperty("FI") ||
-                parsed.hasOwnProperty("RU") || parsed.hasOwnProperty("SV") || parsed.hasOwnProperty("NO")){
+                parsed.hasOwnProperty("RU") || parsed.hasOwnProperty("SV") || parsed.hasOwnProperty("NO") || objectIsEmpty(parsed)){
                 if(!parsed.hasOwnProperty(key)){
                     parsed[key] = "";
                 }
@@ -159,6 +159,15 @@ var app = (function() {
             txt = txt.replace(obj["old"], obj["new"]);
         }
         return txt;
+    }
+
+    function objectIsEmpty(map) {
+       for(var key in map) {
+          if (map.hasOwnProperty(key)) {
+             return false;
+          }
+       }
+       return true;
     }
 
 
