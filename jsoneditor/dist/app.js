@@ -231,6 +231,18 @@ var app = (function() {
         }
     };
 
+    t.isValid = function(){
+        return jsoneditor.validate().length ? false : true;
+    };
+
+    t.getValue = function(){
+        if(t.isValid()){
+            return query_editor.getValue();
+        }else{
+            return null;
+        }
+    };
+
     /**
     *   Main
     */
