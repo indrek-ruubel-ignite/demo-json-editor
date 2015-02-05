@@ -204,7 +204,6 @@ var app = (function() {
     */
     var help_wascalled = false;
     t.updateLanguages = function(){
-        console.log("This is called");
         var langs = getActiveLanguages();
         var json = jsoneditor.getValue();
         var txt = JSON.stringify(json);
