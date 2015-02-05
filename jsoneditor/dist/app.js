@@ -202,7 +202,9 @@ var app = (function() {
     /**
     *   Update languages
     */
+    var help_wascalled = false;
     t.updateLanguages = function(){
+        console.log("This is called");
         var langs = getActiveLanguages();
         var json = jsoneditor.getValue();
         var txt = JSON.stringify(json);
@@ -210,22 +212,32 @@ var app = (function() {
             var lang = langs[i];
             txt = addTranslationWithKey(txt, lang);
         }
-        t.setValue(txt);
+        if(!help_wascalled){
+            help_wascalled = true;
+            t.setValue(txt);
+
+            // var to avoid stack overflow
+            setTimeout(function(){
+                help_wascalled = false;
+            }, 500);
+        }
     }
 
 
     /**
     *   Set value to editor, argument as object or string
     */
-    t.setValue = function(obj){
+    t.setValue = function(obj, updateLangs){
         if(typeof obj !== 'object'){
             obj = JSON.parse(obj);
         }
+
         query_editor.setValue(JSON.stringify(obj, null, 2));
+
         jsoneditor.setValue(obj);
         var verdict = jsoneditor.validate(obj);
         if(!verdict.length || verdict == true){
-            jsoneditor.setValue(obj);
+//            jsoneditor.setValue(obj);
         }else{
             setValidationErrors(verdict);
         }
