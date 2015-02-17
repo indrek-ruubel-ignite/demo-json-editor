@@ -107,5 +107,6 @@ var query_schema = {
                 "$ref"  : "jsoneditor/dist/section.json"
             }
         }
+
     }
 }

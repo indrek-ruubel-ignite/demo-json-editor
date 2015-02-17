@@ -185,19 +185,13 @@
 
     "additionalQuestionIds": {
       "type": "array",
-      "title" : "Additional question Ids",
-      "format": "table",
+      "title" : "AdditionalQuestionIds",
       "propertyOrder": 29,
       "uniqueItems": true,
       "items": {
-        "type": "object",
-        "title": "Item",
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": ["quantity","thickness_mm","transportDistance_km","wasteShareInUsePhase","profileId","transportResourceId","resourceProfile","comment","areaOfOrigin","electricityType","eolProcessingType","publishForExport","share","projectManager","status","compassDescription","compassSchedule","compassFollowUpMethod","compassResultsAndComments","compassSpecifications","compassDataSource","hotelDepartment","passportArea","passportEvalue","passportEvalueUseType","GBCemissionFactor"]
-          }
-        }
+        "type": "string",
+        "title": "AdditionalQuestionId",
+        "enum": ["quantity","thickness_mm","transportDistance_km","wasteShareInUsePhase","profileId","transportResourceId","resourceProfile","comment","areaOfOrigin","electricityType","eolProcessingType","publishForExport","share","projectManager","status","compassDescription","compassSchedule","compassFollowUpMethod","compassResultsAndComments","compassSpecifications","compassDataSource","hotelDepartment","passportArea","passportEvalue","passportEvalueUseType","GBCemissionFactor"]
       }
     },
 
@@ -213,19 +207,13 @@
 
     "resourceGroups": {
       "type": "array",
-      "title" : "Resource groups",
-      "format": "table",
+      "title" : "ResourceGroups",
       "propertyOrder": 32,
       "uniqueItems": true,
       "items": {
-        "type": "object",
-        "title": "Item",
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": ["indicatorLogistics1","indicatorAcquisitions1","indicatorCommunication1","indicatorEnergy1","indicatorMaterials1","indicatorServices1","indicatorWaste1","buildingTechnology","GBCEvalue","indicatorLogistics2","indicatorAcquisitions2","indicatorCommunication2","indicatorEnergy2","indicatorMaterials2","indicatorServices2","indicatorWaste2","indicatorLogistics3","indicatorAcquisitions3","indicatorCommunication3","indicatorEnergy3","indicatorMaterials3","indicatorServices3","indicatorWaste3","emissionsToAir","refrigerants","AP","VP","VS","JS","OTHER","indicatorLogistics4","indicatorAcquisitions4","indicatorCommunication4","indicatorEnergy4","indicatorMaterials4","indicatorServices4","indicatorWaste4","trafficFuels","EN15804_A5energy","indicatorLogistics5","indicatorAcquisitions5","indicatorCommunication5","indicatorEnergy5","indicatorMaterials5","indicatorServices5","indicatorWaste5","systemLocale","districtHeatSweden","floursAndFlakes","indicatorLogistics6","indicatorAcquisitions6","indicatorCommunication6","indicatorEnergy6","indicatorMaterials6","indicatorServices6","indicatorWaste6","FIGBCBuildingTypes","picture1","GBCBuildingElectricity","GBCDistrictCooling","GBCHeatingEnergy","GBCEmissionCategory","GBCTotalElectricity","GBCUserElectricity","entityClass","GBCwaterEnergyMWh","districtHeatFinland","SITE_E","SITE_G","buildingProcurement","heatingFuels","heatingFuelsCO2","GBCheatingFuels","heatingFuelsKWh","vegetables","transportPassengerPKm","world","finlandCity","status","buildingTechnologyAverages","EN15804Minerals","FA","YP","RO","constructionWaste","EN15804WasteProduction","waste","EN15804OtherRawMaterials","buildingTypes","rakMK2","picture2","fruits","typesOfOrganizations","rakMK4","picture8","districtHeatGLO","districtCooling","districtHeating","electricity","averageElectricity","EN15804Production","transportGoods","concreteTransportation","EN15804Transportation","convenienceFood","FIGBCKeyFigure","meat","alcoholicBeverages","concreteAncillary","EN15804Packaging","concreteProductionWaste","EN15804WasteGeneral","FO","EN15804OilBased","EN15804_A5materials","concreteAdhesives","EN15804Recycled","softDrinks","EN15804Metals","breadAndPastries","processedFood","operatingCostB2average","operatingCostB2building","transportPassengerKm","fatAndOil","stagesOfConstruction","concreteCarbonatisation","otherDryFoods","EN15804Organic","cheese","fishAndCrustacean","compassActions1","compassActions2","compassActions3","compassActions4","compassActions5","compassActions6","compassActions7","concreteReinforcement","concreteAggregate","intensityOfUse","LCCA1A5building","defaultValue","EN15804Waste","specificCostEnergy","EN15804Components","dairyProducts","ricePastaAndSimilar","rakMK6","defaultcost","directCO2energy","directCO2energyIntensiveServices","directCO2postage","directCO2transport","registrationMotive","eggs","ensto","rakMK9","picture9","EN15804ProductionMaterials","foodCorrection","intensityOfUseFood","rakMK1","EN15804OtherRecycled","doors","EN15804WasteHazardous","rakMK3","rakMK8","picture6","hotelEnvManEnergyEfficiencyPractice","hotelEnvManEnergyProductionPractice","hotelEnvManWaterEquipment","hotelEnvManEnergyEfficientEquipment","hotelEnvManEnergyEfficientEquipmentKitchen","hotelEnvManOther","hotelEnvManProcurement","hotelEnvManAlternativeWater","hotelEnvManWasteType","hotelEnvManWasteBestPractice","rakMK5","picture5","rakMK7","inhouseLaundry","laundry","concreteInsulation","operatingCostB1average","operatingCostB1building","LCCA0building","FIGBCKeyFigures","picture4","picture3","specificCostOther","outSourcedHotelLaundry","producedElectricity","productionVolume","EN15804_A4","operatingCostB3B4average","operatingCostB3B4building","EN!5804Minerals","stone","water","unspecifiedResource","specificCostWaterWaste","windows"]
-          }
-        }
+        "type": "string",
+        "title": "ResourceGroup",
+        "enum": ["indicatorLogistics1","indicatorAcquisitions1","indicatorCommunication1","indicatorEnergy1","indicatorMaterials1","indicatorServices1","indicatorWaste1","buildingTechnology","GBCEvalue","indicatorLogistics2","indicatorAcquisitions2","indicatorCommunication2","indicatorEnergy2","indicatorMaterials2","indicatorServices2","indicatorWaste2","indicatorLogistics3","indicatorAcquisitions3","indicatorCommunication3","indicatorEnergy3","indicatorMaterials3","indicatorServices3","indicatorWaste3","emissionsToAir","refrigerants","AP","VP","VS","JS","OTHER","indicatorLogistics4","indicatorAcquisitions4","indicatorCommunication4","indicatorEnergy4","indicatorMaterials4","indicatorServices4","indicatorWaste4","trafficFuels","EN15804_A5energy","indicatorLogistics5","indicatorAcquisitions5","indicatorCommunication5","indicatorEnergy5","indicatorMaterials5","indicatorServices5","indicatorWaste5","systemLocale","districtHeatSweden","floursAndFlakes","indicatorLogistics6","indicatorAcquisitions6","indicatorCommunication6","indicatorEnergy6","indicatorMaterials6","indicatorServices6","indicatorWaste6","FIGBCBuildingTypes","picture1","GBCBuildingElectricity","GBCDistrictCooling","GBCHeatingEnergy","GBCEmissionCategory","GBCTotalElectricity","GBCUserElectricity","entityClass","GBCwaterEnergyMWh","districtHeatFinland","SITE_E","SITE_G","buildingProcurement","heatingFuels","heatingFuelsCO2","GBCheatingFuels","heatingFuelsKWh","vegetables","transportPassengerPKm","world","finlandCity","status","buildingTechnologyAverages","EN15804Minerals","FA","YP","RO","constructionWaste","EN15804WasteProduction","waste","EN15804OtherRawMaterials","buildingTypes","rakMK2","picture2","fruits","typesOfOrganizations","rakMK4","picture8","districtHeatGLO","districtCooling","districtHeating","electricity","averageElectricity","EN15804Production","transportGoods","concreteTransportation","EN15804Transportation","convenienceFood","FIGBCKeyFigure","meat","alcoholicBeverages","concreteAncillary","EN15804Packaging","concreteProductionWaste","EN15804WasteGeneral","FO","EN15804OilBased","EN15804_A5materials","concreteAdhesives","EN15804Recycled","softDrinks","EN15804Metals","breadAndPastries","processedFood","operatingCostB2average","operatingCostB2building","transportPassengerKm","fatAndOil","stagesOfConstruction","concreteCarbonatisation","otherDryFoods","EN15804Organic","cheese","fishAndCrustacean","compassActions1","compassActions2","compassActions3","compassActions4","compassActions5","compassActions6","compassActions7","concreteReinforcement","concreteAggregate","intensityOfUse","LCCA1A5building","defaultValue","EN15804Waste","specificCostEnergy","EN15804Components","dairyProducts","ricePastaAndSimilar","rakMK6","defaultcost","directCO2energy","directCO2energyIntensiveServices","directCO2postage","directCO2transport","registrationMotive","eggs","ensto","rakMK9","picture9","EN15804ProductionMaterials","foodCorrection","intensityOfUseFood","rakMK1","EN15804OtherRecycled","doors","EN15804WasteHazardous","rakMK3","rakMK8","picture6","hotelEnvManEnergyEfficiencyPractice","hotelEnvManEnergyProductionPractice","hotelEnvManWaterEquipment","hotelEnvManEnergyEfficientEquipment","hotelEnvManEnergyEfficientEquipmentKitchen","hotelEnvManOther","hotelEnvManProcurement","hotelEnvManAlternativeWater","hotelEnvManWasteType","hotelEnvManWasteBestPractice","rakMK5","picture5","rakMK7","inhouseLaundry","laundry","concreteInsulation","operatingCostB1average","operatingCostB1building","LCCA0building","FIGBCKeyFigures","picture4","picture3","specificCostOther","outSourcedHotelLaundry","producedElectricity","productionVolume","EN15804_A4","operatingCostB3B4average","operatingCostB3B4building","EN!5804Minerals","stone","water","unspecifiedResource","specificCostWaterWaste","windows"]
       }
     },
 

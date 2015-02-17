@@ -60,6 +60,11 @@
 
 input.form-control {
     height: 30px !important;
+    width: 50% !important;
+}
+
+select.form-control {
+    width: 50% !important;
 }
 
 .btn {
