@@ -283,7 +283,7 @@ var app = (function() {
                 children_expanded: false,
                 expanded_exceptions : ["root"],//, "sections"],
                 no_collapse_expand_button : ["root"],
-                no_additional_fields_added_from_properties_list : true,
+                no_additional_fields_added_from_properties_list : false,
                 ajax: true
             }, function(){
                 if(typeof readyCallback !== 'undefined'){

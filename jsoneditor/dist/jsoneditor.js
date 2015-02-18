@@ -2068,7 +2068,6 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
         this.control.appendChild(a);
 
         a.addEventListener('click', function(){
-            console.log(self.parent.schema.required);
             self.parent.removeObjectProperty(self.key);
             self.onChange(true);
         });
@@ -2844,16 +2843,13 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
 
       var toggle = function(e){
-          // MODIFICATION_INC
           if(typeof self.adding_property === 'undefined' || !self.adding_property){
-            // Closed
             self.addproperty_button.innerHTML = 'Edit content <i class="fa fa-caret-down"></i>';
           }else{
-            // Open
             self.addproperty_button.innerHTML = 'Edit content <i class="fa fa-caret-right"></i>';
           }
           self.toggleAddProperty();
-        }
+      }
 
         // Object Properties Button
 
@@ -2861,7 +2857,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
             || self.schema.properties.hasOwnProperty("NO") || self.schema.properties.hasOwnProperty("RU")){
         }else{
 
-            this.addproperty_button = this.getButton('Edit content','edit','Object Properties', true);
+              this.addproperty_button = this.getButton('Edit content','edit','Object Properties', true);
               this.addproperty_button.addEventListener('click',function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -2945,6 +2941,8 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
     else this.showEditJSON();
   },
   insertPropertyControlUsingPropertyOrder: function (property, control, container) {
+    if(typeof this.schema.properties[property] === 'undefined')
+      return;
     var propertyOrder = this.schema.properties[property].propertyOrder;
     if (typeof propertyOrder !== "number") propertyOrder = 1000;
     control.propertyOrder = propertyOrder;
@@ -2968,7 +2966,11 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
     checkbox = self.theme.getCheckbox();
     checkbox.style.width = 'auto';
 
-    labelText = this.schema.properties[key].title ? this.schema.properties[key].title : key;
+    if(typeof this.schema.properties[key] !== 'undefined'){
+      labelText = this.schema.properties[key].title ? this.schema.properties[key].title : key;
+    }else{
+      labelText = key;
+    }
     label = self.theme.getCheckboxLabel(labelText);
 
     control = self.theme.getFormControl(label,checkbox);
@@ -3054,6 +3056,13 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
 
       // Add the property
       var editor = self.jsoneditor.getEditorClass(schema);
+      if((!schema.hasOwnProperty("type") || schema.type === 'null') && !schema.hasOwnProperty('$ref')){
+        editor = JSONEditor.defaults.editors.string;
+      }
+//      console.log(schema)
+//      if(prebuild_only === 'NEW_FIELD'){
+//        var editor = JSONEditor.defaults.editors.string;
+//      }
 
       self.editors[name] = self.jsoneditor.createEditor(editor,{
         jsoneditor: self.jsoneditor,
@@ -4430,39 +4439,78 @@ JSONEditor.defaults.editors.table = JSONEditor.defaults.editors.array.extend({
   addControls: function() {
     var self = this;
 
+
     this.collapsed = false;
-    this.toggle_button = this.getButton('','collapse','Collapse');
-    if(this.title_controls) {
-      this.title_controls.appendChild(this.toggle_button);
-      this.toggle_button.addEventListener('click',function(e) {
-        e.preventDefault();
-        e.stopPropagation();
 
-        if(self.collapsed) {
-          self.collapsed = false;
-          self.panel.style.display = '';
-          self.setButtonText(this,'','collapse','Collapse');
+    // If configured not to show or exception
+    if(!self.jsoneditor.options.children_expanded){
+        this.collapsed = true;
+        if(self.jsoneditor.options.expanded_exceptions.indexOf(self.key) > -1){
+            this.collapsed = false;
         }
-        else {
-          self.collapsed = true;
-          self.panel.style.display = 'none';
-          self.setButtonText(this,'','expand','Expand');
-        }
-      });
-
-      // If it should start collapsed
-      if(this.options.collapsed) {
-        $trigger(this.toggle_button,'click');
-      }
-
-      // Collapse button disabled
-      if(this.schema.options && typeof this.schema.options.disable_collapse !== "undefined") {
-        if(this.schema.options.disable_collapse) this.toggle_button.style.display = 'none';
-      }
-      else if(this.jsoneditor.options.disable_collapse) {
-        this.toggle_button.style.display = 'none';
-      }
     }
+
+    if(this.collapsed){
+        this.collapsed = true;
+        if(self.panel) self.panel.style.display = 'none';
+        this.toggle_button = this.getArrowLink('fa fa-angle-right', 'Expand');
+        this.title.insertBefore(this.toggle_button, this.title.firstChild);
+    }else{
+        this.collapsed = false;
+        this.toggle_button = this.getArrowLink('fa fa-angle-down', 'Collapse');
+        this.title.insertBefore(this.toggle_button, this.title.firstChild);
+    }
+
+    this.toggle_button.addEventListener('click',function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if(self.collapsed) {
+              self.panel.style.display = '';
+              self.collapsed = false;
+              self.setLinkText(self.toggle_button,'fa fa-angle-down','Collapse');
+            }
+            else {
+              self.panel.style.display = 'none';
+              self.collapsed = true;
+              self.setLinkText(self.toggle_button,'fa fa-angle-right','Expand');
+            }
+          });
+
+
+
+//    this.collapsed = false;
+//    this.toggle_button = this.getButton('','collapse','Collapse');
+//    if(this.title_controls) {
+//      this.title_controls.appendChild(this.toggle_button);
+//      this.toggle_button.addEventListener('click',function(e) {
+//        e.preventDefault();
+//        e.stopPropagation();
+//
+//        if(self.collapsed) {
+//          self.collapsed = false;
+//          self.panel.style.display = '';
+//          self.setButtonText(this,'','collapse','Collapse');
+//        }
+//        else {
+//          self.collapsed = true;
+//          self.panel.style.display = 'none';
+//          self.setButtonText(this,'','expand','Expand');
+//        }
+//      });
+//
+//      // If it should start collapsed
+//      if(this.options.collapsed) {
+//        $trigger(this.toggle_button,'click');
+//      }
+//
+//      // Collapse button disabled
+//      if(this.schema.options && typeof this.schema.options.disable_collapse !== "undefined") {
+//        if(this.schema.options.disable_collapse) this.toggle_button.style.display = 'none';
+//      }
+//      else if(this.jsoneditor.options.disable_collapse) {
+//        this.toggle_button.style.display = 'none';
+//      }
+//    }
 
     // Add "new row" and "delete last" buttons below editor
     this.add_row_button = this.getButton('Add'/*this.getItemTitle()*/,'add','Add '+this.getItemTitle());

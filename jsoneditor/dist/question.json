@@ -185,7 +185,7 @@
 
     "additionalQuestionIds": {
       "type": "array",
-      "title" : "AdditionalQuestionIds",
+      "title" : "Additional QuestionIds",
       "propertyOrder": 29,
       "uniqueItems": true,
       "items": {
@@ -207,7 +207,7 @@
 
     "resourceGroups": {
       "type": "array",
-      "title" : "ResourceGroups",
+      "title" : "Resource Groups",
       "propertyOrder": 32,
       "uniqueItems": true,
       "items": {
